@@ -1,0 +1,40 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  width: 100vw;
+  height: 100vh;
+}
+
+.board-container{
+  display: grid;
+  grid-template-columns: repeat(8,90px);
+  grid-template-rows: repeat(8,90px);
+}
+
+.main-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background-color: antiquewhite;
+}
+
+.cells{
+  border: 1px solid black;
+  background-color: antiquewhite;
+  background-image: url(images/pieces/black/bp.svg);
+}
+
+.white{
+  background-color: beige;
+}
+
+.black{
+  background-color: burlywood;
+}
