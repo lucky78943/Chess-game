@@ -28,7 +28,7 @@ body{
 .cells{
   border: 1px solid black;
   background-color: antiquewhite;
-  background-image: url(images/pieces/black/bp.svg);
+  /* background-image: url(images/pieces/black/bp.svg); */
 }
 
 .white{
