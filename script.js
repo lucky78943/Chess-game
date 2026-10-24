@@ -7,6 +7,7 @@ let name3="charan";
 let name2="charan";
 let jj = "jhehgre";
 let jk = "omprakash";
+let jl = "omprakash";
 let p00 = document.getElementById("00");
 let p01 = document.getElementById("01");
 let p02 = document.getElementById("02");
