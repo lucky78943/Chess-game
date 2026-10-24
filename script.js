@@ -131,16 +131,112 @@ function option_show_rook(x,y,piece){
           break;
       }
   }
-  
+
 }//option_show_rook
 
-//king 
-//
-//option show besup start
-function option_show_besup(x,y,piece){
 
+
+
+//knight movement show
+function option_show_knight(x,y,piece){
+  //upleft
+  if(x>=2&&y>0){
+    if(piece>0){//white
+      if(cells[x-2][y-1]<=0){
+        //show option [x-2][y-1]
+      }
+    }else{//black
+      if(cells[x-2][y-1]>=0){
+        //show option [x-2][y-1]
+      }
+    }
+  }
+  //upright
+  if(x>=2&&y<7){
+    if(piece>0){//white
+      if(cells[x-2][y+1]<=0){
+        //show option [x-2][y+1]
+      }  
+    }else{//black
+      if(cells[x-2][y+1]>=0){
+        //show option
+      }
+    }
+  }
+  //right up
+  if(y<=5&&x>0){
+    if(piece>0){//white
+     if(cells[x-1][y+2]<=0){
+      //show  option 
+     } 
+    }else{//black
+      if(cells[x-1][y+2]>=0){
+        //show option[x-1][y+2]
+      }
+    }
+  }
+  //right down
+  if(y<=5&&x<7){
+    if(piece>0){//white
+      if(cells[x+1][y+2]<=0){
+        //show option
+      }
+    }else{//black
+      if(cells[x+1][y+2]>=0){
+        //show option
+      }
+    }
+  }
+  //left up
+  if(y>=2&&x>0){
+    if(piece>0){//white
+     if(cells[x-1][y-2]<=0){
+      //show option
+     } 
+    }else{//black
+      if(cells[x-1][y-2]>=0){
+        //show option
+      }
+    }
+  }
+  //left down
+  if(y>=2&&x<7){
+    if(piece>0){//white
+     if(cells[x+1][y-2]<=0){
+      //show option
+     } 
+    }else{//black
+      if(cells[x+1][y-2]>=0){
+        //show option
+      }
+    }
+  }
+  //down left
+  if(x<=5&&y>0){
+    if(piece>0){//white
+     if(cells[x+2][y-1]<=0){
+      //show option
+     } 
+    }else{//black
+      if(cells[x+2][y-1]>=0){
+        //show option
+      }
+    }
+  }
+  //down right
+  if(x<=5&&y<7){
+    if(piece>0){//white
+     if(cells[x+2][y+1]<=0){
+      //show option
+     } 
+    }else{//black
+      if(cells[x+2][y+1]>=0){
+        //show option
+      }
+    }
+  }
 }
-//option show besup end
+//knight movement show
 function startGame(){
   //added pawns in 2nd row
   r1.forEach((cell) => {
