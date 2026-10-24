@@ -1,13 +1,37 @@
+let cells=[
+  [-4,-2,-3,-5,-6,-3,-2,-4],
+  [-1,-1,-1,-1,-1,-1,-1,-1],
+  [0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0],
+  [1,1,1,1,1,1,1,1],
+  [4,2,3,5,6,3,2,4]
+];
+function pawn_move(x,y,piece){
+  if(piece==1){//white(+1)
+    //up
+    if(x>0&&x<=6){
+      if(cells[x-1][y]==0){
+        //show option
+      }
+    }
+    //left diagonal
+    if(x>0&&x<=6&&y>0&&y<=7){
+      if(cells[x-1][y-1]<=0){//empty or black(-ve)
+        //show option
+      }
+    }
+  }else{//black pawn(-1)
+    //down
+    if(x<7&&x>=1)
+  }
+}
 function startGame(){
 
 }
  
-let name = "lucky";
-let name3="charan";
-let name2="charan";
-let jj = "jhehgre";
-let jk = "omprakash";
-let jl = "omprakash";
+
 let p00 = document.getElementById("00");
 let p01 = document.getElementById("01");
 let p02 = document.getElementById("02");
