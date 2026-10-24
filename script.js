@@ -8,6 +8,8 @@ let cells=[
   [1,1,1,1,1,1,1,1],
   [4,2,3,5,6,3,2,4]
 ];
+
+//let flag
 function option_show_pawn(x,y,piece){
   
   if(piece==1){//white(+1)
@@ -56,7 +58,89 @@ function option_show_pawn(x,y,piece){
     }
 
   }
+}//option_show_pawn end
+
+//option show rook start
+function option_show_rook(x,y,piece){
+   
+  //up
+    for(let i=x;i>=0;i--){
+      if(piece>0){//white
+        if(cells[i][y]<=0){
+          //show option [i][y]
+        }
+      }else{//black
+        if(cells[i][y]>=0){
+          //show option
+        }
+      }
+      if(cells[i][y]!=0){
+          //stop
+          break;
+      }
+    }
+  //down
+  for(let i=x;i=7;i++){
+    if(piece>0){//white
+        if(cells[i][y]<=0){
+          //show option [i][y]
+        }
+      }else{//black
+        if(cells[i][y]>=0){
+          //show option
+        }
+      }
+      if(cells[i][y]!=0){
+          //stop
+          break;
+      }
+  }
+  
+
+  //left
+  for(let j=y;j>=0;j--){
+      if(piece>0){//white
+        if(cells[i][y]<=0){
+          //show option [i][y]
+        }
+      }else{//black
+        if(cells[i][y]>=0){
+          //show option
+        }
+      }
+      if(cells[i][y]!=0){
+          //stop
+          break;
+      }
+  }
+
+  //right
+
+  for(let j=y;j<=7;j++){
+      if(piece>0){//white
+        if(cells[i][y]<=0){
+          //show option [i][y]
+        }
+      }else{//black
+        if(cells[i][y]>=0){
+          //show option
+        }
+      }
+      if(cells[i][y]!=0){
+          //stop
+          break;
+      }
+  }
+  
+}//option_show_rook
+
+//king 
+//
+//option show besup start
+function option_show_besup(x,y,piece){
+
 }
+//option show besup end
 function startGame(){
   //added pawns in 2nd row
   r1.forEach((cell) => {
