@@ -173,7 +173,7 @@ pieces.forEach((p) =>{
     //arrIdx.reverse();
     //arrIdx[0] = x - axis
     //arrIdx[1] = y - axis
-    //getSelector([arr[0],arr[1]])
+    // getSelector([arr[0],arr[1]]);
     console.log(arrIdx[0],arrIdx[1]);
     let pi = window.getComputedStyle(getSelector([arrIdx[0],arrIdx[1]])).backgroundImage;
     console.log(pi);
@@ -188,7 +188,7 @@ pieces.forEach((p) =>{
       piece  = -1;
     }
     console.log(piece);
-    option_show_pawn(arr[0],arr[1],piece);
+    option_show_pawn(arrIdx[0],arrIdx[1],piece);
   });
 });
 
