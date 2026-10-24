@@ -1,4 +1,77 @@
+let cells=[
+  [-4,-2,-3,-5,-6,-3,-2,-4],
+  [-1,-1,-1,-1,-1,-1,-1,-1],
+  [0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0],
+  [1,1,1,1,1,1,1,1],
+  [4,2,3,5,6,3,2,4]
+];
+function option_show_pawn(x,y,piece){
+  
+  if(piece==1){//white(+1)
+    //up
+    if(x>0&&x<=6){
+      if(cells[x-1][y]==0){//empty
+        //show option[x-1][y]
+        getSelector([x-1,y]).style.border = "8px solid #5C4033";
+        if(x==6&&cells[x-2][y]==0){//empyt (two front move)
+          //show option[x-2][y]
+          getSelector([x-2,y]).style.border = "8px solid #5C4033";
+        }
+      }
+    }
+    //left diagonal
+    if(x>0&&x<=6&&y>0&&y<=7){
+      if(cells[x-1][y-1]<0){//black(-ve)
+        //show option[x-1][y-1]
+        getSelector([x-1,y-1]).style.border = "8px solid #5C4033";
+      }
+    }
+    //right diagonal
+    if(x>0&&x<=6&&y>=0&&y<7){
+      if(cells[x-1][y+1]<0){//black (-ve)
+        //show option[x-1][y+1]
+        getSelector([x-1,y+1]).style.border = "8px solid #5C4033";
+      }
+    }
+  }else{//black pawn(-1)
+    //down
+    if(x<7&&x>=1){
+      if(cells[x+1][y]==0){//empty
+        //show option[x+1][y]
+        getSelector([x+1,y]).style.border = "8px solid #5C4033";
+        if(x==1&&cells[x+2][y]==0){//empty (two front move for black)
+          //show option[x+2][y]
+          getSelector([x+2,y]).style.border = "8px solid #5C4033";
+        }
+      }
+    }
+    //left lower diagonal
+    if(y>0&&y<=7&&x>=1&&x<7){
+      if(cells[x+1][y-1]>0){//white(+ve)
+        //show option[x+1][y-1]
+        getSelector([x+1,y-1]).style.border = "8px solid #5C4033";
+      }
+    }
+    //right lower diagonal
+    if(x>=1&&x<7&&y>=0&&y<7){
+      if(cells[x+1][y+1]>0){//white(+ve)
+        //show option[x+1][y-1]
+        getSelector([x+1,y-1]).style.border = "8px solid #5C4033";
+      }
+    }
+  }
+}
 
+function startGame(){
+  //added pawns in 2nd row
+  r1.forEach((cell) => {
+    console.log(cell);
+    cell.style.backgroundImage = "url('images/pieces/black/bp.svg')";
+  });
+}
 
 let p00 = document.getElementById("00");
 let p01 = document.getElementById("01");
@@ -81,11 +154,43 @@ let r1 = [p10,p11,p12,p13,p14,p15,p16,p17];
 let r6 = [p60,p61,p62,p63,p64,p65,p66,p67]
 let r7 = [p70,p71,p72,p73,p74,p75,p76,p77];
 
+//index for piece 
 function getSelector([row, col]) {
     return eval(`p${row}${col}`);
 }
 
-
+pieces.forEach((p) =>{
+  p.addEventListener("click",function(){
+    // console.log(p.id);
+    let idx = Number(p.id);
+    console.log(typeof idx);
+    let arrIdx=[];
+    while(idx!=0){
+      arrIdx.unshift(idx%10);
+      idx = Math.floor(idx/10);
+    }
+    console.log(arrIdx);
+    //arrIdx.reverse();
+    //arrIdx[0] = x - axis
+    //arrIdx[1] = y - axis
+    //getSelector([arr[0],arr[1]])
+    console.log(arrIdx[0],arrIdx[1]);
+    let pi = window.getComputedStyle(getSelector([arrIdx[0],arrIdx[1]])).backgroundImage;
+    console.log(pi);
+    let pieceName = pi.substring(58,60); //wp bp
+    console.log(typeof pieceName);
+    console.log(pieceName);
+    let piece;
+    if(pieceName[0] == 'w'){
+      piece  = 1;
+    }
+    else if(pieceName[0] == 'b'){
+      piece  = -1;
+    }
+    console.log(piece);
+    option_show_pawn(arr[0],arr[1],piece);
+  });
+});
 
 function startGame(){
   //added pawns in 2nd row
@@ -148,6 +253,6 @@ function showMoves(pos){
 }
 
 startGame();
-pieceMove(p10,p20);
-showMoves([2,0]);
-// console.log(getSelector([1,2]));
+// pieceMove(p10,p30);
+// showMoves([1,2]);
+// console.log(getSelector([1,2]))
