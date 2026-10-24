@@ -1,7 +1,8 @@
 function startGame(){
 
 }
-
+ 
+let name = "lucky";
 let p00 = document.getElementById("00");
 let p01 = document.getElementById("01");
 let p02 = document.getElementById("02");
