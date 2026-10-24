@@ -8,23 +8,53 @@ let cells=[
   [1,1,1,1,1,1,1,1],
   [4,2,3,5,6,3,2,4]
 ];
-function pawn_move(x,y,piece){
+function option_show_pawn(x,y,piece){
+  
   if(piece==1){//white(+1)
     //up
     if(x>0&&x<=6){
-      if(cells[x-1][y]==0){
-        //show option
+      if(cells[x-1][y]==0){//empty
+        //show option[x-1][y]
+        if(x==6&&cells[x-2][y]==0){//empyt (two front move)
+          //show option[x-2][y]
+        }
       }
     }
     //left diagonal
     if(x>0&&x<=6&&y>0&&y<=7){
-      if(cells[x-1][y-1]<=0){//empty or black(-ve)
-        //show option
+      if(cells[x-1][y-1]<0){//black(-ve)
+        //show option[x-1][y-1]
+      }
+    }
+    //right diagonal
+    if(x>0&&x<=6&&y>=0&&y<7){
+      if(cells[x-1][y+1]<0){//black (-ve)
+        //show option[x-1][y+1]
       }
     }
   }else{//black pawn(-1)
     //down
-    if(x<7&&x>=1)
+    if(x<7&&x>=1){
+      if(cells[x+1][y]==0){//empty
+        //show option[x+1][y]
+        if(x==1&&cells[x+2][y]==0){//empty (two front move for black)
+          //show option[x+2][y]
+        }
+      }
+    }
+    //left lower diagonal
+    if(y>0&&y<=7&&x>=1&&x<7){
+      if(cells[x+1][y-1]>0){//white(+ve)
+        //show option[x+1][y-1]
+      }
+    }
+    //right lower diagonal
+    if(x>=1&&x<7&&y>=0&&y<7){
+      if(cells[x+1][y+1]>0){//white(+ve)
+        //show option[x+1][y-1]
+      }
+    }
+
   }
 }
 function startGame(){
