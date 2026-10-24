@@ -1,42 +1,4 @@
-function startGame(){
-  //added pawns in 2nd row
-  r1.forEach((cell) => {
-    console.log(cell);
-    cell.style.backgroundImage = "url('images/pieces/black/bp.svg')";
-  });
 
-  //adding pawns in last 2nd row
-  r6.forEach((cell) => {
-    console.log(cell);
-    cell.style.backgroundImage = "url('images/pieces/white/wp.svg')";
-  });
-
-  p00.style.backgroundImage = "url('images/pieces/black/br.svg')";
-  p07.style.backgroundImage = "url('images/pieces/black/br.svg')";
-
-  p01.style.backgroundImage = "url('images/pieces/black/bn.svg')";
-  p06.style.backgroundImage = "url('images/pieces/black/bn.svg')";
-
-  p02.style.backgroundImage = "url('images/pieces/black/bb.svg')";
-  p05.style.backgroundImage = "url('images/pieces/black/bb.svg')";
-
-  p03.style.backgroundImage = "url('images/pieces/black/bq.svg')";
-  p04.style.backgroundImage = "url('images/pieces/black/bk.svg')";
-
-  p70.style.backgroundImage = "url('images/pieces/white/wr.svg')";
-  p77.style.backgroundImage = "url('images/pieces/white/wr.svg')";
-
-  p71.style.backgroundImage = "url('images/pieces/white/wn.svg')";
-  p76.style.backgroundImage = "url('images/pieces/white/wn.svg')";
-
-  p72.style.backgroundImage = "url('images/pieces/white/wb.svg')";
-  p75.style.backgroundImage = "url('images/pieces/white/wb.svg')";
-
-  p73.style.backgroundImage = "url('images/pieces/white/wq.svg')";
-  p74.style.backgroundImage = "url('images/pieces/white/wk.svg')";
-
-}
- 
 
 let p00 = document.getElementById("00");
 let p01 = document.getElementById("01");
@@ -119,6 +81,51 @@ let r1 = [p10,p11,p12,p13,p14,p15,p16,p17];
 let r6 = [p60,p61,p62,p63,p64,p65,p66,p67]
 let r7 = [p70,p71,p72,p73,p74,p75,p76,p77];
 
+function startGame(){
+  //added pawns in 2nd row
+  r1.forEach((cell) => {
+    console.log(cell);
+    cell.style.backgroundImage = "url('images/pieces/black/bp.svg')";
+  });
 
+  //adding pawns in last 2nd row
+  r6.forEach((cell) => {
+    console.log(cell);
+    cell.style.backgroundImage = "url('images/pieces/white/wp.svg')";
+  });
+
+  p00.style.backgroundImage = "url('images/pieces/black/br.svg')";
+  p07.style.backgroundImage = "url('images/pieces/black/br.svg')";
+
+  p01.style.backgroundImage = "url('images/pieces/black/bn.svg')";
+  p06.style.backgroundImage = "url('images/pieces/black/bn.svg')";
+
+  p02.style.backgroundImage = "url('images/pieces/black/bb.svg')";
+  p05.style.backgroundImage = "url('images/pieces/black/bb.svg')";
+
+  p03.style.backgroundImage = "url('images/pieces/black/bq.svg')";
+  p04.style.backgroundImage = "url('images/pieces/black/bk.svg')";
+
+  p70.style.backgroundImage = "url('images/pieces/white/wr.svg')";
+  p77.style.backgroundImage = "url('images/pieces/white/wr.svg')";
+
+  p71.style.backgroundImage = "url('images/pieces/white/wn.svg')";
+  p76.style.backgroundImage = "url('images/pieces/white/wn.svg')";
+
+  p72.style.backgroundImage = "url('images/pieces/white/wb.svg')";
+  p75.style.backgroundImage = "url('images/pieces/white/wb.svg')";
+
+  p73.style.backgroundImage = "url('images/pieces/white/wq.svg')";
+  p74.style.backgroundImage = "url('images/pieces/white/wk.svg')";
+
+}
+
+function pieceMove(piece,postion){
+  let pi = window.getComputedStyle(piece).backgroundImage;
+
+  piece.style.backgroundImage = "";
+  postion.style.backgroundImage = `${pi}`;
+}
 
 startGame();
+pieceMove(p10,p20);
