@@ -81,16 +81,20 @@ let r1 = [p10,p11,p12,p13,p14,p15,p16,p17];
 let r6 = [p60,p61,p62,p63,p64,p65,p66,p67]
 let r7 = [p70,p71,p72,p73,p74,p75,p76,p77];
 
+function getSelector([row, col]) {
+    return eval(`p${row}${col}`);
+}
+
+
+
 function startGame(){
   //added pawns in 2nd row
   r1.forEach((cell) => {
-    console.log(cell);
     cell.style.backgroundImage = "url('images/pieces/black/bp.svg')";
   });
 
   //adding pawns in last 2nd row
   r6.forEach((cell) => {
-    console.log(cell);
     cell.style.backgroundImage = "url('images/pieces/white/wp.svg')";
   });
 
@@ -127,5 +131,23 @@ function pieceMove(piece,postion){
   postion.style.backgroundImage = `${pi}`;
 }
 
+function showMoves(pos){
+  let pi = window.getComputedStyle(getSelector(pos)).backgroundImage;
+  let pieceName = pi.substring(58,60);
+
+  if(pieceName == 'bp'){
+    // p20.classList.add("moveset");
+    if(pos[0]=1){
+      pos[0]+=1;
+      getSelector(pos).style.border = "8px solid #5C4033";
+    }
+    pos[0]+=1;
+    console.log(pos);
+    getSelector(pos).style.border = "8px solid #5C4033";
+  }
+}
+
 startGame();
 pieceMove(p10,p20);
+showMoves([2,0]);
+// console.log(getSelector([1,2]));
