@@ -1,13 +1,21 @@
 let cells = [
-      //  0   1   2   3   4   5   6   7
-  /*0*/ [-4, -2, -3, -5, -6, -3, -2, -4],      //4 rook
-  /*1*/ [ -1, -1, -1, -1, -1, -1, -1,-1],      //2 knight
-  /*2*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      //3 bishop
-  /*3*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      // 5 queen
-  /*4*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      //6 king
-  /*5*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      //1 pawn
-  /*6*/ [ 1,  1,  1,  1,  1,  1,  1,  1],
-  /*7*/ [ 4,  2,  3,  5,  6,  3,  2,  4],
+    //  0   1   2   3   4   5   6   7
+    /*0*/
+    [-4, -2, -3, -5, -6, -3, -2, -4], //4 rook
+    /*1*/
+    [-1, -1, -1, -1, -1, -1, -1, -1], //2 knight
+    /*2*/
+    [0, 0, 0, 0, 0, 0, 0, 0], //3 bishop
+    /*3*/
+    [0, 0, 0, 0, 0, 0, 0, 0], // 5 queen
+    /*4*/
+    [0, 0, 0, 0, 0, 0, 0, 0], //6 king
+    /*5*/
+    [0, 0, 0, 0, 0, 0, 0, 0], //1 pawn
+    /*6*/
+    [1, 1, 1, 1, 1, 1, 1, 1],
+    /*7*/
+    [4, 2, 3, 5, 6, 3, 2, 4],
 ];
 
 
@@ -78,491 +86,593 @@ let p76 = document.getElementById("76");
 let p77 = document.getElementById("77");
 
 // console.log(typeof Number(p00.id));
-let pieces = [p00,p01,p02,p03,p04,p05,p06,p07,
-  p10,p11,p12,p13,p14,p15,p16,p17,
-  p20,p21,p22,p23,p24,p25,p26,p27,
-  p30,p31,p32,p33,p34,p35,p36,p37,
-  p40,p41,p42,p43,p44,p45,p46,p47,
-  p50,p51,p52,p53,p54,p55,p56,p57,
-  p60,p61,p62,p63,p64,p65,p66,p67,
-  p70,p71,p72,p73,p74,p75,p76,p77
+let pieces = [p00, p01, p02, p03, p04, p05, p06, p07,
+    p10, p11, p12, p13, p14, p15, p16, p17,
+    p20, p21, p22, p23, p24, p25, p26, p27,
+    p30, p31, p32, p33, p34, p35, p36, p37,
+    p40, p41, p42, p43, p44, p45, p46, p47,
+    p50, p51, p52, p53, p54, p55, p56, p57,
+    p60, p61, p62, p63, p64, p65, p66, p67,
+    p70, p71, p72, p73, p74, p75, p76, p77
 ];
 
-let r0 = [p00,p01,p02,p03,p04,p05,p06,p07];
-let r1 = [p10,p11,p12,p13,p14,p15,p16,p17];
-let r6 = [p60,p61,p62,p63,p64,p65,p66,p67]
-let r7 = [p70,p71,p72,p73,p74,p75,p76,p77];
+let r0 = [p00, p01, p02, p03, p04, p05, p06, p07];
+let r1 = [p10, p11, p12, p13, p14, p15, p16, p17];
+let r6 = [p60, p61, p62, p63, p64, p65, p66, p67]
+let r7 = [p70, p71, p72, p73, p74, p75, p76, p77];
 
 
 function startGame() {
-  //added pawns in 2nd row
-  r1.forEach((cell) => {
-    cell.style.backgroundImage = "url('images/pieces/black/bp.svg')";
-  });
+    //added pawns in 2nd row
+    r1.forEach((cell) => {
+        cell.style.backgroundImage = "url('images/pieces/black/bp.svg')";
+    });
 
-  //adding pawns in last 2nd row
-  r6.forEach((cell) => {
-    cell.style.backgroundImage = "url('images/pieces/white/wp.svg')";
-  });
+    //adding pawns in last 2nd row
+    r6.forEach((cell) => {
+        cell.style.backgroundImage = "url('images/pieces/white/wp.svg')";
+    });
 
-  p00.style.backgroundImage = "url('images/pieces/black/br.svg')";
-  p07.style.backgroundImage = "url('images/pieces/black/br.svg')";
+    p00.style.backgroundImage = "url('images/pieces/black/br.svg')";
+    p07.style.backgroundImage = "url('images/pieces/black/br.svg')";
 
-  p01.style.backgroundImage = "url('images/pieces/black/bn.svg')";
-  p06.style.backgroundImage = "url('images/pieces/black/bn.svg')";
+    p01.style.backgroundImage = "url('images/pieces/black/bn.svg')";
+    p06.style.backgroundImage = "url('images/pieces/black/bn.svg')";
 
-  p02.style.backgroundImage = "url('images/pieces/black/bb.svg')";
-  p05.style.backgroundImage = "url('images/pieces/black/bb.svg')";
+    p02.style.backgroundImage = "url('images/pieces/black/bb.svg')";
+    p05.style.backgroundImage = "url('images/pieces/black/bb.svg')";
 
-  p03.style.backgroundImage = "url('images/pieces/black/bq.svg')";
-  p04.style.backgroundImage = "url('images/pieces/black/bk.svg')";
+    p03.style.backgroundImage = "url('images/pieces/black/bq.svg')";
+    p04.style.backgroundImage = "url('images/pieces/black/bk.svg')";
 
-  p70.style.backgroundImage = "url('images/pieces/white/wr.svg')";
-  p77.style.backgroundImage = "url('images/pieces/white/wr.svg')";
+    p70.style.backgroundImage = "url('images/pieces/white/wr.svg')";
+    p77.style.backgroundImage = "url('images/pieces/white/wr.svg')";
 
-  p71.style.backgroundImage = "url('images/pieces/white/wn.svg')";
-  p76.style.backgroundImage = "url('images/pieces/white/wn.svg')";
+    p71.style.backgroundImage = "url('images/pieces/white/wn.svg')";
+    p76.style.backgroundImage = "url('images/pieces/white/wn.svg')";
 
-  p72.style.backgroundImage = "url('images/pieces/white/wb.svg')";
-  p75.style.backgroundImage = "url('images/pieces/white/wb.svg')";
+    p72.style.backgroundImage = "url('images/pieces/white/wb.svg')";
+    p75.style.backgroundImage = "url('images/pieces/white/wb.svg')";
 
-  p73.style.backgroundImage = "url('images/pieces/white/wq.svg')";
-  p74.style.backgroundImage = "url('images/pieces/white/wk.svg')";
+    p73.style.backgroundImage = "url('images/pieces/white/wq.svg')";
+    p74.style.backgroundImage = "url('images/pieces/white/wk.svg')";
 }
 
-function indexToArray(i){
-  let ai = [];
-  ai.unshift(i%10);
-  i=Math.floor(i/10);
-  ai.unshift(i%10);
-  return ai;
+function indexToArray(i) {
+    let ai = [];
+    ai.unshift(i % 10);
+    i = Math.floor(i / 10);
+    ai.unshift(i % 10);
+    return ai;
 }
 
-function getPieceName(x,y){
-  let pi = window.getComputedStyle(getSelector([x, y])).backgroundImage;
-  // console.log(pi);
-  let pieceName = pi.substring(58, 60);
-  return pieceName;
+function getPieceName(x, y) {
+    let pi = window.getComputedStyle(getSelector([x, y])).backgroundImage;
+    // console.log(pi);
+    let pieceName = pi.substring(58, 60);
+    return pieceName;
 }
 
-function pieceToValue(p){
-  switch(p){
-    case "wp": return 1; 
-    case "wr": return 4; 
-    case "wb": return 3; 
-    case "wq": return 5; 
-    case "wn": return 2; 
-    case "wk": return 6; 
-    case "bp": return -1; 
-    case "br": return -4; 
-    case "bb": return -3; 
-    case "bq": return -5; 
-    case "bn": return -2; 
-    case "bk": return -6; 
-  }
+function pieceToValue(p) {
+    switch (p) {
+        case "wp":
+            return 1;
+        case "wr":
+            return 4;
+        case "wb":
+            return 3;
+        case "wq":
+            return 5;
+        case "wn":
+            return 2;
+        case "wk":
+            return 6;
+        case "bp":
+            return -1;
+        case "br":
+            return -4;
+        case "bb":
+            return -3;
+        case "bq":
+            return -5;
+        case "bn":
+            return -2;
+        case "bk":
+            return -6;
+    }
 }
-console.table(cells);
+// console.table(cells);
 function pieceMove(piecePos, postion) {
-  // console.log(piecePos.id);
-  let originalIdx = indexToArray(Number(piecePos.id)); 
-  console.log(originalIdx);
-  let newIdx = indexToArray(Number(postion.id));
-  console.log(newIdx);
+    // console.log(piecePos.id);
+    let originalIdx = indexToArray(Number(piecePos.id));
+    // console.log(originalIdx);
+    let newIdx = indexToArray(Number(postion.id));
+    // console.log(newIdx);
 
-  let piece = getPieceName(originalIdx[0],originalIdx[1]);
-  console.log(piece);
-  let pi = window.getComputedStyle(piecePos).backgroundImage;
-  console.log(pi);
-  
-  piecePos.style.backgroundImage = "";
-  cells[originalIdx[0],originalIdx[1]] = 0;
-  
-  postion.style.backgroundImage = `${pi}`;
-  cells[newIdx[0],newIdx[1]] = pieceToValue(piece);
-  
-  // console.log(pieceToValue(piece));
+    let piece = getPieceName(originalIdx[0], originalIdx[1]);
+    // console.log(piece);
+    let pi = window.getComputedStyle(piecePos).backgroundImage;
+    //console.log(pi);
+
+    piecePos.style.backgroundImage = "";
+    cells[originalIdx[0]][originalIdx[1]] = 0;
+
+    postion.style.backgroundImage = `${pi}`;
+    cells[newIdx[0]][newIdx[1]] = pieceToValue(piece);
+    // console.log(typeof(cells[0][1]));
+    // console.log(cells);
 }
 
 
 startGame();
-pieceMove(p00, p30);
+pieceMove(p74, p43);
 
 console.table(cells);
 
 let prevx;
 let prevy;
-let turn=1;//1 white -1 black
-let White_king_X=0;
-let White_king_Y=4;
-let Black_king_X=7;
-let Black_king_Y=4;
+let turn = 1; //1 white -1 black
+let White_king_X = 0;
+let White_king_Y = 4;
+let Black_king_X = 7;
+let Black_king_Y = 4;
 //let flag
 //check function
-function isCheck(x,y,piece){
-  //up
-  for(let i=x;i>=0;i--){
-      if(piece>0){//white
-        if(cells[i][y]==-4||cells[i][y]==-5){
-          return true;//check by rook or queen
+function isCheck(x, y, piece) {
+    //up
+    for (let i = x; i >= 0; i--) {
+        if (piece > 0) {
+            //white
+            if (cells[i][y] == -4 || cells[i][y] == -5) {
+                return true; //check by rook or queen
+            }
+        } else {
+            //black
+            if (cells[i][y] == 4 || cells[i][y] == 5) {
+                return true; //check by rook or queen
+            }
         }
-      }else{//black
-        if(cells[i][y]==4&&cells[i][y]==5){
-          return true;//check by rook or queen
+        if (cells[i][y] != 0) {
+            //no check sum 
+            return false;
         }
+    }
+
+    //down
+    for (let i = x; i = 7; i++) {
+        if (piece > 0) { //white
+            if (cells[i][y] == -4 || cells[i][y] == -5) {
+                //check by rook or queen
+                return true;
+            }
+        } else { //black
+            if (cells[i][y] == 4 || cells[i][y] == 5) {
+                //check by white rook or queen
+            }
+        }
+        if (cells[i][y] != 0) {
+            //no check
+            return false;
+        }
+    }
+
+    //left 
+    for (let j = y - 1; j >= 0; j--) {
+        if (piece > 0) { //white
+            if (cells[x][j] == -4 || cells[x][j] == -5) {
+                //check by black rook or queen
+                return true;
+            }
+        } else { //black
+            if (cells[x][j] == 4 || cells[x][j] == 5) {
+                //check by white rook or queen
+                return true;
+            }
+        }
+        if (cells[y][j] != 0) {
+            //no check
+            return false;
+        }
+    }
+
+    //right
+    for (let j = y + 1; j <= 7; j++) {
+        if (piece > 0) { //white
+            if (cells[x][j] == -4 || cells[x][j] == -5) {
+                //check by black or queen
+                return true;
+            }
+        } else { //black
+            if (cells[x][j] == -4 || cells[x][j] == -5) {
+                //check by white rook or queen
+                return true;
+            }
+        }
+        if (cells[x][j] != 0) {
+            //no check
+            return false;
+        }
+    }
+    //left upper
+    let i = x,
+        j = y;
+    while (j != 0) {
+        if (piece > 0) { //white  
+            i--;
+            j--;
+            if (cells[x][y] > 0) {
+                return false;
+            }
+            if (cells[x][y] < 0 && (cells[x][y] == -3 || cells[x][y] == -5 || cells[x][y] == -1)) {
+                return true;
+            }
+            return false;
+        } else {
+            //black
+            i--;j--;
+            if (cells[x][y]<0) {
+                return false;
+            }
+            if (cells[x][y] > 0 && (cells[x][y] == 3 || cells[x][y] == 5 || cells[x][y] == 1)) {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    //right lower
+    i = x;
+    j = y;
+    while (i != 7) {
+        if (piece > 0) {
+            i++;j++;
+            if (cells[x][y] > 0) return false;
+            if (cells[x][y] < 0 && (cells[x][y] == -3 || cells[x][y] == -5 || cells[x][y] == -1)) {
+                return true;
+            }
+            return false;
+        }
+        else{
+          i++;j++;
+          if (cells[x][y] < 0) return false;
+            if (cells[x][y] > 0 && (cells[x][y] == 3 || cells[x][y] == 5 || cells[x][y] == 1)) {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    //right upper
+    i = x;
+    j = y;
+    while (j != 7) {
+        if (piece > 0) {
+            i--;++j;
+            if (cells[x][y] > 0) return false;
+            if (cells[x][y] < 0 && (cells[x][y] == -3 || cells[x][y] == -5 || cells[x][y] == -1)) {
+                return true;
+            }
+            return false;
+        }
+        else{
+            i--;++j;
+            if (cells[x][y] < 0) return false;
+            if (cells[x][y] > 0 && (cells[x][y] == 3 || cells[x][y] == 5 || cells[x][y] == 1)) {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    //left lower
+    i = x;
+    j = y;
+    while (j != 0) {
+      if(piece>0){
+        i++;--j;
+        if (cells[x][y] > 0) return false;
+        if (cells[x][y] < 0 && (cells[x][y] == -3 || cells[x][y] == -5 || cells[x][y] == -1)) {
+            return true;
+        }
+        return false;
       }
-      if(cells[i][y]!=0){
-          //no check sum 
-          return false;
+      else{
+        i++;--j;
+        if (cells[x][y] < 0) return false;
+        if (cells[x][y] > 0 && (cells[x][y] == 3 || cells[x][y] == 5 || cells[x][y] == 1)) {
+            return true;
+        }
+        return false;
       }
     }
-  //down
-
-  for(let i=x;i=7;i++){
-    if(piece>0){//white
-        if(cells[i][y]==-4||cells[i][y]==-5){
-          //check by rook or queen
-          return true;
-        }
-      }else{//black
-        if(cells[i][y]==4||cells[i][y]==5){
-          //check by white rook or queen
-        }
-      }
-      if(cells[i][y]!=0){
-          //no check
-          return false;
-      }
-  }
-  //left 
-  for(let j=y-1;j>=0;j--){
-      if(piece>0){//white
-        if(cells[x][j]==-4||cells[x][j]==-5){
-          //check by black rook or queen
-          return true;
-        }
-      }else{//black
-        if(cells[x][j]==4||cells[x][j]==5){
-          //check by white rook or queen
-          return true;
-        }
-      }
-      if(cells[y][j]!=0){
-          //no check
-          return false;
-      }
-  }
-  //right
-  for(let j=y+1;j<=7;j++){
-      if(piece>0){//white
-        if(cells[x][j]==-4||cells[x][j]==-5){
-          //check by black or queen
-          return true;
-        }
-      }else{//black
-        if(cells[x][j]==-4||cells[x][j]==-5){
-          //check by white rook or queen
-          return true;
-        }
-      }
-      if(cells[x][j]!=0){
-          //no check
-          return false;
-      }
-  }//right end
-
-  //left upper 
 }
 //check function
 
 //move function 
-function move(piece,x,y){
-  cells[prevx][prevy]=0;
-  //make sure to put 0 zero at previous position of piece
-  cells[x][y]=piece;
-  //show [x][y] with piece picture [ bsdk lucky ]
+function move(piece, x, y) {
+    cells[prevx][prevy] = 0;
+    //make sure to put 0 zero at previous position of piece
+    cells[x][y] = piece;
+    //show [x][y] with piece picture [ bsdk lucky ]
 }
 //move function end
 
 //<=============ROOK==========>
-function option_show_rook(x,y,piece){
-   
-  //up
-    for(let i=x-1;i>=0;i--){
-      if(piece>0){//white
-        if(cells[i][y]<=0){
-          //show option [i][y]
-          getSelector([i,y]).style.border = "8px solid #5C4033";
+function option_show_rook(x, y, piece) {
+
+    //up
+    for (let i = x - 1; i >= 0; i--) {
+        if (piece > 0) { //white
+            if (cells[i][y] <= 0) {
+                //show option [i][y]
+                getSelector([i, y]).style.border = "8px solid #5C4033";
+            }
+        } else { //black
+            if (cells[i][y] >= 0) {
+                //show option
+                getSelector([i, y]).style.border = "8px solid #5C4033";
+            }
         }
-      }else{//black
-        if(cells[i][y]>=0){
-          //show option
-          getSelector([i,y]).style.border = "8px solid #5C4033";
+        if (cells[i][y] != 0) {
+            //stop
+            break;
         }
-      }
-      if(cells[i][y]!=0){
-          //stop
-          break;
-      }
     }
-  //down
-  for(let i=x+1;i<=7;i++){
-    if(piece>0){//white
-        if(cells[i][y]<=0){
-          //show option [i][y]
-          getSelector([i,y]).style.border = "8px solid #5C4033";
+    //down
+    for (let i = x + 1; i <= 7; i++) {
+        if (piece > 0) { //white
+            if (cells[i][y] <= 0) {
+                //show option [i][y]
+                getSelector([i, y]).style.border = "8px solid #5C4033";
+            }
+        } else { //black
+            if (cells[i][y] >= 0) {
+                //show option
+                getSelector([i, y]).style.border = "8px solid #5C4033";
+            }
         }
-      }
-      else{//black
-        if(cells[i][y]>=0){
-          //show option
-          getSelector([i,y]).style.border = "8px solid #5C4033";
+        if (cells[i][y] != 0) {
+            //stop
+            break;
         }
-      }
-      if(cells[i][y]!=0){
-          //stop
-          break;
-      }
-  }
-  
+    }
 
-  //left
-  for(let j=y-1;j>=0;j--){
-      if(piece>0){//white
-        if(cells[x][j]<=0){
-          //show option [x][j]
-          getSelector([x,j]).style.border = "8px solid #5C4033";
-        }
-      }else{//black
-        if(cells[x][j]>=0){
-          //show option
-          getSelector([x,j]).style.border = "8px solid #5C4033";
-        }
-      }
-      if(cells[x][j]!=0){
-          //stop
-          break;
-      }
-  }
 
-  //right
-
-  for(let j=y+1;j<=7;j++){
-      if(piece>0){//white
-        if(cells[x][j]<=0){
-          //show option [i][y]
-          getSelector([x,j]).style.border = "8px solid #5C4033";
+    //left
+    for (let j = y - 1; j >= 0; j--) {
+        if (piece > 0) { //white
+            if (cells[x][j] <= 0) {
+                //show option [x][j]
+                getSelector([x, j]).style.border = "8px solid #5C4033";
+            }
+        } else { //black
+            if (cells[x][j] >= 0) {
+                //show option
+                getSelector([x, j]).style.border = "8px solid #5C4033";
+            }
         }
-      }else{//black
-        if(cells[x][j]>=0){
-          //show option
-          getSelector([x,j]).style.border = "8px solid #5C4033";
+        if (cells[x][j] != 0) {
+            //stop
+            break;
         }
-      }
-      if(cells[x][j]!=0){
-          //stop
-          break;
-      }
-  }
+    }
 
-}//<---ROOK--->end
+    //right
+
+    for (let j = y + 1; j <= 7; j++) {
+        if (piece > 0) { //white
+            if (cells[x][j] <= 0) {
+                //show option [i][y]
+                getSelector([x, j]).style.border = "8px solid #5C4033";
+            }
+        } else { //black
+            if (cells[x][j] >= 0) {
+                //show option
+                getSelector([x, j]).style.border = "8px solid #5C4033";
+            }
+        }
+        if (cells[x][j] != 0) {
+            //stop
+            break;
+        }
+    }
+
+} //<---ROOK--->end
 
 
 
 
 //<============KNIGHT============>
 
-function option_show_knight(x,y,piece){
-  //upleft
-  if(x>=2&&y>0){
-    if(piece>0){//white
-      if(cells[x-2][y-1]<=0){
-        //show option [x-2][y-1]
-        console.log(x-2,y-1);
-        getSelector([x-2,y-1]).style.border = "8px solid #5C4033";
-      }
-    }else{//black
-      if(cells[x-2][y-1]>=0){
-        //show option [x-2][y-1]
-        getSelector([x-2,y-1]).style.border = "8px solid #5C4033";
-      }
+function option_show_knight(x, y, piece) {
+    //upleft
+    if (x >= 2 && y > 0) {
+        if (piece > 0) { //white
+            if (cells[x - 2][y - 1] <= 0) {
+                //show option [x-2][y-1]
+                console.log(x - 2, y - 1);
+                getSelector([x - 2, y - 1]).style.border = "8px solid #5C4033";
+            }
+        } else { //black
+            if (cells[x - 2][y - 1] >= 0) {
+                //show option [x-2][y-1]
+                getSelector([x - 2, y - 1]).style.border = "8px solid #5C4033";
+            }
+        }
     }
-  }
-  //upright
-  if(x>=2&&y<7){
-    if(piece>0){//white
-      if(cells[x-2][y+1]<=0){
-        //show option [x-2][y+1]
-        console.log(x-2,y+1);
-        getSelector([x-2,y+1]).style.border = "8px solid #5C4033";
-      }  
-    }else{//black
-      if(cells[x-2][y+1]>=0){
-        //show option
-        getSelector([x-2,y+1]).style.border = "8px solid #5C4033";
-      }
+    //upright
+    if (x >= 2 && y < 7) {
+        if (piece > 0) { //white
+            if (cells[x - 2][y + 1] <= 0) {
+                //show option [x-2][y+1]
+                console.log(x - 2, y + 1);
+                getSelector([x - 2, y + 1]).style.border = "8px solid #5C4033";
+            }
+        } else { //black
+            if (cells[x - 2][y + 1] >= 0) {
+                //show option
+                getSelector([x - 2, y + 1]).style.border = "8px solid #5C4033";
+            }
+        }
     }
-  }
-  //right up
-  if(y<=5&&x>0){
-    if(piece>0){//white
-     if(cells[x-1][y+2]<=0){
-      //show  option 
-      getSelector([x-1,y+2]).style.border = "8px solid #5C4033";
-     } 
-    }else{//black
-      if(cells[x-1][y+2]>=0){
-        //show option[x-1][y+2]
-        getSelector([x-1,y+2]).style.border = "8px solid #5C4033";
-      }
+    //right up
+    if (y <= 5 && x > 0) {
+        if (piece > 0) { //white
+            if (cells[x - 1][y + 2] <= 0) {
+                //show  option 
+                getSelector([x - 1, y + 2]).style.border = "8px solid #5C4033";
+            }
+        } else { //black
+            if (cells[x - 1][y + 2] >= 0) {
+                //show option[x-1][y+2]
+                getSelector([x - 1, y + 2]).style.border = "8px solid #5C4033";
+            }
+        }
     }
-  }
-  //right down
-  if(y<=5&&x<7){
-    if(piece>0){//white
-      if(cells[x+1][y+2]<=0){
-        //show option
-        getSelector([x+1,y+2]).style.border = "8px solid #5C4033";
-      }
-    }else{//black
-      if(cells[x+1][y+2]>=0){
-        //show option
-        getSelector([x+1,y+2]).style.border = "8px solid #5C4033";
-      }
+    //right down
+    if (y <= 5 && x < 7) {
+        if (piece > 0) { //white
+            if (cells[x + 1][y + 2] <= 0) {
+                //show option
+                getSelector([x + 1, y + 2]).style.border = "8px solid #5C4033";
+            }
+        } else { //black
+            if (cells[x + 1][y + 2] >= 0) {
+                //show option
+                getSelector([x + 1, y + 2]).style.border = "8px solid #5C4033";
+            }
+        }
     }
-  }
-  //left up
-  if(y>=2&&x>0){
-    if(piece>0){//white
-     if(cells[x-1][y-2]<=0){
-      //show option
-      getSelector([x-1,y-2]).style.border = "8px solid #5C4033";
-     } 
-    }else{//black
-      if(cells[x-1][y-2]>=0){
-        //show option
-        getSelector([x-1,y-2]).style.border = "8px solid #5C4033";
-      }
+    //left up
+    if (y >= 2 && x > 0) {
+        if (piece > 0) { //white
+            if (cells[x - 1][y - 2] <= 0) {
+                //show option
+                getSelector([x - 1, y - 2]).style.border = "8px solid #5C4033";
+            }
+        } else { //black
+            if (cells[x - 1][y - 2] >= 0) {
+                //show option
+                getSelector([x - 1, y - 2]).style.border = "8px solid #5C4033";
+            }
+        }
     }
-  }
-  //left down
-  if(y>=2&&x<7){
-    if(piece>0){//white
-     if(cells[x+1][y-2]<=0){
-      //show option
-      getSelector([x+1,y-2]).style.border = "8px solid #5C4033";
-     } 
-    }else{//black
-      if(cells[x+1][y-2]>=0){
-        //show option
-        getSelector([x+1,y-2]).style.border = "8px solid #5C4033";
-      }
+    //left down
+    if (y >= 2 && x < 7) {
+        if (piece > 0) { //white
+            if (cells[x + 1][y - 2] <= 0) {
+                //show option
+                getSelector([x + 1, y - 2]).style.border = "8px solid #5C4033";
+            }
+        } else { //black
+            if (cells[x + 1][y - 2] >= 0) {
+                //show option
+                getSelector([x + 1, y - 2]).style.border = "8px solid #5C4033";
+            }
+        }
     }
-  }
-  //down left
-  if(x<=5&&y>0){
-    if(piece>0){//white
-     if(cells[x+2][y-1]<=0){
-      //show option
-      console.log(x+2,y-1);
-      getSelector([x+2,y-1]).style.border = "8px solid #5C4033";
-     } 
+    //down left
+    if (x <= 5 && y > 0) {
+        if (piece > 0) { //white
+            if (cells[x + 2][y - 1] <= 0) {
+                //show option
+                console.log(x + 2, y - 1);
+                getSelector([x + 2, y - 1]).style.border = "8px solid #5C4033";
+            }
+        } else { //black
+            console.log("dl");
+            if (cells[x + 2][y - 1] >= 0) {
+                //show option
+                console.log(x + 2, y - 1);
+                getSelector([x + 2, y - 1]).style.border = "8px solid #5C4033";
+            }
+        }
     }
-    else{//black
-      console.log("dl");
-      if(cells[x+2][y-1]>=0){
-        //show option
-        console.log(x+2,y-1);
-        getSelector([x+2,y-1]).style.border = "8px solid #5C4033";
-      }
-    }
-  }
-  //down right
-  if(x<=5&&y<7){
-    if(piece>0){//white
-     if(cells[x+2][y+1]<=0){
-      //show option
+    //down right
+    if (x <= 5 && y < 7) {
+        if (piece > 0) { //white
+            if (cells[x + 2][y + 1] <= 0) {
+                //show option
 
-      getSelector([x+2,y+1]).style.border = "8px solid #5C4033";
-     } 
-     }
-    else{//black
-      console.log("dr");
-      if(cells[x+2][y+1]>=0){
-        //show option
-        console.log(x+2,y+1);
-        getSelector([x+2,y+1]).style.border = "8px solid #5C4033";
-      }
+                getSelector([x + 2, y + 1]).style.border = "8px solid #5C4033";
+            }
+        } else { //black
+            console.log("dr");
+            if (cells[x + 2][y + 1] >= 0) {
+                //show option
+                console.log(x + 2, y + 1);
+                getSelector([x + 2, y + 1]).style.border = "8px solid #5C4033";
+            }
+        }
     }
-  }
 }
 //<===========KNIGHT=============>END
 
 
 //let flag
 function option_show_pawn(x, y, piece) {
-  if (piece == 1) {
-    //white(+1)
-    //up
-    if (x > 0 && x <= 6) {
-      if (cells[x - 1][y] == 0) {
-        //empty
-        //show option[x-1][y]
-        getSelector([x - 1, y]).style.border = "8px solid #5C4033";
-        if (x == 6 && cells[x - 2][y] == 0) {
-          //empyt (two front move)
-          //show option[x-2][y]
-          getSelector([x-2,y]).style.border = "8px solid #5C4033";
+    if (piece == 1) {
+        //white(+1)
+        //up
+        if (x > 0 && x <= 6) {
+            if (cells[x - 1][y] == 0) {
+                //empty
+                //show option[x-1][y]
+                getSelector([x - 1, y]).style.border = "8px solid #5C4033";
+                if (x == 6 && cells[x - 2][y] == 0) {
+                    //empyt (two front move)
+                    //show option[x-2][y]
+                    getSelector([x - 2, y]).style.border = "8px solid #5C4033";
+                }
+            }
         }
-      }
-    }
-    //left diagonal
-    if(x>0&&x<=6&&y>0&&y<=7){
-      if(cells[x-1][y-1]<0){//black(-ve)
-        //show option[x-1][y-1]
-        getSelector([x-1,y-1]).style.border = "8px solid #5C4033";
-      }
-    }
-    //right diagonal
-    if(x>0&&x<=6&&y>=0&&y<7){
-      if(cells[x-1][y+1]<0){//black (-ve)
-        //show option[x-1][y+1]
-        getSelector([x-1,y+1]).style.border = "8px solid #5C4033";
-      }
-    }
-  }
-  else{//black pawn(-1)
-    //down
-    console.log("iii");
-    if(x<7&&x>=1){
-      if(cells[x+1][y]==0){//empty
-        //show option[x+1][y]
-        getSelector([x + 1, y]).style.border = "8px solid #5C4033";
-        if (x == 1 && cells[x + 2][y] == 0) {
-          //empty (two front move for black)
-          //show option[x+2][y]
-          getSelector([x+2,y]).style.border = "8px solid #5C4033";
+        //left diagonal
+        if (x > 0 && x <= 6 && y > 0 && y <= 7) {
+            if (cells[x - 1][y - 1] < 0) { //black(-ve)
+                //show option[x-1][y-1]
+                getSelector([x - 1, y - 1]).style.border = "8px solid #5C4033";
+            }
         }
-      }
-      //left lower diagonal
-      if (y > 0 && y <= 7 && x >= 1 && x < 7) {
-        if (cells[x + 1][y - 1] > 0) {
-          //white(+ve)
-          //show option[x+1][y-1]
-          getSelector([x + 1, y - 1]).style.border = "8px solid #5C4033";
+        //right diagonal
+        if (x > 0 && x <= 6 && y >= 0 && y < 7) {
+            if (cells[x - 1][y + 1] < 0) { //black (-ve)
+                //show option[x-1][y+1]
+                getSelector([x - 1, y + 1]).style.border = "8px solid #5C4033";
+            }
         }
-      }
-      //right lower diagonal
-      if (x >= 1 && x < 7 && y >= 0 && y < 7) {
-        if (cells[x + 1][y + 1] > 0) {
-          //white(+ve)
-          //show option[x+1][y-1]
-          getSelector([x + 1, y - 1]).style.border = "8px solid #5C4033";
+    } else { //black pawn(-1)
+        //down
+        console.log("iii");
+        if (x < 7 && x >= 1) {
+            if (cells[x + 1][y] == 0) { //empty
+                //show option[x+1][y]
+                getSelector([x + 1, y]).style.border = "8px solid #5C4033";
+                if (x == 1 && cells[x + 2][y] == 0) {
+                    //empty (two front move for black)
+                    //show option[x+2][y]
+                    getSelector([x + 2, y]).style.border = "8px solid #5C4033";
+                }
+            }
+            //left lower diagonal
+            if (y > 0 && y <= 7 && x >= 1 && x < 7) {
+                if (cells[x + 1][y - 1] > 0) {
+                    //white(+ve)
+                    //show option[x+1][y-1]
+                    getSelector([x + 1, y - 1]).style.border = "8px solid #5C4033";
+                }
+            }
+            //right lower diagonal
+            if (x >= 1 && x < 7 && y >= 0 && y < 7) {
+                if (cells[x + 1][y + 1] > 0) {
+                    //white(+ve)
+                    //show option[x+1][y-1]
+                    getSelector([x + 1, y - 1]).style.border = "8px solid #5C4033";
+                }
+            }
         }
-      }
     }
-  }
 }
-  
+
 //option_show_pawn end
 
 
@@ -570,390 +680,392 @@ function option_show_pawn(x, y, piece) {
 //king
 //
 //option show beshoop start
-function option_show_beshoop(x,y,piece){
-  let tempx=x;
-  let tempy=y;
-  if(piece == 1){
-      if(cells[x-1][y-1] == 0){ //working
-        while(y!=0){
-          x--;
-          y--;
-          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
-          // console.log(x,y);
-          if(cells[x][y] <=0 ){
+function option_show_beshoop(x, y, piece) {
+    let tempx = x;
+    let tempy = y;
+    if (piece == 1) {
+        if (cells[x - 1][y - 1] == 0) { //working
+            while (y != 0) {
+                x--;
+                y--;
+                // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+                // console.log(x,y);
+                if (cells[x][y] <= 0) {
 
-            getSelector([x,y]).style.border = "8px solid #5C4033"; 
-          }
-          if(cells[x][y]!=0) break;
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-      }
-      x=tempx;
-      y=tempy;
-      if(cells[x-1][y+1] == 0){ //working
-        while(x!=0){
-          x--;
-          y++;
-          if(cells[x][y] <=0 ){
+        x = tempx;
+        y = tempy;
+        if (cells[x - 1][y + 1] == 0) { //working
+            while (x != 0) {
+                x--;
+                y++;
+                if (cells[x][y] <= 0) {
 
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-         }
-         if(cells[x][y]!=0) break;
-          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+                // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+            }
         }
-      }
-      x=tempx;
-      y=tempy;
-      if(cells[x+1][y-1] == 0){
-        while(y!=0){
-          x++;
-          y--;
-          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
-          if(cells[x][y] <=0 ){
+        x = tempx;
+        y = tempy;
+        if (cells[x + 1][y - 1] == 0) {
+            while (y != 0) {
+                x++;
+                y--;
+                // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+                if (cells[x][y] <= 0) {
 
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-         }
-          if(cells[x][y]!=0) break;
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-      }
 
-      x=tempx;
-      y=tempy;
-      if(cells[x+1][y+1] == 0){
-        while(x!=7){
-          x++;
-          y++;
-          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
-            if(cells[x][y] <=0 ){
+        x = tempx;
+        y = tempy;
+        if (cells[x + 1][y + 1] == 0) {
+            while (x != 7) {
+                x++;
+                y++;
+                // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+                if (cells[x][y] <= 0) {
 
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-         }
-          if(cells[x][y]!=0) break;
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-      }
-   }
-   else{
-      if(cells[x-1][y-1] == 0){ //upper left diagonal
-        while(y!=0){
-          x--;
-          y--;
-          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
-            if(cells[x][y] >=0 ){
+    } else {
+        if (cells[x - 1][y - 1] == 0) { //upper left diagonal
+            while (y != 0) {
+                x--;
+                y--;
+                // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+                if (cells[x][y] >= 0) {
 
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-         }
-          if(cells[x][y]!=0) break;
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-      }
-      x=tempx;
-      y=tempy;
-      if(cells[x-1][y+1] == 0){ //upper right diagonal
-        while(x!=0){
-          // getSelector([x,y]).style.border = "8px solid #5C4033";
-          x--;
-          y++;
-          if(cells[x][y] >=0 ){
+        x = tempx;
+        y = tempy;
+        if (cells[x - 1][y + 1] == 0) { //upper right diagonal
+            while (x != 0) {
+                // getSelector([x,y]).style.border = "8px solid #5C4033";
+                x--;
+                y++;
+                if (cells[x][y] >= 0) {
 
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-         }
-          if(cells[x][y]!=0) break;
-          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+                // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+            }
         }
-      }
-      x=tempx;
-      y=tempy;
-      if(cells[x+1][y-1] == 0){ //down left diagonal
-        while(y!=0){
-          x++;
-          y--;
-          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
-          if(cells[x][y] >=0 ){
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-         }
-          if(cells[x][y]!=0) break;
+        x = tempx;
+        y = tempy;
+        if (cells[x + 1][y - 1] == 0) { //down left diagonal
+            while (y != 0) {
+                x++;
+                y--;
+                // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+                if (cells[x][y] >= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-      }
-      x=tempx;
-      y=tempy;
-      if(cells[x+1][y+1] == 0){
-        while(x!=7){
-          x++;
-          y++;
-          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
-            if(cells[x][y] >=0 ){
+        x = tempx;
+        y = tempy;
+        if (cells[x + 1][y + 1] == 0) {
+            while (x != 7) {
+                x++;
+                y++;
+                // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+                if (cells[x][y] >= 0) {
 
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-         }
-          if(cells[x][y]!=0) break;
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-      }
-   }
+    }
 }
 
+function option_show_king(x, y, piece) {
+    let tempx = x;
+    let tempy = y;
+    if(piece>0){ 
+      if(x==7 && y==0){
+        if()
+      }
+    }
+}
 
 function option_show_queen(x, y, piece) {
 
-  let tempx = x;
-  let tempy = y;
-  // console.log(x,y);
+    let tempx = x;
+    let tempy = y;
+    // console.log(x,y);
 
-  //white queen
-  if (piece == 1) {
-    if (cells[x][y - 1] <= 0) { //left
-      while (y != 0) {
-        y--;
-        if(cells[x][y]<=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+    //white queen
+    if (piece == 1) {
+        if (cells[x][y - 1] <= 0) { //left
+            while (y != 0) {
+                y--;
+                if (cells[x][y] <= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+
+                if (cells[x][y] != 0) break;
+            }
         }
 
-        if (cells[x][y] != 0) break;
-      }
-    }
+
+        x = tempx;
+        y = tempy;
+        if (cells[x][y + 1] <= 0) { //right
+            while (y != 7) {
+                y++;
+                if (cells[x][y] <= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
+        }
 
 
-    x = tempx;
-    y = tempy;
-    if (cells[x][y + 1] <= 0) { //right
-      while (y != 7) {
-        y++;
-        if(cells[x][y]<=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        if (cells[x - 1][y - 1] <= 0) { //left upper diagonal
+            while (y != 0) {
+                x--;
+                y--;
+                if (cells[x][y] <= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-        if (cells[x][y] != 0) break;
-      }
-    }
 
 
-    x = tempx;
-    y = tempy;
-    if (cells[x - 1][y - 1] <= 0) {//left upper diagonal
-      while (y != 0) {
-        x--;
-        y--;
-       if(cells[x][y]<=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        if (cells[x + 1][y - 1] <= 0) { //left lower diagonal
+            while (y != 0) {
+                x++;
+                y--;
+                if (cells[x][y] <= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-        if (cells[x][y] != 0) break;
-      }
-    }
 
 
-     x = tempx;
-    y = tempy;
-    if (cells[x + 1][y - 1] <= 0) {//left lower diagonal
-      while (y != 0) {
-        x++;
-        y--;
-       if(cells[x][y]<=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        if (cells[x - 1][y] <= 0) { // upper
+            while (x != 0) {
+                x--;
+                if (cells[x][y] <= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-        if (cells[x][y] != 0) break;
-      }
-    }
 
 
-    x = tempx;
-    y = tempy;
-    if (cells[x - 1][y] <= 0) { // upper
-      while (x != 0) {
-        x--;
-       if(cells[x][y]<=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        if (cells[x - 1][y + 1] <= 0) { //upper right diagonal
+            while (x != 0) {
+                x--;
+                y++;
+                if (cells[x][y] <= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) {
+                    break;
+                }
+            }
         }
-        if (cells[x][y] != 0) break;
-      }
-    }
 
 
-    x = tempx;
-    y = tempy;
-    if (cells[x - 1][y + 1] <= 0) { //upper right diagonal
-      while (x != 0) {
-        x--;
-        y++;
-        if(cells[x][y]<=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        if (cells[x + 1][y + 1] <= 0) { //lower right diagonal
+            while (x != 0) {
+                x++;
+                y++;
+                if (cells[x][y] <= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) {
+                    break;
+                }
+            }
         }
-        if (cells[x][y] != 0){ break;}
-      }
-    }
 
 
-    x = tempx;
-    y = tempy;
-    if (cells[x + 1][y + 1] <= 0) { //lower right diagonal
-      while (x != 0) {
-        x++;
-        y++;
-        if(cells[x][y]<=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        if (cells[x + 1][y] <= 0) { //down
+            while (x != 7) {
+                x++;
+                if (cells[x][y] <= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-        if (cells[x][y] != 0){ break;}
-      }
     }
 
-
-    x = tempx;
-    y = tempy;
-    if (cells[x + 1][y] <= 0) { //down
-      while (x != 7) {
-        x++;
-        if(cells[x][y]<=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+    //black queen
+    else {
+        if (cells[x - 1][y] >= 0) { //up
+            console.log("up");
+            while (x != 0) {
+                x--;
+                console.log(x, y);
+                if (cells[x][y] >= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-        if (cells[x][y] != 0) break;
-      }
-    }
-  } 
-
-  //black queen
-  else {
-    if (cells[x - 1][y] >= 0) { //up
-      console.log("up");
-      while (x != 0) {
-        x--;
-        console.log(x,y);
-        if(cells[x][y]>=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        if (cells[x - 1][y - 1] >= 0) { //left upper diagonal
+            console.log("left upper diagonal");
+            while (x != 0) {
+                x--;
+                y--;
+                console.log(x, y);
+                if (cells[x][y] >= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-        if (cells[x][y] != 0) break;
-      }
-    }
-    x = tempx;
-    y = tempy;
-    if (cells[x - 1][y - 1] >= 0) { //left upper diagonal
-      console.log("left upper diagonal");
-      while (x != 0) {
-        x--;
-        y--;
-        console.log(x,y);
-        if(cells[x][y]>=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        if (cells[x - 1][y + 1] >= 0) { //upper right diagonal
+            while (x != 0) {
+                x--;
+                y++;
+                if (cells[x][y] >= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-        if (cells[x][y] != 0) break;
-      }
-    }
-    x = tempx;
-    y = tempy;
-    if (cells[x - 1][y + 1] >= 0) { //upper right diagonal
-      while (x != 0) {
-        x--;
-        y++;
-        if(cells[x][y]>=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        if (cells[x][y - 1] >= 0) { //left
+            while (y != 0) {
+                y--;
+                if (cells[x][y] >= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-        if (cells[x][y] != 0) break;
-      }
-    }
-    x = tempx;
-    y = tempy;
-    if (cells[x][y - 1] >= 0) { //left
-      while (y != 0) {
-        y--;
-        if(cells[x][y]>=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        // console.log(x, y);
+        if (cells[x][y + 1] >= 0) { //right
+            // console.log(x, y);
+            while (y != 7) {
+                y++;
+                if (cells[x][y] >= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-        if (cells[x][y] != 0) break;
-      }
-    }
-    x = tempx;
-    y = tempy;
-    // console.log(x, y);
-    if (cells[x][y + 1] >= 0) { //right
-      // console.log(x, y);
-      while (y != 7) {
-        y++;
-        if(cells[x][y]>=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        if (cells[x + 1][y] >= 0) { //down
+            while (x != 7) {
+                x++;
+                if (cells[x][y] >= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-        if (cells[x][y] != 0) break;
-      }
-    }
-    x = tempx;
-    y = tempy;
-    if (cells[x + 1][y] >= 0 ) { //down
-      while (x != 7) {
-        x++;
-        if(cells[x][y]>=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        if (cells[x + 1][y - 1] >= 0) { //left lower diagonal
+            while (y != 0) {
+                x++;
+                y--;
+                if (cells[x][y] >= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-        if (cells[x][y] != 0) break;
-      }
-    }
-    x = tempx;
-    y = tempy;
-    if (cells[x + 1][y - 1] >= 0) { //left lower diagonal
-      while (y != 0) {
-        x++;
-        y--;
-        if(cells[x][y]>=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
+        x = tempx;
+        y = tempy;
+        if (cells[x + 1][y + 1] >= 0) { //right lower diagonal
+            while (y != 7) {
+                x++;
+                y++;
+                if (cells[x][y] >= 0) {
+                    getSelector([x, y]).style.border = "8px solid #5C4033";
+                }
+                if (cells[x][y] != 0) break;
+            }
         }
-        if (cells[x][y] != 0) break;
-      }
     }
-    x = tempx;
-    y = tempy;
-    if (cells[x + 1][y + 1] >= 0) { //right lower diagonal
-      while (y != 7) {
-        x++;
-        y++;
-        if(cells[x][y]>=0){
-          getSelector([x, y]).style.border = "8px solid #5C4033";
-        }
-        if (cells[x][y] != 0) break;
-      }
-    }
-  }
 }
 //index for piece
 function getSelector([row, col]) {
-  return eval(`p${row}${col}`);
+    return eval(`p${row}${col}`);
 }
 
-
-
-function BorW(pn){
-   let piece;
+function BorW(pn) {
+    let piece;
     if (pn[0] == "w") {
-      piece = 1;
+        piece = 1;
     } else if (pn[0] == "b") {
-      piece = -1;
+        piece = -1;
     }
     return piece;
 }
 
-function showMoves(arrIdx,pieceName,piece) {
+function showMoves(arrIdx, pieceName, piece) {
 
-  if (pieceName[1] == "p") {
-      option_show_pawn(arrIdx[0], arrIdx[1], piece);
-    } 
-    else if (pieceName[1] == "r") {
-      option_show_rook(arrIdx[0], arrIdx[1], piece);
-    } 
-    else if (pieceName[1] == "b") {
-      option_show_beshoop(arrIdx[0], arrIdx[1], piece);
-    } 
-    else if (pieceName[1] == "q") {
-      option_show_queen(arrIdx[0], arrIdx[1], piece);
-    } 
-    else if (pieceName[1] == "n") {
-      option_show_knight(arrIdx[0],arrIdx[1],piece);
+    if (pieceName[1] == "p") {
+        option_show_pawn(arrIdx[0], arrIdx[1], piece);
+    } else if (pieceName[1] == "r") {
+        option_show_rook(arrIdx[0], arrIdx[1], piece);
+    } else if (pieceName[1] == "b") {
+        option_show_beshoop(arrIdx[0], arrIdx[1], piece);
+    } else if (pieceName[1] == "q") {
+        option_show_queen(arrIdx[0], arrIdx[1], piece);
+    } else if (pieceName[1] == "n") {
+        option_show_knight(arrIdx[0], arrIdx[1], piece);
     }
 }
 
 pieces.forEach((p) => {
-  p.addEventListener("click", function () {
+    p.addEventListener("click", function() {
 
-    let arrIdx = indexToArray(Number(p.id));
-    
-    let pieceName = getPieceName(arrIdx[0],arrIdx[1]);
+        let arrIdx = indexToArray(Number(p.id));
 
-    let piece  = BorW(pieceName); // -1 for black and 1 for white
+        let pieceName = getPieceName(arrIdx[0], arrIdx[1]);
 
-    showMoves(arrIdx,pieceName,piece);
-  });
+        let piece = BorW(pieceName); // -1 for black and 1 for white
+
+        showMoves(arrIdx, pieceName, piece);
+    });
 });
-
-
-
-
