@@ -8,8 +8,97 @@ let cells=[
   [1,1,1,1,1,1,1,1],
   [4,2,3,5,6,3,2,4]
 ];
-
+let prevx;
+let prevy;
+let turn=1;//1 white -1 black
+let White_king_X=0;
+let White_king_Y=4;
+let Black_king_X=7;
+let Black_king_Y=4;
 //let flag
+//check function
+function isCheck(x,y,piece){
+  //up
+  for(let i=x;i>=0;i--){
+      if(piece>0){//white
+        if(cells[i][y]==-4||cells[i][y]==-5){
+          return true;//check by rook or queen
+        }
+      }else{//black
+        if(cells[i][y]==4&&cells[i][y]==5){
+          return true;//check by rook or queen
+        }
+      }
+      if(cells[i][y]!=0){
+          //no check sum 
+          break;
+      }
+    }
+  //down
+
+  for(let i=x;i=7;i++){
+    if(piece>0){//white
+        if(cells[i][y]==-4||cells[i][y]==-5){
+          //check by rook or queen
+          return true;
+        }
+      }else{//black
+        if(cells[i][y]==4||cells[i][y]==5){
+          //check by white rook or queen
+        }
+      }
+      if(cells[i][y]!=0){
+          //no check
+          break;
+      }
+  }
+  //left 
+  for(let j=y;j>=0;j--){
+      if(piece>0){//white
+        if(cells[x][j]==-4||cells[x][j]==-5){
+          //check by black rook or queen
+          return true;
+        }
+      }else{//black
+        if(cells[x][j]==4||cells[x][j]==5){
+          //check by white rook or queen
+          return true;
+        }
+      }
+      if(cells[y][j]!=0){
+          //no check
+          break;
+      }
+  }
+  //right
+  for(let j=y;j<=7;j++){
+      if(piece>0){//white
+        if(cells[x][j]==-4||cells[x][j]==-5){
+          //check by black or queen
+          return true;
+        }
+      }else{//black
+        if(cells[x][j]==-4||cells[x][j]==-5){
+          //check by white rook or queen
+          return true;
+        }
+      }
+      if(cells[x][j]!=0){
+          //no check
+          break;
+      }
+  }
+}
+//check function
+
+//move function 
+function move(piece,x,y){
+  cells[prevx][prevy]=0;
+  //make sure to put 0 zero at previous position of piece
+  cells[x][y]=piece;
+  //show [x][y] with piece picture
+}
+//move function end
 function option_show_pawn(x,y,piece){
   
   if(piece==1){//white(+1)
