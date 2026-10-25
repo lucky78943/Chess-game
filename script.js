@@ -1,12 +1,12 @@
 let cells=[
-  /*0*/[-4,-2,-3,-5,-6,0,-2,-4],
+  /*0*/[-4,-2,-3,0,-6,-3,-2,-4],
   /*1*/[-1,-1,-1,-1,-1,-1,-1,-1],
   /*2*/[0,0,0,0,0,0,0,0],
-  /*3*/[0,0,0,0,0,-3,0,0],
+  /*3*/[0,0,0,0,0,0,0,0],
   /*4*/[0,0,0,0,0,0,0,0],
-  /*5*/[0,0,0,0,0,3,0,0],
+  /*5*/[0,0,0,0,-5,0,0,0],
   /*6*/[1,1,1,1,1,1,1,1],
-  /*7*/[4,2,0,5,6,3,2,4]
+  /*7*/[4,2,3,5,6,3,2,4]
 ];
 
 //let flag
@@ -209,6 +209,141 @@ function option_show_beshoop(x,y,piece){
       }
    }
 }
+function option_show_queen(x,y,piece){
+  let tempx=x;
+   let tempy=y;
+   if(piece==1){
+    if(cells[x][y-1]==0){
+      while(y!=0){
+        y--;
+        getSelector([x,y]).style.border = "8px solid #5C4033"; 
+        if(cells[x][y]!=0) break;
+      }
+    }
+    x=tempx;
+    y=tempy;
+    if(cells[x][y+1]==0){
+      while(y!=7){
+        y++;
+        getSelector([x,y]).style.border = "8px solid #5C4033"; 
+        if(cells[x][y]!=0) break;
+      }
+    }
+    x=tempx;
+      y=tempy;
+    if(cells[x-1][y-1]==0){
+       while(y!=0){
+          x--;
+          y--;
+          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          if(cells[x][y]!=0) break;
+        }
+    }
+    x=tempx;
+      y=tempy;
+    if(cells[x-1][y]==0){
+      while(x!=0){
+        x--;
+        getSelector([x,y]).style.border = "8px solid #5C4033"; 
+        if(cells[x][y]!=0) break;
+      }
+    }
+    x=tempx;
+      y=tempy;
+    if(cells[x-1][y+1]==0){
+       while(x!=0 ){
+         x--;y++;
+         if(cells[x][y]!=0) break;
+         getSelector([x,y]).style.border = "8px solid #5C4033";
+        }
+    }
+    x=tempx;
+      y=tempy;
+    if(cells[x+1][y]==0){
+      while(x!=7){
+        x++;
+        if(cells[x][y]!=0) break;
+        getSelector([x,y]).style.border = "8px solid #5C4033"; 
+      }
+    }
+  }
+  else{  
+    if(cells[x-1][y]==0){
+      while(x!=0){
+        x--;
+        if(cells[x][y]!=0) break;
+        getSelector([x,y]).style.border = "8px solid #5C4033"; 
+      }
+    }
+    x=tempx;
+    y=tempy;
+    if(cells[x-1][y-1]==0){
+      while(x!=0){
+        x--;y--;
+        if(cells[x][y]!=0) break;
+        getSelector([x,y]).style.border = "8px solid #5C4033"; 
+      }
+    }
+    x=tempx;
+    y=tempy;
+    if(cells[x-1][y+1]==0){
+      while(x!=0){
+        x--;y++;
+        if(cells[x][y]!=0) break;
+        getSelector([x,y]).style.border = "8px solid #5C4033"; 
+      }
+    }
+    x=tempx;
+    y=tempy;
+    if(cells[x][y-1]==0){
+      while(y!=0){
+        y--;
+        getSelector([x,y]).style.border = "8px solid #5C4033"; 
+        if(cells[x][y]!=0) break;
+      }
+    } 
+    x=tempx;
+    y=tempy; 
+    console.log(x,y);
+    if(cells[x][y+1]==0){ 
+      y++;
+      console.log(x,y);
+      while(y!=7){
+        getSelector([x,y]).style.border = "8px solid #5C4033"; 
+        if(cells[x][y]!=0) break;
+      }
+    }
+    x=tempx;
+    y=tempy;
+    if(cells[x+1][y]==0){
+      while(x!=7){
+        x++;
+        getSelector([x,y]).style.border = "8px solid #5C4033"; 
+        if(cells[x][y]!=0) break;
+      }
+    }
+    x=tempx;
+    y=tempy;
+    if(cells[x+1][y-1]==0){
+      while(y!=0){
+        x++;
+        y--;
+        getSelector([x,y]).style.border = "8px solid #5C4033"; 
+        if(cells[x][y]!=0) break;
+      }
+    }
+    x=tempx;
+    y=tempy;
+    if(cells[x+1][y+1]==0){
+      while(y!=7){
+        x++;
+        y++;
+        getSelector([x,y]).style.border = "8px solid #5C4033"; 
+        if(cells[x][y]!=0) break;
+      }
+    }
+  }
+}
 //option show bishop end
 function startGame(){
   //added pawns in 2nd row
@@ -343,7 +478,7 @@ pieces.forEach((p) =>{
       option_show_beshoop(arrIdx[0],arrIdx[1],piece);
     }
     else if(pieceName[1]=='q'){
-
+      option_show_queen(arrIdx[0],arrIdx[1],piece);
     }
     else if(pieceName[1]=='n'){
 
@@ -412,6 +547,6 @@ function showMoves(pos){
 }
 
 startGame();
-pieceMove(p05,p35);
+pieceMove(p03,p54);
 // showMoves([1,2]);
 // console.log(getSelector([1,2]))
