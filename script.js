@@ -31,7 +31,7 @@ function isCheck(x,y,piece){
       }
       if(cells[i][y]!=0){
           //no check sum 
-          break;
+          return false;
       }
     }
   //down
@@ -49,7 +49,7 @@ function isCheck(x,y,piece){
       }
       if(cells[i][y]!=0){
           //no check
-          break;
+          return false;
       }
   }
   //left 
@@ -67,7 +67,7 @@ function isCheck(x,y,piece){
       }
       if(cells[y][j]!=0){
           //no check
-          break;
+          return false;
       }
   }
   //right
@@ -85,9 +85,11 @@ function isCheck(x,y,piece){
       }
       if(cells[x][j]!=0){
           //no check
-          break;
+          return false;
       }
-  }
+  }//right end
+
+  //left upper 
 }
 //check function
 
@@ -96,11 +98,11 @@ function move(piece,x,y){
   cells[prevx][prevy]=0;
   //make sure to put 0 zero at previous position of piece
   cells[x][y]=piece;
-  //show [x][y] with piece picture
+  //show [x][y] with piece picture [ bsdk lucky ]
 }
 //move function end
 
-//option show rook start
+//<=============ROOK==========>
 function option_show_rook(x,y,piece){
    
   //up
@@ -180,12 +182,13 @@ function option_show_rook(x,y,piece){
       }
   }
 
-}//option_show_rook
+}//<---ROOK--->end
 
 
 
 
-//knight movement show
+//<============KNIGHT============>
+
 function option_show_knight(x,y,piece){
   //upleft
   if(x>=2&&y>0){
@@ -300,17 +303,8 @@ function option_show_knight(x,y,piece){
     }
   }
 }
-//knight movement show
-// let cells=[
-//   /*0*/[-4,-2,-3,-5,-6,0,-2,-4],
-//   /*1*/[-1,-1,-1,0,-1,-1,-1,-1],
-//   /*2*/[ 0, 0, 0, 0, 0, 0, 0, 0],
-//   /*3*/[ 0, 0, 0, 0, 0, -3 ,0 ,0],
-//   /*4*/[ 0, 0, 0, 3, 0, 0, 0, 0],
-//   /*5*/[ 0, 0, 0, -1, 0, 3, 0, 0],
-//   /*6*/[ 1, 1, 1, 1, 1, 1, 1, 1],
-//   /*7*/[ 4, 2, 0, 5, 6, 3, 2, 4]
-// ];
+//<===========KNIGHT=============>END
+
 
 //let flag
 function option_show_pawn(x,y,piece){
@@ -385,106 +379,7 @@ function option_show_pawn(x,y,piece){
 
 //king 
 //
-//option show beshoop start
-function option_show_beshoop(x,y,piece){
-  let tempx=x;
-  let tempy=y;
-  if(piece == 1){
-      if(cells[x-1][y-1] == 0){ //working
-        while(y!=0){
-          x--;
-          y--;
-          if(pieceColor(indexToPieceName(x,y)) == 1) break;
-          // console.log(x,y);
-          getSelector([x,y]).style.border = "8px solid #5C4033"; 
-          if(cells[x][y]!=0) break;
-        }
-      }
-      x=tempx;
-      y=tempy;
-      if(cells[x-1][y+1] == 0){ //working
-        while(x!=0){
-          getSelector([x,y]).style.border = "8px solid #5C4033";
-          x--;
-          y++;
-          if(pieceColor(indexToPieceName(x,y)) == 1) break;
-        }
-      }
-      x=tempx;
-      y=tempy;
-      if(cells[x+1][y-1] == 0){
-        while(y!=0){
-          x++;
-          y--;
-          if(pieceColor(indexToPieceName(x,y)) == 1) break;
-          getSelector([x,y]).style.border = "8px solid #5C4033"; 
-          if(cells[x][y]!=0) break;
-        }
-      }
-      x=tempx;
-      y=tempy;
-      if(cells[x+1][y+1] == 0){
-        while(x!=7){
-          x++;
-          y++;
-          if(pieceColor(indexToPieceName(x,y)) == 1) break;
-          getSelector([x,y]).style.border = "8px solid #5C4033";
-          if(cells[x][y]!=0){
-            getSelector([++x,++y]).style.border = "8px solid #5C4033";
-            break;
-          } 
-        }
-      }
-   }
-   else{
-      if(cells[x-1][y-1] == 0){ //working
-        while(y!=0){
-          x--;
-          y--;
-          if(pieceColor(indexToPieceName(x,y)) == -1) break;
-          // console.log(x,y);
-          getSelector([x,y]).style.border = "8px solid #5C4033"; 
-          if(cells[x][y]!=0) break;
-        }
-      }
-      x=tempx;
-      y=tempy;
-      if(cells[x-1][y+1] == 0){ //working
-        while(x!=0){
-          getSelector([x,y]).style.border = "8px solid #5C4033";
-          x--;
-          y++;
-          if(pieceColor(indexToPieceName(x,y)) == -1) break;
-        }
-      }
-      x=tempx;
-      y=tempy;
-      if(cells[x+1][y-1] == 0){
-        while(y!=0){
-          x++;
-          y--;
-          if(pieceColor(indexToPieceName(x,y)) == -1) break;
-          getSelector([x,y]).style.border = "8px solid #5C4033"; 
-          if(cells[x][y]!=0) break;
-        }
-      }
-      x=tempx;
-      y=tempy;
-      if(cells[x+1][y+1] == 0){
-        while(x!=7){
-          x++;
-          y++;
-          if(pieceColor(indexToPieceName(x,y)) == -1) break;
-          getSelector([x,y]).style.border = "8px solid #5C4033";
-          if(cells[x][y]!=0){
-            getSelector([++x,++y]).style.border = "8px solid #5C4033";
-            break;
-          } 
-        }
-      }
-   }
-}
-//option show bishop end
+
 function startGame(){
   //added pawns in 2nd row
   r1.forEach((cell) => {
