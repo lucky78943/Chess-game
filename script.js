@@ -1,12 +1,12 @@
 let cells=[
   /*0*/[-4,-2,-3,-5,-6,0,-2,-4],
   /*1*/[-1,-1,-1,-1,-1,-1,-1,-1],
-  /*2*/[0,0,0,0,0,0,0,0],
-  /*3*/[0,0,0,0,0,-3,0,0],
-  /*4*/[0,0,0,0,0,0,0,0],
-  /*5*/[0,0,0,0,0,3,0,0],
-  /*6*/[1,1,1,1,1,1,1,1],
-  /*7*/[4,2,0,5,6,3,2,4]
+  /*2*/[ 0, 0, 0, 0, 0, 0, 0, 0],
+  /*3*/[ 0, 0, 0, 0, 0, -3 ,0 ,0],
+  /*4*/[ 0, 0, 0, 3, 0, 0, 0, 0],
+  /*5*/[ 0, 0, 0, 0, 0, 3, 0, 0],
+  /*6*/[ 1, 1, 1, 1, 1, 1, 1, 1],
+  /*7*/[ 4, 2, 0, 5, 6, 3, 2, 4]
 ];
 
 //let flag
@@ -155,9 +155,9 @@ function option_show_rook(x,y,piece){
 //
 //option show beshoop start
 function option_show_beshoop(x,y,piece){
+  let tempx=x;
+  let tempy=y;
   if(piece == 1){
-     let tempx=x;
-     let tempy=y;
       if(cells[x-1][y-1] == 0){
         while(y!=0){
           x--;
@@ -171,18 +171,65 @@ function option_show_beshoop(x,y,piece){
       if(cells[x-1][y+1] == 0){
         while(x!=0){
           getSelector([x,y]).style.border = "8px solid #5C4033";
+          // console.log("executed");
           x--;
           y++;
         }
       }
-   }
-   else{
-    let tempx=x;
-    let tempy=y;
+      x=tempx;
+      y=tempy;
       if(cells[x+1][y-1] == 0){
         while(y!=0){
           x++;
           y--;
+          console.log(x,y);
+          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          console.log("executed");
+          if(cells[x][y]!=0) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x+1][y+1] == 0){
+        while(x!=7){
+          x++;
+          y++;
+          getSelector([x,y]).style.border = "8px solid #5C4033";
+          if(cells[x][y]!=0){
+            getSelector([++x,++y]).style.border = "8px solid #5C4033";
+            break;
+          } 
+        }
+      }
+   }
+   else{
+      if(cells[x-1][y-1] == 0){ //working
+        while(y!=0){
+          x--;
+          y--;
+          if(pieceColor(indexToPieceName(x,y)) == -1) break;
+          // console.log(x,y);
+          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          if(cells[x][y]!=0) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x-1][y+1] == 0){ //working
+        while(x!=0){
+          getSelector([x,y]).style.border = "8px solid #5C4033";
+          x--;
+          y++;
+          if(pieceColor(indexToPieceName(x,y)) == -1) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x+1][y-1] == 0){
+        while(y!=0){
+          x++;
+          y--;
+          if(pieceColor(indexToPieceName(x,y)) == -1) break;
           getSelector([x,y]).style.border = "8px solid #5C4033"; 
           if(cells[x][y]!=0) break;
         }
@@ -193,6 +240,7 @@ function option_show_beshoop(x,y,piece){
         while(x!=7){
           x++;
           y++;
+          if(pieceColor(indexToPieceName(x,y)) == -1) break;
           getSelector([x,y]).style.border = "8px solid #5C4033";
           if(cells[x][y]!=0){
             getSelector([++x,++y]).style.border = "8px solid #5C4033";
@@ -297,6 +345,25 @@ function getSelector([row, col]) {
     return eval(`p${row}${col}`);
 }
 
+function indexToPieceName(x,y){
+  let pi = window.getComputedStyle(getSelector([x,y])).backgroundImage;
+  let pieceName = pi.substring(58,60);
+  // console.log(x+y+"pieceName"+pieceName);
+  return pieceName;
+}
+
+function pieceColor(pn){
+  let piece;
+    if(pn[0] == 'w'){
+      piece  = 1;
+    }
+    else if(pn[0] == 'b'){
+      piece  = -1;
+    }
+    // console.log(x+y+"piece"+piece);
+    return piece;
+}
+
 pieces.forEach((p) =>{
   p.addEventListener("click",function(){
     // console.log(p.id);
@@ -314,10 +381,10 @@ pieces.forEach((p) =>{
     // getSelector([arr[0],arr[1]]);
     console.log(arrIdx[0],arrIdx[1]);
     let pi = window.getComputedStyle(getSelector([arrIdx[0],arrIdx[1]])).backgroundImage;
-    console.log(pi);
+    // console.log(pi);
     let pieceName = pi.substring(58,60); //wp bp
-    console.log(typeof pieceName);
-    console.log(pieceName);
+    // console.log(typeof pieceName);
+    // console.log(pieceName);
     let piece;
     if(pieceName[0] == 'w'){
       piece  = 1;
@@ -406,5 +473,6 @@ function showMoves(pos){
 
 startGame();
 pieceMove(p05,p35);
+pieceMove(p72,p43);
 // showMoves([1,2]);
 // console.log(getSelector([1,2]))
