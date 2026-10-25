@@ -1,12 +1,12 @@
 let cells=[
-  [-4,-2,-3,-5,-6,-3,-2,-4],
-  [-1,-1,-1,-1,-1,-1,-1,-1],
+  [-4,-2,-3,-5,-6,0,-2,-4],
+  [-1,-1,-1,0,-1,-1,-1,-1],
   [0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,-3,0,0],
+  [0,0,3,0,0,0,0,0],
+  [0,0,0,0,0,0,0,-1],
   [1,1,1,1,1,1,1,1],
-  [4,2,3,5,6,3,2,4]
+  [4,2,0,5,6,3,2,4]
 ];
 let prevx;
 let prevy;
@@ -99,55 +99,6 @@ function move(piece,x,y){
   //show [x][y] with piece picture
 }
 //move function end
-function option_show_pawn(x,y,piece){
-  
-  if(piece==1){//white(+1)
-    //up
-    if(x>0&&x<=6){
-      if(cells[x-1][y]==0){//empty
-        //show option[x-1][y]
-        if(x==6&&cells[x-2][y]==0){//empyt (two front move)
-          //show option[x-2][y]
-        }
-      }
-    }
-    //left diagonal
-    if(x>0&&x<=6&&y>0&&y<=7){
-      if(cells[x-1][y-1]<0){//black(-ve)
-        //show option[x-1][y-1]
-      }
-    }
-    //right diagonal
-    if(x>0&&x<=6&&y>=0&&y<7){
-      if(cells[x-1][y+1]<0){//black (-ve)
-        //show option[x-1][y+1]
-      }
-    }
-  }else{//black pawn(-1)
-    //down
-    if(x<7&&x>=1){
-      if(cells[x+1][y]==0){//empty
-        //show option[x+1][y]
-        if(x==1&&cells[x+2][y]==0){//empty (two front move for black)
-          //show option[x+2][y]
-        }
-      }
-    }
-    //left lower diagonal
-    if(y>0&&y<=7&&x>=1&&x<7){
-      if(cells[x+1][y-1]>0){//white(+ve)
-        //show option[x+1][y-1]
-      }
-    }
-    //right lower diagonal
-    if(x>=1&&x<7&&y>=0&&y<7){
-      if(cells[x+1][y+1]>0){//white(+ve)
-        //show option[x+1][y-1]
-      }
-    }
-
-  }
-}//option_show_pawn end
 
 //option show rook start
 function option_show_rook(x,y,piece){
@@ -157,10 +108,12 @@ function option_show_rook(x,y,piece){
       if(piece>0){//white
         if(cells[i][y]<=0){
           //show option [i][y]
+          getSelector([i,y]).style.border = "8px solid #5C4033";
         }
       }else{//black
         if(cells[i][y]>=0){
           //show option
+          getSelector([i,y]).style.border = "8px solid #5C4033";
         }
       }
       if(cells[i][y]!=0){
@@ -173,10 +126,12 @@ function option_show_rook(x,y,piece){
     if(piece>0){//white
         if(cells[i][y]<=0){
           //show option [i][y]
+          getSelector([i,y]).style.border = "8px solid #5C4033";
         }
       }else{//black
         if(cells[i][y]>=0){
           //show option
+          getSelector([i,y]).style.border = "8px solid #5C4033";
         }
       }
       if(cells[i][y]!=0){
@@ -189,15 +144,17 @@ function option_show_rook(x,y,piece){
   //left
   for(let j=y;j>=0;j--){
       if(piece>0){//white
-        if(cells[i][y]<=0){
-          //show option [i][y]
+        if(cells[x][j]<=0){
+          //show option [x][j]
+          getSelector([x,j]).style.border = "8px solid #5C4033";
         }
       }else{//black
-        if(cells[i][y]>=0){
+        if(cells[x][j]>=0){
           //show option
+          getSelector([x,j]).style.border = "8px solid #5C4033";
         }
       }
-      if(cells[i][y]!=0){
+      if(cells[x][j]!=0){
           //stop
           break;
       }
@@ -207,15 +164,17 @@ function option_show_rook(x,y,piece){
 
   for(let j=y;j<=7;j++){
       if(piece>0){//white
-        if(cells[i][y]<=0){
+        if(cells[x][j]<=0){
           //show option [i][y]
+          getSelector([x,j]).style.border = "8px solid #5C4033";
         }
       }else{//black
-        if(cells[i][y]>=0){
+        if(cells[x][j]>=0){
           //show option
+          getSelector([x,j]).style.border = "8px solid #5C4033";
         }
       }
-      if(cells[i][y]!=0){
+      if(cells[x][j]!=0){
           //stop
           break;
       }
@@ -233,10 +192,12 @@ function option_show_knight(x,y,piece){
     if(piece>0){//white
       if(cells[x-2][y-1]<=0){
         //show option [x-2][y-1]
+        getSelector([x-2,y-1]).style.border = "8px solid #5C4033";
       }
     }else{//black
       if(cells[x-2][y-1]>=0){
         //show option [x-2][y-1]
+        getSelector([x-2,y-1]).style.border = "8px solid #5C4033";
       }
     }
   }
@@ -245,10 +206,12 @@ function option_show_knight(x,y,piece){
     if(piece>0){//white
       if(cells[x-2][y+1]<=0){
         //show option [x-2][y+1]
+        getSelector([x-2,y+1]).style.border = "8px solid #5C4033";
       }  
     }else{//black
       if(cells[x-2][y+1]>=0){
         //show option
+        getSelector([x-2,y+1]).style.border = "8px solid #5C4033";
       }
     }
   }
@@ -257,10 +220,12 @@ function option_show_knight(x,y,piece){
     if(piece>0){//white
      if(cells[x-1][y+2]<=0){
       //show  option 
+      getSelector([x-1,y+2]).style.border = "8px solid #5C4033";
      } 
     }else{//black
       if(cells[x-1][y+2]>=0){
         //show option[x-1][y+2]
+        getSelector([x-1,y+2]).style.border = "8px solid #5C4033";
       }
     }
   }
@@ -269,10 +234,12 @@ function option_show_knight(x,y,piece){
     if(piece>0){//white
       if(cells[x+1][y+2]<=0){
         //show option
+        getSelector([x+1,y+2]).style.border = "8px solid #5C4033";
       }
     }else{//black
       if(cells[x+1][y+2]>=0){
         //show option
+        getSelector([x+1,y+2]).style.border = "8px solid #5C4033";
       }
     }
   }
@@ -281,10 +248,12 @@ function option_show_knight(x,y,piece){
     if(piece>0){//white
      if(cells[x-1][y-2]<=0){
       //show option
+      getSelector([x-1,y-2]).style.border = "8px solid #5C4033";
      } 
     }else{//black
       if(cells[x-1][y-2]>=0){
         //show option
+        getSelector([x-1,y-2]).style.border = "8px solid #5C4033";
       }
     }
   }
@@ -293,10 +262,12 @@ function option_show_knight(x,y,piece){
     if(piece>0){//white
      if(cells[x+1][y-2]<=0){
       //show option
+      getSelector([x+1,y-2]).style.border = "8px solid #5C4033";
      } 
     }else{//black
       if(cells[x+1][y-2]>=0){
         //show option
+        getSelector([x+1,y-2]).style.border = "8px solid #5C4033";
       }
     }
   }
@@ -305,10 +276,12 @@ function option_show_knight(x,y,piece){
     if(piece>0){//white
      if(cells[x+2][y-1]<=0){
       //show option
+      getSelector([x+2,y-1]).style.border = "8px solid #5C4033";
      } 
     }else{//black
       if(cells[x+2][y-1]>=0){
         //show option
+        getSelector([x+2,y-1]).style.border = "8px solid #5C4033";
       }
     }
   }
@@ -317,10 +290,12 @@ function option_show_knight(x,y,piece){
     if(piece>0){//white
      if(cells[x+2][y+1]<=0){
       //show option
+      getSelector([x+2,y+1]).style.border = "8px solid #5C4033";
      } 
     }else{//black
       if(cells[x+2][y+1]>=0){
         //show option
+        getSelector([x+2,y+1]).style.border = "8px solid #5C4033";
       }
     }
   }
@@ -351,6 +326,7 @@ function option_show_pawn(x,y,piece){
           getSelector([x-2,y]).style.border = "8px solid #5C4033";
         if(x==6&&cells[x-2][y]==0){//empyt (two front move)
           //show option[x-2][y]
+          getSelector([x-2,y]).style.border = "8px solid #5C4033";
         }
       }
     }
@@ -368,8 +344,9 @@ function option_show_pawn(x,y,piece){
         getSelector([x-1,y+1]).style.border = "8px solid #5C4033";
       }
     }
-  }else{//black pawn(-1)
+  }}else{//black pawn(-1)
     //down
+    console.log("iii");
     if(x<7&&x>=1){
       if(cells[x+1][y]==0){//empty
         //show option[x+1][y]
@@ -379,6 +356,7 @@ function option_show_pawn(x,y,piece){
           getSelector([x+2,y]).style.border = "8px solid #5C4033";
         if(x==1&&cells[x+2][y]==0){//empty (two front move for black)
           //show option[x+2][y]
+          getSelector([x+2,y]).style.border = "8px solid #5C4033";
         }
       }
     }
@@ -399,85 +377,11 @@ function option_show_pawn(x,y,piece){
   }
 }
 
-      }
-    }
-
-//   }
-// }//option_show_pawn end
-
-//option show rook start
-function option_show_rook(x,y,piece){
-   
-  //up
-    for(let i=x;i>=0;i--){
-      if(piece>0){//white
-        if(cells[i][y]<=0){
-          //show option [i][y]
-        }
-      }else{//black
-        if(cells[i][y]>=0){
-          //show option
-        }
-      }
-      if(cells[i][y]!=0){
-          //stop
-          break;
-      }
-    }
-  //down
-  for(let i=x;i=7;i++){
-    if(piece>0){//white
-        if(cells[i][y]<=0){
-          //show option [i][y]
-        }
-      }else{//black
-        if(cells[i][y]>=0){
-          //show option
-        }
-      }
-      if(cells[i][y]!=0){
-          //stop
-          break;
-      }
-  }
+}
   
+//option_show_pawn end
 
-  //left
-  for(let j=y;j>=0;j--){
-      if(piece>0){//white
-        if(cells[i][y]<=0){
-          //show option [i][y]
-        }
-      }else{//black
-        if(cells[i][y]>=0){
-          //show option
-        }
-      }
-      if(cells[i][y]!=0){
-          //stop
-          break;
-      }
-  }
 
-  //right
-
-  for(let j=y;j<=7;j++){
-      if(piece>0){//white
-        if(cells[i][y]<=0){
-          //show option [i][y]
-        }
-      }else{//black
-        if(cells[i][y]>=0){
-          //show option
-        }
-      }
-      if(cells[i][y]!=0){
-          //stop
-          break;
-      }
-  }
-  
-}//option_show_rook
 
 //king 
 //
