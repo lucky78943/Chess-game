@@ -17,9 +17,11 @@ let Black_king_X=7;
 let Black_king_Y=4;
 //let flag
 //check function
+let pIndex=[];
+let click=false;
 function isCheck(x,y,piece){
   //up
-  for(let i=x;i>=0;i--){
+  for(let i=x-1;i>=0;i--){
       if(piece>0){//white
         if(cells[i][y]==-4||cells[i][y]==-5){
           return true;//check by rook or queen
@@ -36,7 +38,7 @@ function isCheck(x,y,piece){
     }
   //down
 
-  for(let i=x;i=7;i++){
+  for(let i=x+1;i=7;i++){
     if(piece>0){//white
         if(cells[i][y]==-4||cells[i][y]==-5){
           //check by rook or queen
@@ -53,7 +55,7 @@ function isCheck(x,y,piece){
       }
   }
   //left 
-  for(let j=y;j>=0;j--){
+  for(let j=y-1;j>=0;j--){
       if(piece>0){//white
         if(cells[x][j]==-4||cells[x][j]==-5){
           //check by black rook or queen
@@ -71,7 +73,7 @@ function isCheck(x,y,piece){
       }
   }
   //right
-  for(let j=y;j<=7;j++){
+  for(let j=y+1;j<=7;j++){
       if(piece>0){//white
         if(cells[x][j]==-4||cells[x][j]==-5){
           //check by black or queen
@@ -89,7 +91,9 @@ function isCheck(x,y,piece){
       }
   }//right end
 
-  //left upper 
+  //left upper diagonal
+  // if(x)
+
 }
 //check function
 
@@ -99,6 +103,8 @@ function move(piece,x,y){
   //make sure to put 0 zero at previous position of piece
   cells[x][y]=piece;
   //show [x][y] with piece picture [ bsdk lucky ]
+  //convert prev
+  //move-( prevx , prevy) (x,y)
 }
 //move function end
 
@@ -110,12 +116,24 @@ function option_show_rook(x,y,piece){
       if(piece>0){//white
         if(cells[i][y]<=0){
           //show option [i][y]
-          getSelector([i,y]).style.border = "8px solid #5C4033";
+          if(click){
+            pIndex.push(i);
+            pIndex.push(y);
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
         }
       }else{//black
         if(cells[i][y]>=0){
           //show option
-          getSelector([i,y]).style.border = "8px solid #5C4033";
+          if(click){
+            pIndex.push(i);
+            pIndex.push(y);
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
         }
       }
       if(cells[i][y]!=0){
@@ -128,12 +146,22 @@ function option_show_rook(x,y,piece){
     if(piece>0){//white
         if(cells[i][y]<=0){
           //show option [i][y]
-          getSelector([i,y]).style.border = "8px solid #5C4033";
+          if(click){
+            pIndex.push(i);
+            pIndex.push(y);
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
         }
       }else{//black
         if(cells[i][y]>=0){
           //show option
-          getSelector([i,y]).style.border = "8px solid #5C4033";
+          if(click){
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
         }
       }
       if(cells[i][y]!=0){
@@ -148,12 +176,20 @@ function option_show_rook(x,y,piece){
       if(piece>0){//white
         if(cells[x][j]<=0){
           //show option [x][j]
-          getSelector([x,j]).style.border = "8px solid #5C4033";
+          if(click){
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
         }
       }else{//black
         if(cells[x][j]>=0){
           //show option
-          getSelector([x,j]).style.border = "8px solid #5C4033";
+          if(click){
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
         }
       }
       if(cells[x][j]!=0){
@@ -168,12 +204,20 @@ function option_show_rook(x,y,piece){
       if(piece>0){//white
         if(cells[x][j]<=0){
           //show option [i][y]
-          getSelector([x,j]).style.border = "8px solid #5C4033";
+          if(click){
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
         }
       }else{//black
         if(cells[x][j]>=0){
           //show option
-          getSelector([x,j]).style.border = "8px solid #5C4033";
+          if(click){
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
         }
       }
       if(cells[x][j]!=0){
@@ -195,12 +239,20 @@ function option_show_knight(x,y,piece){
     if(piece>0){//white
       if(cells[x-2][y-1]<=0){
         //show option [x-2][y-1]
-        getSelector([x-2,y-1]).style.border = "8px solid #5C4033";
+        if(click){
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+        }
       }
     }else{//black
       if(cells[x-2][y-1]>=0){
         //show option [x-2][y-1]
-        getSelector([x-2,y-1]).style.border = "8px solid #5C4033";
+        if(click){
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
       }
     }
   }
@@ -209,12 +261,20 @@ function option_show_knight(x,y,piece){
     if(piece>0){//white
       if(cells[x-2][y+1]<=0){
         //show option [x-2][y+1]
-        getSelector([x-2,y+1]).style.border = "8px solid #5C4033";
+        if(click){
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
       }  
     }else{//black
       if(cells[x-2][y+1]>=0){
         //show option
-        getSelector([x-2,y+1]).style.border = "8px solid #5C4033";
+        if(click){
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
       }
     }
   }
@@ -223,12 +283,20 @@ function option_show_knight(x,y,piece){
     if(piece>0){//white
      if(cells[x-1][y+2]<=0){
       //show  option 
-      getSelector([x-1,y+2]).style.border = "8px solid #5C4033";
+      if(click){
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
      } 
     }else{//black
       if(cells[x-1][y+2]>=0){
         //show option[x-1][y+2]
-        getSelector([x-1,y+2]).style.border = "8px solid #5C4033";
+        if(click){
+            getSelector([i,y]).style.border = "8px solid #5C4033";
+          }else{
+            //remove border
+          }
       }
     }
   }
