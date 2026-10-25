@@ -4,7 +4,7 @@ let cells=[
   /*2*/[ 0, 0, 0, 0, 0, 0, 0, 0],
   /*3*/[ 0, 0, 0, 0, 0, -3 ,0 ,0],
   /*4*/[ 0, 0, 0, 3, 0, 0, 0, 0],
-  /*5*/[ 0, 0, 0, -1, 0, 3, 0, 0],
+  /*5*/[ 0, 0, 0, 0, 0, 3, 0, -1],
   /*6*/[ 1, 1, 1, 1, 1, 1, 1, 1],
   /*7*/[ 4, 2, 0, 5, 6, 3, 2, 4]
 ];
@@ -162,9 +162,12 @@ function option_show_beshoop(x,y,piece){
         while(y!=0){
           x--;
           y--;
-          if(pieceColor(indexToPieceName(x,y)) == 1) break;
+          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
           // console.log(x,y);
-          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          if(cells[x][y] <=0 ){
+
+            getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          }
           if(cells[x][y]!=0) break;
         }
       }
@@ -172,10 +175,14 @@ function option_show_beshoop(x,y,piece){
       y=tempy;
       if(cells[x-1][y+1] == 0){ //working
         while(x!=0){
-          getSelector([x,y]).style.border = "8px solid #5C4033";
           x--;
           y++;
-          if(pieceColor(indexToPieceName(x,y)) == 1) break;
+          if(cells[x][y] <=0 ){
+
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
+         if(cells[x][y]!=0) break;
+          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
         }
       }
       x=tempx;
@@ -184,55 +191,68 @@ function option_show_beshoop(x,y,piece){
         while(y!=0){
           x++;
           y--;
-          if(pieceColor(indexToPieceName(x,y)) == 1) break;
-          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+          if(cells[x][y] <=0 ){
+
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
           if(cells[x][y]!=0) break;
         }
       }
+
       x=tempx;
       y=tempy;
       if(cells[x+1][y+1] == 0){
         while(x!=7){
           x++;
           y++;
-          if(pieceColor(indexToPieceName(x,y)) == 1) break;
-          getSelector([x,y]).style.border = "8px solid #5C4033";
-          if(cells[x][y]!=0){
-            getSelector([++x,++y]).style.border = "8px solid #5C4033";
-            break;
-          } 
+          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+            if(cells[x][y] <=0 ){
+
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
+          if(cells[x][y]!=0) break;
         }
       }
    }
    else{
-      if(cells[x-1][y-1] == 0){ //working
+      if(cells[x-1][y-1] == 0){ //upper left diagonal
         while(y!=0){
           x--;
           y--;
-          if(pieceColor(indexToPieceName(x,y)) == -1) break;
-          // console.log(x,y);
-          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+            if(cells[x][y] >=0 ){
+
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
           if(cells[x][y]!=0) break;
         }
       }
       x=tempx;
       y=tempy;
-      if(cells[x-1][y+1] == 0){ //working
+      if(cells[x-1][y+1] == 0){ //upper right diagonal
         while(x!=0){
-          getSelector([x,y]).style.border = "8px solid #5C4033";
+          // getSelector([x,y]).style.border = "8px solid #5C4033";
           x--;
           y++;
-          if(pieceColor(indexToPieceName(x,y)) == -1) break;
+          if(cells[x][y] >=0 ){
+
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
+          if(cells[x][y]!=0) break;
+          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
         }
       }
       x=tempx;
       y=tempy;
-      if(cells[x+1][y-1] == 0){
+      if(cells[x+1][y-1] == 0){ //down left diagonal
         while(y!=0){
           x++;
           y--;
-          if(pieceColor(indexToPieceName(x,y)) == -1) break;
-          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+          if(cells[x][y] >=0 ){
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
           if(cells[x][y]!=0) break;
         }
       }
@@ -242,12 +262,12 @@ function option_show_beshoop(x,y,piece){
         while(x!=7){
           x++;
           y++;
-          if(pieceColor(indexToPieceName(x,y)) == -1) break;
-          getSelector([x,y]).style.border = "8px solid #5C4033";
-          if(cells[x][y]!=0){
-            getSelector([++x,++y]).style.border = "8px solid #5C4033";
-            break;
-          } 
+          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+            if(cells[x][y] >=0 ){
+
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
+          if(cells[x][y]!=0) break;
         }
       }
    }
