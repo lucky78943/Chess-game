@@ -23,10 +23,6 @@ function option_show_pawn(x, y, piece) {
           //empyt (two front move)
           //show option[x-2][y]
           getSelector([x - 2, y]).style.border = "8px solid #5C4033";
-          if (x == 6 && cells[x - 2][y] == 0) {
-            //empyt (two front move)
-            //show option[x-2][y]
-          }
         }
       }
       //left diagonal
