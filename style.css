@@ -28,7 +28,7 @@ body{
 .cells{
   border: 1px solid black;
   background-color: antiquewhite;
-  background-image: url(images/pieces/black/bp.svg);
+  /* background-image: url(images/pieces/black/bp.svg); */
 }
 
 .white{
@@ -38,3 +38,10 @@ body{
 .black{
   background-color: burlywood;
 }
+
+/* .moveset{
+  background-image: url("images/black_circle.svg");
+  background-size: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+} */
