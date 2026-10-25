@@ -326,45 +326,266 @@ function option_show_knight(x,y,piece){
   }
 }
 //knight movement show
+let cells=[
+  /*0*/[-4,-2,-3,-5,-6,0,-2,-4],
+  /*1*/[-1,-1,-1,-1,-1,-1,-1,-1],
+  /*2*/[ 0, 0, 0, 0, 0, 0, 0, 0],
+  /*3*/[ 0, 0, 0, 0, 0, -3 ,0 ,0],
+  /*4*/[ 0, 0, 0, 3, 0, 0, 0, 0],
+  /*5*/[ 0, 0, 0, 0, 0, 3, 0, 0],
+  /*6*/[ 1, 1, 1, 1, 1, 1, 1, 1],
+  /*7*/[ 4, 2, 0, 5, 6, 3, 2, 4]
+];
+
+//let flag
+function option_show_pawn(x,y,piece){
+  
+  if(piece==1){//white(+1)
+    //up
+    if(x>0&&x<=6){
+      if(cells[x-1][y]==0){//empty
+        //show option[x-1][y]
+        getSelector([x-1,y]).style.border = "8px solid #5C4033";
+        if(x==6&&cells[x-2][y]==0){//empyt (two front move)
+          //show option[x-2][y]
+          getSelector([x-2,y]).style.border = "8px solid #5C4033";
+        if(x==6&&cells[x-2][y]==0){//empyt (two front move)
+          //show option[x-2][y]
+        }
+      }
+    }
+    //left diagonal
+    if(x>0&&x<=6&&y>0&&y<=7){
+      if(cells[x-1][y-1]<0){//black(-ve)
+        //show option[x-1][y-1]
+        getSelector([x-1,y-1]).style.border = "8px solid #5C4033";
+      }
+    }
+    //right diagonal
+    if(x>0&&x<=6&&y>=0&&y<7){
+      if(cells[x-1][y+1]<0){//black (-ve)
+        //show option[x-1][y+1]
+        getSelector([x-1,y+1]).style.border = "8px solid #5C4033";
+      }
+    }
+  }else{//black pawn(-1)
+    //down
+    if(x<7&&x>=1){
+      if(cells[x+1][y]==0){//empty
+        //show option[x+1][y]
+        getSelector([x+1,y]).style.border = "8px solid #5C4033";
+        if(x==1&&cells[x+2][y]==0){//empty (two front move for black)
+          //show option[x+2][y]
+          getSelector([x+2,y]).style.border = "8px solid #5C4033";
+        if(x==1&&cells[x+2][y]==0){//empty (two front move for black)
+          //show option[x+2][y]
+        }
+      }
+    }
+    //left lower diagonal
+    if(y>0&&y<=7&&x>=1&&x<7){
+      if(cells[x+1][y-1]>0){//white(+ve)
+        //show option[x+1][y-1]
+        getSelector([x+1,y-1]).style.border = "8px solid #5C4033";
+      }
+    }
+    //right lower diagonal
+    if(x>=1&&x<7&&y>=0&&y<7){
+      if(cells[x+1][y+1]>0){//white(+ve)
+        //show option[x+1][y-1]
+        getSelector([x+1,y-1]).style.border = "8px solid #5C4033";
+      }
+    }
+  }
+}
+
+      }
+    }
+
+//   }
+// }//option_show_pawn end
+
+//option show rook start
+function option_show_rook(x,y,piece){
+   
+  //up
+    for(let i=x;i>=0;i--){
+      if(piece>0){//white
+        if(cells[i][y]<=0){
+          //show option [i][y]
+        }
+      }else{//black
+        if(cells[i][y]>=0){
+          //show option
+        }
+      }
+      if(cells[i][y]!=0){
+          //stop
+          break;
+      }
+    }
+  //down
+  for(let i=x;i=7;i++){
+    if(piece>0){//white
+        if(cells[i][y]<=0){
+          //show option [i][y]
+        }
+      }else{//black
+        if(cells[i][y]>=0){
+          //show option
+        }
+      }
+      if(cells[i][y]!=0){
+          //stop
+          break;
+      }
+  }
+  
+
+  //left
+  for(let j=y;j>=0;j--){
+      if(piece>0){//white
+        if(cells[i][y]<=0){
+          //show option [i][y]
+        }
+      }else{//black
+        if(cells[i][y]>=0){
+          //show option
+        }
+      }
+      if(cells[i][y]!=0){
+          //stop
+          break;
+      }
+  }
+
+  //right
+
+  for(let j=y;j<=7;j++){
+      if(piece>0){//white
+        if(cells[i][y]<=0){
+          //show option [i][y]
+        }
+      }else{//black
+        if(cells[i][y]>=0){
+          //show option
+        }
+      }
+      if(cells[i][y]!=0){
+          //stop
+          break;
+      }
+  }
+  
+}//option_show_rook
+
+//king 
+//
+//option show beshoop start
+function option_show_beshoop(x,y,piece){
+  let tempx=x;
+  let tempy=y;
+  if(piece == 1){
+      if(cells[x-1][y-1] == 0){
+        while(y!=0){
+          x--;
+          y--;
+          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          if(cells[x][y]!=0) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x-1][y+1] == 0){
+        while(x!=0){
+          getSelector([x,y]).style.border = "8px solid #5C4033";
+          // console.log("executed");
+          x--;
+          y++;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x+1][y-1] == 0){
+        while(y!=0){
+          x++;
+          y--;
+          console.log(x,y);
+          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          console.log("executed");
+          if(cells[x][y]!=0) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x+1][y+1] == 0){
+        while(x!=7){
+          x++;
+          y++;
+          getSelector([x,y]).style.border = "8px solid #5C4033";
+          if(cells[x][y]!=0){
+            getSelector([++x,++y]).style.border = "8px solid #5C4033";
+            break;
+          } 
+        }
+      }
+   }
+   else{
+      if(cells[x-1][y-1] == 0){ //working
+        while(y!=0){
+          x--;
+          y--;
+          if(pieceColor(indexToPieceName(x,y)) == -1) break;
+          // console.log(x,y);
+          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          if(cells[x][y]!=0) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x-1][y+1] == 0){ //working
+        while(x!=0){
+          getSelector([x,y]).style.border = "8px solid #5C4033";
+          x--;
+          y++;
+          if(pieceColor(indexToPieceName(x,y)) == -1) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x+1][y-1] == 0){
+        while(y!=0){
+          x++;
+          y--;
+          if(pieceColor(indexToPieceName(x,y)) == -1) break;
+          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          if(cells[x][y]!=0) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x+1][y+1] == 0){
+        while(x!=7){
+          x++;
+          y++;
+          if(pieceColor(indexToPieceName(x,y)) == -1) break;
+          getSelector([x,y]).style.border = "8px solid #5C4033";
+          if(cells[x][y]!=0){
+            getSelector([++x,++y]).style.border = "8px solid #5C4033";
+            break;
+          } 
+        }
+      }
+   }
+}
+//option show bishop end
 function startGame(){
   //added pawns in 2nd row
   r1.forEach((cell) => {
     console.log(cell);
     cell.style.backgroundImage = "url('images/pieces/black/bp.svg')";
   });
-
-  //adding pawns in last 2nd row
-  r6.forEach((cell) => {
-    console.log(cell);
-    cell.style.backgroundImage = "url('images/pieces/white/wp.svg')";
-  });
-
-  p00.style.backgroundImage = "url('images/pieces/black/br.svg')";
-  p07.style.backgroundImage = "url('images/pieces/black/br.svg')";
-
-  p01.style.backgroundImage = "url('images/pieces/black/bn.svg')";
-  p06.style.backgroundImage = "url('images/pieces/black/bn.svg')";
-
-  p02.style.backgroundImage = "url('images/pieces/black/bb.svg')";
-  p05.style.backgroundImage = "url('images/pieces/black/bb.svg')";
-
-  p03.style.backgroundImage = "url('images/pieces/black/bq.svg')";
-  p04.style.backgroundImage = "url('images/pieces/black/bk.svg')";
-
-  p70.style.backgroundImage = "url('images/pieces/white/wr.svg')";
-  p77.style.backgroundImage = "url('images/pieces/white/wr.svg')";
-
-  p71.style.backgroundImage = "url('images/pieces/white/wn.svg')";
-  p76.style.backgroundImage = "url('images/pieces/white/wn.svg')";
-
-  p72.style.backgroundImage = "url('images/pieces/white/wb.svg')";
-  p75.style.backgroundImage = "url('images/pieces/white/wb.svg')";
-
-  p73.style.backgroundImage = "url('images/pieces/white/wq.svg')";
-  p74.style.backgroundImage = "url('images/pieces/white/wk.svg')";
-
 }
- 
 
 let p00 = document.getElementById("00");
 let p01 = document.getElementById("01");
@@ -447,6 +668,139 @@ let r1 = [p10,p11,p12,p13,p14,p15,p16,p17];
 let r6 = [p60,p61,p62,p63,p64,p65,p66,p67]
 let r7 = [p70,p71,p72,p73,p74,p75,p76,p77];
 
+//index for piece 
+function getSelector([row, col]) {
+    return eval(`p${row}${col}`);
+}
 
+function indexToPieceName(x,y){
+  let pi = window.getComputedStyle(getSelector([x,y])).backgroundImage;
+  let pieceName = pi.substring(58,60);
+  // console.log(x+y+"pieceName"+pieceName);
+  return pieceName;
+}
+
+function pieceColor(pn){
+  let piece;
+    if(pn[0] == 'w'){
+      piece  = 1;
+    }
+    else if(pn[0] == 'b'){
+      piece  = -1;
+    }
+    // console.log(x+y+"piece"+piece);
+    return piece;
+}
+
+pieces.forEach((p) =>{
+  p.addEventListener("click",function(){
+    // console.log(p.id);
+    let idx = Number(p.id);
+    console.log(typeof idx);
+    let arrIdx=[];
+    while(idx!=0){
+      arrIdx.unshift(idx%10);
+      idx = Math.floor(idx/10);
+    }
+    console.log(arrIdx);
+    //arrIdx.reverse();
+    //arrIdx[0] = x - axis
+    //arrIdx[1] = y - axis
+    // getSelector([arr[0],arr[1]]);
+    console.log(arrIdx[0],arrIdx[1]);
+    let pi = window.getComputedStyle(getSelector([arrIdx[0],arrIdx[1]])).backgroundImage;
+    // console.log(pi);
+    let pieceName = pi.substring(58,60); //wp bp
+    // console.log(typeof pieceName);
+    // console.log(pieceName);
+    let piece;
+    if(pieceName[0] == 'w'){
+      piece  = 1;
+    }
+    else if(pieceName[0] == 'b'){
+      piece  = -1;
+    }
+    console.log(piece);
+    if(pieceName[1] == 'p'){
+      option_show_pawn(arrIdx[0],arrIdx[1],piece);
+    }
+    else if(pieceName[1]=='r'){
+      option_show_rook(arrIdx[0],arrIdx[1],piece);
+    }
+    else if(pieceName[1]=='b'){
+      option_show_beshoop(arrIdx[0],arrIdx[1],piece);
+    }
+    else if(pieceName[1]=='q'){
+
+    }
+    else if(pieceName[1]=='n'){
+
+    }
+  });
+});
+
+function startGame(){
+  //added pawns in 2nd row
+  r1.forEach((cell) => {
+    cell.style.backgroundImage = "url('images/pieces/black/bp.svg')";
+  });
+
+  //adding pawns in last 2nd row
+  r6.forEach((cell) => {
+    cell.style.backgroundImage = "url('images/pieces/white/wp.svg')";
+  });
+
+  p00.style.backgroundImage = "url('images/pieces/black/br.svg')";
+  p07.style.backgroundImage = "url('images/pieces/black/br.svg')";
+
+  p01.style.backgroundImage = "url('images/pieces/black/bn.svg')";
+  p06.style.backgroundImage = "url('images/pieces/black/bn.svg')";
+
+  p02.style.backgroundImage = "url('images/pieces/black/bb.svg')";
+  p05.style.backgroundImage = "url('images/pieces/black/bb.svg')";
+
+  p03.style.backgroundImage = "url('images/pieces/black/bq.svg')";
+  p04.style.backgroundImage = "url('images/pieces/black/bk.svg')";
+
+  p70.style.backgroundImage = "url('images/pieces/white/wr.svg')";
+  p77.style.backgroundImage = "url('images/pieces/white/wr.svg')";
+
+  p71.style.backgroundImage = "url('images/pieces/white/wn.svg')";
+  p76.style.backgroundImage = "url('images/pieces/white/wn.svg')";
+
+  p72.style.backgroundImage = "url('images/pieces/white/wb.svg')";
+  p75.style.backgroundImage = "url('images/pieces/white/wb.svg')";
+
+  p73.style.backgroundImage = "url('images/pieces/white/wq.svg')";
+  p74.style.backgroundImage = "url('images/pieces/white/wk.svg')";
+
+}
+
+function pieceMove(piece,postion){
+  let pi = window.getComputedStyle(piece).backgroundImage;
+
+  piece.style.backgroundImage = "";
+  postion.style.backgroundImage = `${pi}`;
+}
+
+function showMoves(pos){
+  let pi = window.getComputedStyle(getSelector(pos)).backgroundImage;
+  let pieceName = pi.substring(58,60);
+
+  if(pieceName == 'bp'){
+    // p20.classList.add("moveset");
+    if(pos[0]=1){
+      pos[0]+=1;
+      getSelector(pos).style.border = "8px solid #5C4033";
+    }
+    pos[0]+=1;
+    console.log(pos);
+    getSelector(pos).style.border = "8px solid #5C4033";
+  }
+}
 
 startGame();
+pieceMove(p05,p35);
+pieceMove(p72,p43);
+// showMoves([1,2]);
+// console.log(getSelector([1,2]))
