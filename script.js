@@ -328,11 +328,11 @@ function option_show_knight(x,y,piece){
 //knight movement show
 // let cells=[
 //   /*0*/[-4,-2,-3,-5,-6,0,-2,-4],
-//   /*1*/[-1,-1,-1,-1,-1,-1,-1,-1],
+//   /*1*/[-1,-1,-1,0,-1,-1,-1,-1],
 //   /*2*/[ 0, 0, 0, 0, 0, 0, 0, 0],
 //   /*3*/[ 0, 0, 0, 0, 0, -3 ,0 ,0],
 //   /*4*/[ 0, 0, 0, 3, 0, 0, 0, 0],
-//   /*5*/[ 0, 0, 0, 0, 0, 3, 0, 0],
+//   /*5*/[ 0, 0, 0, -1, 0, 3, 0, 0],
 //   /*6*/[ 1, 1, 1, 1, 1, 1, 1, 1],
 //   /*7*/[ 4, 2, 0, 5, 6, 3, 2, 4]
 // ];
@@ -486,22 +486,24 @@ function option_show_beshoop(x,y,piece){
   let tempx=x;
   let tempy=y;
   if(piece == 1){
-      if(cells[x-1][y-1] == 0){
+      if(cells[x-1][y-1] == 0){ //working
         while(y!=0){
           x--;
           y--;
+          if(pieceColor(indexToPieceName(x,y)) == 1) break;
+          // console.log(x,y);
           getSelector([x,y]).style.border = "8px solid #5C4033"; 
           if(cells[x][y]!=0) break;
         }
       }
       x=tempx;
       y=tempy;
-      if(cells[x-1][y+1] == 0){
+      if(cells[x-1][y+1] == 0){ //working
         while(x!=0){
           getSelector([x,y]).style.border = "8px solid #5C4033";
-          // console.log("executed");
           x--;
           y++;
+          if(pieceColor(indexToPieceName(x,y)) == 1) break;
         }
       }
       x=tempx;
@@ -510,9 +512,8 @@ function option_show_beshoop(x,y,piece){
         while(y!=0){
           x++;
           y--;
-          console.log(x,y);
+          if(pieceColor(indexToPieceName(x,y)) == 1) break;
           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-          console.log("executed");
           if(cells[x][y]!=0) break;
         }
       }
@@ -522,6 +523,7 @@ function option_show_beshoop(x,y,piece){
         while(x!=7){
           x++;
           y++;
+          if(pieceColor(indexToPieceName(x,y)) == 1) break;
           getSelector([x,y]).style.border = "8px solid #5C4033";
           if(cells[x][y]!=0){
             getSelector([++x,++y]).style.border = "8px solid #5C4033";
@@ -802,5 +804,6 @@ function showMoves(pos){
 startGame();
 pieceMove(p05,p35);
 pieceMove(p72,p43);
+pieceMove(p13,p57);
 // showMoves([1,2]);
 // console.log(getSelector([1,2]))
