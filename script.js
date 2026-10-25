@@ -1,11 +1,11 @@
 let cells = [
       //  0   1   2   3   4   5   6   7
-  /*0*/ [-4, -2, -3, -5, -6, -3, -2, -4],
-  /*1*/ [ 0, -1, -1, -1, -1, -1, -1, -1],
-  /*2*/ [ 0,  0,  0,  0,  2,  0,  0,  0],
-  /*3*/ [-1,  0,  0,  0,  0,  0,  5,  0],
-  /*4*/ [ 0,  0,  0,  0,  0,  0,  0,  0],
-  /*5*/ [ 0,  0,  0,  0,  0,  0,  0,  0],
+  /*0*/ [-4, -2, -3, -5, -6, -3, -2, -4],      //4 rook
+  /*1*/ [ 0, -1, -1, -1, -1, -1, -1, -1],      //2 knight
+  /*2*/ [ 0,  0,  0,  0,  2,  0,  0,  0],      //3 bishop
+  /*3*/ [-1,  0,  0,  0,  0,  0,  5,  0],      // 5 queen
+  /*4*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      //6 king
+  /*5*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      //1 pawn
   /*6*/ [ 1,  1,  1,  1,  1,  1,  1,  1],
   /*7*/ [ 4,  0,  3,  5,  6,  3,  2,  4],
 ];
@@ -129,12 +129,35 @@ function startGame() {
   p74.style.backgroundImage = "url('images/pieces/white/wk.svg')";
 }
 
+function pieceToValue(p){
+  switch(p){
+    case "wp": return 1; 
+    case "wr": return 4; 
+    case "wb": return 3; 
+    case "wq": return 5; 
+    case "wn": return 2; 
+    case "wk": return 6; 
+    case "bp": return -1; 
+    case "br": return -4; 
+    case "bb": return -3; 
+    case "bq": return -5; 
+    case "bn": return -2; 
+    case "bk": return -6; 
+  }
+}
 
-function pieceMove(piece, postion) {
-  let pi = window.getComputedStyle(piece).backgroundImage;
+function pieceMove(piecePos, postion) {
+  let idx = indexToArray(postion);
+  let pp = indexToArray(piecePos);
+
+  let piece = getPieceName(pp[0],pp[1]);
+  let pi = window.getComputedStyle(piecePos).backgroundImage;
   
-  piece.style.backgroundImage = "";
+  piecePos.style.backgroundImage = "";
+  cells[pp[0],pp[1]] = 0;
+
   postion.style.backgroundImage = `${pi}`;
+  cells[idx[0],idx[1]] = pieceToValue(pp);
 }
 
 // pieceMove(p70, p33);
@@ -525,53 +548,126 @@ function option_show_pawn(x, y, piece) {
 //king
 //
 //option show beshoop start
-function option_show_beshoop(x, y, piece) {
-  if (piece == 1) {
-    let tempx = x;
-    let tempy = y;
-    if (cells[x - 1][y - 1] == 0) {
-      while (y != 0) {
-        x--;
-        y--;
-        getSelector([x, y]).style.border = "8px solid #5C4033";
-        if (cells[x][y] != 0) break;
-      }
-    }
-    x = tempx;
-    y = tempy;
-    if (cells[x - 1][y + 1] == 0) {
-      while (x != 0) {
-        getSelector([x, y]).style.border = "8px solid #5C4033";
-        x--;
-        y++;
-      }
-    }
-  } else {
-    let tempx = x;
-    let tempy = y;
-    if (cells[x + 1][y - 1] == 0) {
-      while (y != 0) {
-        x++;
-        y--;
-        getSelector([x, y]).style.border = "8px solid #5C4033";
-        if (cells[x][y] != 0) break;
-      }
-    }
-    x = tempx;
-    y = tempy;
-    if (cells[x + 1][y + 1] == 0) {
-      while (x != 7) {
-        x++;
-        y++;
-        getSelector([x, y]).style.border = "8px solid #5C4033";
-        if (cells[x][y] != 0) {
-          getSelector([++x, ++y]).style.border = "8px solid #5C4033";
-          break;
+function option_show_beshoop(x,y,piece){
+  let tempx=x;
+  let tempy=y;
+  if(piece == 1){
+      if(cells[x-1][y-1] == 0){ //working
+        while(y!=0){
+          x--;
+          y--;
+          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+          // console.log(x,y);
+          if(cells[x][y] <=0 ){
+
+            getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          }
+          if(cells[x][y]!=0) break;
         }
       }
-    }
-  }
+      x=tempx;
+      y=tempy;
+      if(cells[x-1][y+1] == 0){ //working
+        while(x!=0){
+          x--;
+          y++;
+          if(cells[x][y] <=0 ){
+
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
+         if(cells[x][y]!=0) break;
+          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x+1][y-1] == 0){
+        while(y!=0){
+          x++;
+          y--;
+          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+          if(cells[x][y] <=0 ){
+
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
+          if(cells[x][y]!=0) break;
+        }
+      }
+
+      x=tempx;
+      y=tempy;
+      if(cells[x+1][y+1] == 0){
+        while(x!=7){
+          x++;
+          y++;
+          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+            if(cells[x][y] <=0 ){
+
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
+          if(cells[x][y]!=0) break;
+        }
+      }
+   }
+   else{
+      if(cells[x-1][y-1] == 0){ //upper left diagonal
+        while(y!=0){
+          x--;
+          y--;
+          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+            if(cells[x][y] >=0 ){
+
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
+          if(cells[x][y]!=0) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x-1][y+1] == 0){ //upper right diagonal
+        while(x!=0){
+          // getSelector([x,y]).style.border = "8px solid #5C4033";
+          x--;
+          y++;
+          if(cells[x][y] >=0 ){
+
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
+          if(cells[x][y]!=0) break;
+          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x+1][y-1] == 0){ //down left diagonal
+        while(y!=0){
+          x++;
+          y--;
+          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+          if(cells[x][y] >=0 ){
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
+          if(cells[x][y]!=0) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x+1][y+1] == 0){
+        while(x!=7){
+          x++;
+          y++;
+          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+            if(cells[x][y] >=0 ){
+
+           getSelector([x,y]).style.border = "8px solid #5C4033"; 
+         }
+          if(cells[x][y]!=0) break;
+        }
+      }
+   }
 }
+
+
 function option_show_queen(x, y, piece) {
 
   let tempx = x;
@@ -826,16 +922,9 @@ function BorW(pn){
     return piece;
 }
 
-pieces.forEach((p) => {
-  p.addEventListener("click", function () {
+function showMoves(arrIdx,pieceName,piece) {
 
-    let arrIdx = indexToArray(Number(p.id));
-    
-    let pieceName = getPieceName(arrIdx[0],arrIdx[1]);
-
-    let piece  = BorW(pieceName);
-
-    if (pieceName[1] == "p") {
+  if (pieceName[1] == "p") {
       option_show_pawn(arrIdx[0], arrIdx[1], piece);
     } 
     else if (pieceName[1] == "r") {
@@ -850,30 +939,21 @@ pieces.forEach((p) => {
     else if (pieceName[1] == "n") {
       option_show_knight(arrIdx[0],arrIdx[1],piece);
     }
+}
+
+pieces.forEach((p) => {
+  p.addEventListener("click", function () {
+
+    let arrIdx = indexToArray(Number(p.id));
+    
+    let pieceName = getPieceName(arrIdx[0],arrIdx[1]);
+
+    let piece  = BorW(pieceName); // -1 for black and 1 for white
+
+    showMoves(arrIdx,pieceName,piece);
   });
 });
 
 
 
 
-function showMoves(pos) {
-  let pi = window.getComputedStyle(getSelector(pos)).backgroundImage;
-  let pieceName = pi.substring(58, 60);
-
-  if (pieceName == "bp") {
-    // p20.classList.add("moveset");
-    if ((pos[0] = 1)) {
-      pos[0] += 1;
-      getSelector(pos).style.border = "8px solid #5C4033";
-    }
-    pos[0] += 1;
-    console.log(pos);
-    getSelector(pos).style.border = "8px solid #5C4033";
-  }
-}
-
-// pieceMove(p03, p54);
-// pieceMove(p73, p24);
-// pieceMove(p10, p30);
-// showMoves([1,2]);
-// console.log(getSelector([1,2]))
