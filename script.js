@@ -1,13 +1,15 @@
 let cells=[
-  [-4,-2,-3,-5,-6,-3,-2,-4],
-  [-1,-1,-1,-1,-1,-1,-1,-1],
-  [0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0],
-  [1,1,1,1,1,1,1,1],
-  [4,2,3,5,6,3,2,4]
+  /*0*/[-4,-2,-3,-5,-6,0,-2,-4],
+  /*1*/[-1,-1,-1,-1,-1,-1,-1,-1],
+  /*2*/[0,0,0,0,0,0,0,0],
+  /*3*/[0,0,0,0,0,-3,0,0],
+  /*4*/[0,0,0,0,0,0,0,0],
+  /*5*/[0,0,0,0,0,3,0,0],
+  /*6*/[1,1,1,1,1,1,1,1],
+  /*7*/[4,2,0,5,6,3,2,4]
 ];
+
+//let flag
 function option_show_pawn(x,y,piece){
   
   if(piece==1){//white(+1)
@@ -19,6 +21,8 @@ function option_show_pawn(x,y,piece){
         if(x==6&&cells[x-2][y]==0){//empyt (two front move)
           //show option[x-2][y]
           getSelector([x-2,y]).style.border = "8px solid #5C4033";
+        if(x==6&&cells[x-2][y]==0){//empyt (two front move)
+          //show option[x-2][y]
         }
       }
     }
@@ -45,6 +49,8 @@ function option_show_pawn(x,y,piece){
         if(x==1&&cells[x+2][y]==0){//empty (two front move for black)
           //show option[x+2][y]
           getSelector([x+2,y]).style.border = "8px solid #5C4033";
+        if(x==1&&cells[x+2][y]==0){//empty (two front move for black)
+          //show option[x+2][y]
         }
       }
     }
@@ -65,6 +71,138 @@ function option_show_pawn(x,y,piece){
   }
 }
 
+      }
+    }
+
+//   }
+// }//option_show_pawn end
+
+//option show rook start
+function option_show_rook(x,y,piece){
+   
+  //up
+    for(let i=x;i>=0;i--){
+      if(piece>0){//white
+        if(cells[i][y]<=0){
+          //show option [i][y]
+        }
+      }else{//black
+        if(cells[i][y]>=0){
+          //show option
+        }
+      }
+      if(cells[i][y]!=0){
+          //stop
+          break;
+      }
+    }
+  //down
+  for(let i=x;i=7;i++){
+    if(piece>0){//white
+        if(cells[i][y]<=0){
+          //show option [i][y]
+        }
+      }else{//black
+        if(cells[i][y]>=0){
+          //show option
+        }
+      }
+      if(cells[i][y]!=0){
+          //stop
+          break;
+      }
+  }
+  
+
+  //left
+  for(let j=y;j>=0;j--){
+      if(piece>0){//white
+        if(cells[i][y]<=0){
+          //show option [i][y]
+        }
+      }else{//black
+        if(cells[i][y]>=0){
+          //show option
+        }
+      }
+      if(cells[i][y]!=0){
+          //stop
+          break;
+      }
+  }
+
+  //right
+
+  for(let j=y;j<=7;j++){
+      if(piece>0){//white
+        if(cells[i][y]<=0){
+          //show option [i][y]
+        }
+      }else{//black
+        if(cells[i][y]>=0){
+          //show option
+        }
+      }
+      if(cells[i][y]!=0){
+          //stop
+          break;
+      }
+  }
+  
+}//option_show_rook
+
+//king 
+//
+//option show beshoop start
+function option_show_beshoop(x,y,piece){
+  if(piece == 1){
+     let tempx=x;
+     let tempy=y;
+      if(cells[x-1][y-1] == 0){
+        while(y!=0){
+          x--;
+          y--;
+          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          if(cells[x][y]!=0) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x-1][y+1] == 0){
+        while(x!=0){
+          getSelector([x,y]).style.border = "8px solid #5C4033";
+          x--;
+          y++;
+        }
+      }
+   }
+   else{
+    let tempx=x;
+    let tempy=y;
+      if(cells[x+1][y-1] == 0){
+        while(y!=0){
+          x++;
+          y--;
+          getSelector([x,y]).style.border = "8px solid #5C4033"; 
+          if(cells[x][y]!=0) break;
+        }
+      }
+      x=tempx;
+      y=tempy;
+      if(cells[x+1][y+1] == 0){
+        while(x!=7){
+          x++;
+          y++;
+          getSelector([x,y]).style.border = "8px solid #5C4033";
+          if(cells[x][y]!=0){
+            getSelector([++x,++y]).style.border = "8px solid #5C4033";
+            break;
+          } 
+        }
+      }
+   }
+}
+//option show bishop end
 function startGame(){
   //added pawns in 2nd row
   r1.forEach((cell) => {
@@ -188,7 +326,21 @@ pieces.forEach((p) =>{
       piece  = -1;
     }
     console.log(piece);
-    option_show_pawn(arrIdx[0],arrIdx[1],piece);
+    if(pieceName[1] == 'p'){
+      option_show_pawn(arrIdx[0],arrIdx[1],piece);
+    }
+    else if(pieceName[1]=='r'){
+      option_show_rook(arrIdx[0],arrIdx[1],piece);
+    }
+    else if(pieceName[1]=='b'){
+      option_show_beshoop(arrIdx[0],arrIdx[1],piece);
+    }
+    else if(pieceName[1]=='q'){
+
+    }
+    else if(pieceName[1]=='n'){
+
+    }
   });
 });
 
@@ -253,6 +405,6 @@ function showMoves(pos){
 }
 
 startGame();
-// pieceMove(p10,p30);
+pieceMove(p05,p35);
 // showMoves([1,2]);
 // console.log(getSelector([1,2]))
