@@ -1,13 +1,13 @@
 let cells = [
       //  0   1   2   3   4   5   6   7
   /*0*/ [-4, -2, -3, -5, -6, -3, -2, -4],      //4 rook
-  /*1*/ [ 0, -1, -1, -1, -1, -1, -1, -1],      //2 knight
-  /*2*/ [ 0,  0,  0,  0,  2,  0,  0,  0],      //3 bishop
-  /*3*/ [-1,  0,  0,  0,  0,  0,  5,  0],      // 5 queen
+  /*1*/ [ -1, -1, -1, -1, -1, -1, -1,-1],      //2 knight
+  /*2*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      //3 bishop
+  /*3*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      // 5 queen
   /*4*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      //6 king
   /*5*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      //1 pawn
   /*6*/ [ 1,  1,  1,  1,  1,  1,  1,  1],
-  /*7*/ [ 4,  0,  3,  5,  6,  3,  2,  4],
+  /*7*/ [ 4,  2,  3,  5,  6,  3,  2,  4],
 ];
 
 
@@ -77,6 +77,7 @@ let p75 = document.getElementById("75");
 let p76 = document.getElementById("76");
 let p77 = document.getElementById("77");
 
+// console.log(typeof Number(p00.id));
 let pieces = [p00,p01,p02,p03,p04,p05,p06,p07,
   p10,p11,p12,p13,p14,p15,p16,p17,
   p20,p21,p22,p23,p24,p25,p26,p27,
@@ -129,6 +130,21 @@ function startGame() {
   p74.style.backgroundImage = "url('images/pieces/white/wk.svg')";
 }
 
+function indexToArray(i){
+  let ai = [];
+  ai.unshift(i%10);
+  i=Math.floor(i/10);
+  ai.unshift(i%10);
+  return ai;
+}
+
+function getPieceName(x,y){
+  let pi = window.getComputedStyle(getSelector([x, y])).backgroundImage;
+  // console.log(pi);
+  let pieceName = pi.substring(58, 60);
+  return pieceName;
+}
+
 function pieceToValue(p){
   switch(p){
     case "wp": return 1; 
@@ -145,27 +161,33 @@ function pieceToValue(p){
     case "bk": return -6; 
   }
 }
-
+console.table(cells);
 function pieceMove(piecePos, postion) {
-  let idx = indexToArray(postion);
-  let pp = indexToArray(piecePos);
+  // console.log(piecePos.id);
+  let originalIdx = indexToArray(Number(piecePos.id)); 
+  console.log(originalIdx);
+  let newIdx = indexToArray(Number(postion.id));
+  console.log(newIdx);
 
-  let piece = getPieceName(pp[0],pp[1]);
+  let piece = getPieceName(originalIdx[0],originalIdx[1]);
+  console.log(piece);
   let pi = window.getComputedStyle(piecePos).backgroundImage;
+  console.log(pi);
   
   piecePos.style.backgroundImage = "";
-  cells[pp[0],pp[1]] = 0;
-
+  cells[originalIdx[0],originalIdx[1]] = 0;
+  
   postion.style.backgroundImage = `${pi}`;
-  cells[idx[0],idx[1]] = pieceToValue(pp);
+  cells[newIdx[0],newIdx[1]] = pieceToValue(piece);
+  
+  // console.log(pieceToValue(piece));
 }
 
-// pieceMove(p70, p33);
 
 startGame();
-pieceMove(p10, p30);
-pieceMove(p71, p24);
-pieceMove(p73, p36);
+pieceMove(p00, p30);
+
+console.table(cells);
 
 let prevx;
 let prevy;
@@ -883,34 +905,12 @@ function option_show_queen(x, y, piece) {
     }
   }
 }
-//option show bishop end
-// function startGame() {
-//   //added pawns in 2nd row
-//   r1.forEach((cell) => {
-//     console.log(cell);
-//     cell.style.backgroundImage = "url('images/pieces/black/bp.svg')";
-//   });
-// }
-
 //index for piece
 function getSelector([row, col]) {
   return eval(`p${row}${col}`);
 }
 
-function indexToArray(i){
-  let ai = [];
-  ai.unshift(i%10);
-  i=Math.floor(i/10);
-  ai.unshift(i%10);
-  return ai;
-}
 
-function getPieceName(x,y){
-  let pi = window.getComputedStyle(getSelector([x, y])).backgroundImage;
-  console.log(pi);
-  let pieceName = pi.substring(58, 60);
-  return pieceName;
-}
 
 function BorW(pn){
    let piece;
