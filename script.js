@@ -93,6 +93,21 @@ let r1 = [p10,p11,p12,p13,p14,p15,p16,p17];
 let r6 = [p60,p61,p62,p63,p64,p65,p66,p67]
 let r7 = [p70,p71,p72,p73,p74,p75,p76,p77];
 
+let pieceValue = {
+  "wp" : 1,
+  "wn" : 2,
+  "wb" : 3,
+  "wr" : 4,
+  "wq" : 5,
+  "wk" : 6,
+  "bp" : -1,
+  "bn" : -2,
+  "bb" : -3,
+  "br" : -4,
+  "bq" : -5,
+  "bk" : -6,
+ 
+};
 
 function startGame() {
   //added pawns in 2nd row
@@ -161,33 +176,26 @@ function pieceToValue(p){
     case "bk": return -6; 
   }
 }
-console.table(cells);
+
 function pieceMove(piecePos, postion) {
-  // console.log(piecePos.id);
+
   let originalIdx = indexToArray(Number(piecePos.id)); 
-  console.log(originalIdx);
   let newIdx = indexToArray(Number(postion.id));
-  console.log(newIdx);
 
   let piece = getPieceName(originalIdx[0],originalIdx[1]);
-  console.log(piece);
   let pi = window.getComputedStyle(piecePos).backgroundImage;
-  console.log(pi);
   
   piecePos.style.backgroundImage = "";
-  cells[originalIdx[0],originalIdx[1]] = 0;
-  
+  cells[originalIdx[0]][originalIdx[1]] = 0;
+
   postion.style.backgroundImage = `${pi}`;
-  cells[newIdx[0],newIdx[1]] = pieceToValue(piece);
-  
-  // console.log(pieceToValue(piece));
+  cells[newIdx[0]][newIdx[1]] = pieceToValue(piece); 
 }
 
 
 startGame();
-pieceMove(p00, p30);
+// pieceMove(p00, p30);
 
-console.table(cells);
 
 let prevx;
 let prevy;
@@ -581,7 +589,6 @@ function option_show_beshoop(x,y,piece){
           // if(pieceColor(indexToPieceName(x,y)) == 1) break;
           // console.log(x,y);
           if(cells[x][y] <=0 ){
-
             getSelector([x,y]).style.border = "8px solid #5C4033"; 
           }
           if(cells[x][y]!=0) break;
@@ -951,6 +958,8 @@ pieces.forEach((p) => {
     let piece  = BorW(pieceName); // -1 for black and 1 for white
 
     showMoves(arrIdx,pieceName,piece);
+
+    pieceMove(p,p00);
   });
 });
 
