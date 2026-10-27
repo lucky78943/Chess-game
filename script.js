@@ -1295,21 +1295,21 @@ pieces.forEach((p) => {
 
 
 
-function showMoves(pos) {
-  let pi = window.getComputedStyle(getSelector(pos)).backgroundImage;
-  let pieceName = pi.substring(58, 60);
+// function showMoves(pos) {
+//   let pi = window.getComputedStyle(getSelector(pos)).backgroundImage;
+//   let pieceName = pi.substring(47,49);
 
-  if (pieceName == "bp") {
-    // p20.classList.add("moveset");
-    if ((pos[0] = 1)) {
-      pos[0] += 1;
-      getSelector(pos).style.border = "8px solid #5C4033";
-    }
-    pos[0] += 1;
-    console.log(pos);
-    getSelector(pos).style.border = "8px solid #5C4033";
-  }
-}
+//   if (pieceName == "bp") {
+//     // p20.classList.add("moveset");
+//     if ((pos[0] = 1)) {
+//       pos[0] += 1;
+//       getSelector(pos).style.border = "8px solid #5C4033";
+//     }
+//     pos[0] += 1;
+//     console.log(pos);
+//     getSelector(pos).style.border = "8px solid #5C4033";
+//   }
+// }
 
 // pieceMove(p03, p54);
 // pieceMove(p73, p24);
