@@ -1,16 +1,14 @@
 let cells = [
-      //  0   1   2   3   4   5   6   7
-  /*0*/ [-4, -2, -3, -5, -6, -3, -2, -4],      //4 rook
-  /*1*/ [ -1, -1, -1, -1, -1, -1, -1,-1],      //2 knight
-  /*2*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      //3 bishop
-  /*3*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      // 5 queen
-  /*4*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      //6 king
-  /*5*/ [ 0,  0,  0,  0,  0,  0,  0,  0],      //1 pawn
-  /*6*/ [ 1,  1,  1,  1,  1,  1,  1,  1],
-  /*7*/ [ 4,  2,  3,  5,  6,  3,  2,  4],
+  //  0   1   2   3   4   5   6   7
+  /*0*/ [-4, -2, -3, -5, -6, -3, -2, -4], //4 rook
+  /*1*/ [-1, -1, -1, -1, -1, -1, -1, -1], //2 knight
+  /*2*/ [0, 0, 0, 0, 0, 0, 0, 0], //3 bishop
+  /*3*/ [0, 0, 0, 0, 0, 0, 0, 0], // 5 queen
+  /*4*/ [0, 0, 0, 0, 0, 0, 0, 0], //6 king
+  /*5*/ [0, 0, 0, 0, 0, 0, 0, 0], //1 pawn
+  /*6*/ [1, 1, 1, 1, 1, 1, 1, 1],
+  /*7*/ [4, 2, 3, 5, 6, 3, 2, 4],
 ];
-
-
 
 let p00 = document.getElementById("00");
 let p01 = document.getElementById("01");
@@ -78,35 +76,91 @@ let p76 = document.getElementById("76");
 let p77 = document.getElementById("77");
 
 // console.log(typeof Number(p00.id));
-let pieces = [p00,p01,p02,p03,p04,p05,p06,p07,
-  p10,p11,p12,p13,p14,p15,p16,p17,
-  p20,p21,p22,p23,p24,p25,p26,p27,
-  p30,p31,p32,p33,p34,p35,p36,p37,
-  p40,p41,p42,p43,p44,p45,p46,p47,
-  p50,p51,p52,p53,p54,p55,p56,p57,
-  p60,p61,p62,p63,p64,p65,p66,p67,
-  p70,p71,p72,p73,p74,p75,p76,p77
+let pieces = [
+  p00,
+  p01,
+  p02,
+  p03,
+  p04,
+  p05,
+  p06,
+  p07,
+  p10,
+  p11,
+  p12,
+  p13,
+  p14,
+  p15,
+  p16,
+  p17,
+  p20,
+  p21,
+  p22,
+  p23,
+  p24,
+  p25,
+  p26,
+  p27,
+  p30,
+  p31,
+  p32,
+  p33,
+  p34,
+  p35,
+  p36,
+  p37,
+  p40,
+  p41,
+  p42,
+  p43,
+  p44,
+  p45,
+  p46,
+  p47,
+  p50,
+  p51,
+  p52,
+  p53,
+  p54,
+  p55,
+  p56,
+  p57,
+  p60,
+  p61,
+  p62,
+  p63,
+  p64,
+  p65,
+  p66,
+  p67,
+  p70,
+  p71,
+  p72,
+  p73,
+  p74,
+  p75,
+  p76,
+  p77,
 ];
 
-let r0 = [p00,p01,p02,p03,p04,p05,p06,p07];
-let r1 = [p10,p11,p12,p13,p14,p15,p16,p17];
-let r6 = [p60,p61,p62,p63,p64,p65,p66,p67]
-let r7 = [p70,p71,p72,p73,p74,p75,p76,p77];
+let r0 = [p00, p01, p02, p03, p04, p05, p06, p07];
+let r1 = [p10, p11, p12, p13, p14, p15, p16, p17];
+let r6 = [p60, p61, p62, p63, p64, p65, p66, p67];
+let r7 = [p70, p71, p72, p73, p74, p75, p76, p77];
 
 let pieceValue = {
-  "wp" : 1,
-  "wn" : 2,
-  "wb" : 3,
-  "wr" : 4,
-  "wq" : 5,
-  "wk" : 6,
-  "bp" : -1,
-  "bn" : -2,
-  "bb" : -3,
-  "br" : -4,
-  "bq" : -5,
-  "bk" : -6,
- 
+  wp: 1,
+  wn: 2,
+  wb: 3,
+  wr: 4,
+  wq: 5,
+  wk: 6,
+  bp: -1,
+  bn: -2,
+  bb: -3,
+  br: -4,
+  bq: -5,
+  bk: -6,
 };
 
 function startGame() {
@@ -145,15 +199,15 @@ function startGame() {
   p74.style.backgroundImage = "url('images/pieces/white/wk.svg')";
 }
 
-function indexToArray(i){
+function indexToArray(i) {
   let ai = [];
-  ai.unshift(i%10);
-  i=Math.floor(i/10);
-  ai.unshift(i%10);
+  ai.unshift(i % 10);
+  i = Math.floor(i / 10);
+  ai.unshift(i % 10);
   return ai;
 }
 
-function getPieceName(x,y){
+function getPieceName(x, y) {
   let pi = window.getComputedStyle(getSelector([x, y])).backgroundImage;
   console.log(pi);
   let pieceName = pi.substring(47, 49);
@@ -161,142 +215,159 @@ function getPieceName(x,y){
   return pieceName;
 }
 
-function pieceToValue(p){
-  switch(p){
-    case "wp": return 1; 
-    case "wr": return 4; 
-    case "wb": return 3; 
-    case "wq": return 5; 
-    case "wn": return 2; 
-    case "wk": return 6; 
-    case "bp": return -1; 
-    case "br": return -4; 
-    case "bb": return -3; 
-    case "bq": return -5; 
-    case "bn": return -2; 
-    case "bk": return -6; 
+function pieceToValue(p) {
+  switch (p) {
+    case "wp":
+      return 1;
+    case "wr":
+      return 4;
+    case "wb":
+      return 3;
+    case "wq":
+      return 5;
+    case "wn":
+      return 2;
+    case "wk":
+      return 6;
+    case "bp":
+      return -1;
+    case "br":
+      return -4;
+    case "bb":
+      return -3;
+    case "bq":
+      return -5;
+    case "bn":
+      return -2;
+    case "bk":
+      return -6;
   }
 }
 
 function pieceMove(piecePos, postion) {
-
-  let originalIdx = indexToArray(Number(piecePos.id)); 
+  let originalIdx = indexToArray(Number(piecePos.id));
   let newIdx = indexToArray(Number(postion.id));
 
-  let piece = getPieceName(originalIdx[0],originalIdx[1]);
+  let piece = getPieceName(originalIdx[0], originalIdx[1]);
   let pi = window.getComputedStyle(piecePos).backgroundImage;
-  
+
   piecePos.style.backgroundImage = "";
   cells[originalIdx[0]][originalIdx[1]] = 0;
 
   postion.style.backgroundImage = `${pi}`;
-  cells[newIdx[0]][newIdx[1]] = pieceToValue(piece); 
+  cells[newIdx[0]][newIdx[1]] = pieceToValue(piece);
 }
-
 
 startGame();
 pieceMove(p11, p30);
 pieceMove(p71, p22);
 // pieceMove(getSelector([pi,pj]),p);
 
-
 let prev_piece_name;
-let curr_piece=0;
-let select=false;
-let kill=0;
-let move=0;
-let pi=-1;
-let pj=-1;
-let turn=1;//1 white -1 black
-let White_king_X=0;
-let White_king_Y=4;
-let Black_king_X=7;
-let Black_king_Y=4;
+let curr_piece = 0;
+let select = false;
+let kill = 0;
+let move = 0;
+let pi = -1;
+let pj = -1;
+let turn = 1; //1 white -1 black
+let White_king_X = 0;
+let White_king_Y = 4;
+let Black_king_X = 7;
+let Black_king_Y = 4;
+let prev_value=0;
 //let flag
 //check function
-let pIndex=[];
-let selected_piece=0;
-let size=0;
-let click=false;
-function isCheck(x,y,piece){
+let pIndex = [];
+let selected_piece = 0;
+let size = 0;
+let click = false;
+function isCheck(x, y, piece) {
   //up
-  for(let i=x-1;i>=0;i--){
-      if(piece>0){//white
-        if(cells[i][y]==-4||cells[i][y]==-5){
-          return true;//check by rook or queen
-        }
-      }else{//black
-        if(cells[i][y]==4&&cells[i][y]==5){
-          return true;//check by rook or queen
-        }
+  for (let i = x - 1; i >= 0; i--) {
+    if (piece > 0) {
+      //white
+      if (cells[i][y] == -4 || cells[i][y] == -5) {
+        return true; //check by rook or queen
       }
-      if(cells[i][y]!=0){
-          //no check sum 
-          return false;
+    } else {
+      //black
+      if (cells[i][y] == 4 && cells[i][y] == 5) {
+        return true; //check by rook or queen
       }
     }
+    if (cells[i][y] != 0) {
+      //no check sum
+      return false;
+    }
+  }
   //down
 
-  for(let i=x+1;i=7;i++){
-    if(piece>0){//white
-        if(cells[i][y]==-4||cells[i][y]==-5){
-          //check by rook or queen
-          return true;
-        }
-      }else{//black
-        if(cells[i][y]==4||cells[i][y]==5){
-          //check by white rook or queen
-        }
+  for (let i = x + 1; (i = 7); i++) {
+    if (piece > 0) {
+      //white
+      if (cells[i][y] == -4 || cells[i][y] == -5) {
+        //check by rook or queen
+        return true;
       }
-      if(cells[i][y]!=0){
-          //no check
-          return false;
+    } else {
+      //black
+      if (cells[i][y] == 4 || cells[i][y] == 5) {
+        //check by white rook or queen
       }
+    }
+    if (cells[i][y] != 0) {
+      //no check
+      return false;
+    }
   }
-  //left 
-  for(let j=y-1;j>=0;j--){
-      if(piece>0){//white
-        if(cells[x][j]==-4||cells[x][j]==-5){
-          //check by black rook or queen
-          return true;
-        }
-      }else{//black
-        if(cells[x][j]==4||cells[x][j]==5){
-          //check by white rook or queen
-          return true;
-        }
+  //left
+  for (let j = y - 1; j >= 0; j--) {
+    if (piece > 0) {
+      //white
+      if (cells[x][j] == -4 || cells[x][j] == -5) {
+        //check by black rook or queen
+        return true;
       }
-      if(cells[y][j]!=0){
-          //no check
-          return false;
+    } else {
+      //black
+      if (cells[x][j] == 4 || cells[x][j] == 5) {
+        //check by white rook or queen
+        return true;
       }
+    }
+    if (cells[y][j] != 0) {
+      //no check
+      return false;
+    }
   }
   //right
-  for(let j=y+1;j<=7;j++){
-      if(piece>0){//white
-        if(cells[x][j]==-4||cells[x][j]==-5){
-          //check by black or queen
-          return true;
-        }
-      }else{//black
-        if(cells[x][j]==-4||cells[x][j]==-5){
-          //check by white rook or queen
-          return true;
-        }
+  for (let j = y + 1; j <= 7; j++) {
+    if (piece > 0) {
+      //white
+      if (cells[x][j] == -4 || cells[x][j] == -5) {
+        //check by black or queen
+        return true;
       }
-      if(cells[x][j]!=0){
-          //no check
-          return false;
+    } else {
+      //black
+      if (cells[x][j] == -4 || cells[x][j] == -5) {
+        //check by white rook or queen
+        return true;
       }
-  }//right end
+    }
+    if (cells[x][j] != 0) {
+      //no check
+      return false;
+    }
+  } //right end
 
   //left upper diagonal
   // if(x)
-
 }
 //check function
 
-//move function 
+//move function
 // function move(piece,x,y){
 //   cells[prevx][prevy]=0;
 //   //make sure to put 0 zero at previous position of piece
@@ -308,385 +379,400 @@ function isCheck(x,y,piece){
 //move function end
 
 //<=============ROOK==========>
-function option_show_rook(x,y,piece){
-   
+function option_show_rook(x, y, piece) {
   //up
-    for(let i=x-1;i>=0;i--){
-      if(piece>0){//white
-        if(cells[i][y]<=0){
-          //show option [i][y]
-          if(click){
-            pIndex.push(i);
-            pIndex.push(y);
-            getSelector([i,y]).style.border = "8px solid #5C4033";
-          }else{
-            //remove border
-            getSelector([i,y]).style.border = "1px solid black";
-          }
-        }
-      }else{//black
-        if(cells[i][y]>=0){
-          //show option
-          if(click){
-            pIndex.push(i);
-            pIndex.push(y);
-            getSelector([i,y]).style.border = "8px solid #5C4033";
-          }else{
-            //remove border
-            getSelector([i,y]).style.border = "1px solid black";
-          }
+  for (let i = x - 1; i >= 0; i--) {
+    if (piece > 0) {
+      //white
+      if (cells[i][y] <= 0) {
+        //show option [i][y]
+        if (click) {
+          pIndex.push(i);
+          pIndex.push(y);
+          getSelector([i, y]).style.border = "8px solid #5C4033";
+        } else {
+          //remove border
+          getSelector([i, y]).style.border = "1px solid black";
         }
       }
-      if(cells[i][y]!=0){
-          //stop
-          break;
+    } else {
+      //black
+      if (cells[i][y] >= 0) {
+        //show option
+        if (click) {
+          pIndex.push(i);
+          pIndex.push(y);
+          getSelector([i, y]).style.border = "8px solid #5C4033";
+        } else {
+          //remove border
+          getSelector([i, y]).style.border = "1px solid black";
+        }
       }
     }
-  //down
-  for(let i=x+1;i<=7;i++){
-    if(piece>0){//white
-        if(cells[i][y]<=0){
-          //show option [i][y]
-          if(click){
-            pIndex.push(i);
-            pIndex.push(y);
-            getSelector([i,y]).style.border = "8px solid #5C4033";
-          }else{
-            //remove border
-            getSelector([i,y]).style.border = "1px solid black";
-          }
-        }
-      }
-      else{//black
-        if(cells[i][y]>=0){
-          //show option
-          if(click){
-            pIndex.push(i);
-            pIndex.push(y);
-            getSelector([i,y]).style.border = "8px solid #5C4033";
-          }else{
-            //remove border
-            getSelector([i,y]).style.border = "1px solid black";
-          }
-        }
-      }
-      if(cells[i][y]!=0){
-          //stop
-          break;
-      }
+    if (cells[i][y] != 0) {
+      //stop
+      break;
+    }
   }
-  
+  //down
+  for (let i = x + 1; i <= 7; i++) {
+    if (piece > 0) {
+      //white
+      if (cells[i][y] <= 0) {
+        //show option [i][y]
+        if (click) {
+          pIndex.push(i);
+          pIndex.push(y);
+          getSelector([i, y]).style.border = "8px solid #5C4033";
+        } else {
+          //remove border
+          getSelector([i, y]).style.border = "1px solid black";
+        }
+      }
+    } else {
+      //black
+      if (cells[i][y] >= 0) {
+        //show option
+        if (click) {
+          pIndex.push(i);
+          pIndex.push(y);
+          getSelector([i, y]).style.border = "8px solid #5C4033";
+        } else {
+          //remove border
+          getSelector([i, y]).style.border = "1px solid black";
+        }
+      }
+    }
+    if (cells[i][y] != 0) {
+      //stop
+      break;
+    }
+  }
 
   //left
-  for(let j=y-1;j>=0;j--){
-      if(piece>0){//white
-        if(cells[x][j]<=0){
-          //show option [x][j]
-          if(click){
-            pIndex.push(x);
-            pIndex.push(j);
-            getSelector([x,j]).style.border = "8px solid #5C4033";
-          }else{
-            //remove border
-            getSelector([x,j]).style.border = "1px solid black";
-          }
-        }
-      }else{//black
-        if(cells[x][j]>=0){
-          //show option
-          if(click){
-            pIndex.push(x);
-            pIndex.push(j);
-            getSelector([x,j]).style.border = "8px solid #5C4033";
-          }else{
-            //remove border
-            getSelector([x,j]).style.border = "1px solid black";
-          }
+  for (let j = y - 1; j >= 0; j--) {
+    if (piece > 0) {
+      //white
+      if (cells[x][j] <= 0) {
+        //show option [x][j]
+        if (click) {
+          pIndex.push(x);
+          pIndex.push(j);
+          getSelector([x, j]).style.border = "8px solid #5C4033";
+        } else {
+          //remove border
+          getSelector([x, j]).style.border = "1px solid black";
         }
       }
-      if(cells[x][j]!=0){
-          //stop
-          break;
+    } else {
+      //black
+      if (cells[x][j] >= 0) {
+        //show option
+        if (click) {
+          pIndex.push(x);
+          pIndex.push(j);
+          getSelector([x, j]).style.border = "8px solid #5C4033";
+        } else {
+          //remove border
+          getSelector([x, j]).style.border = "1px solid black";
+        }
       }
+    }
+    if (cells[x][j] != 0) {
+      //stop
+      break;
+    }
   }
 
   //right
 
-  for(let j=y+1;j<=7;j++){
-      if(piece>0){//white
-        if(cells[x][j]<=0){
-          //show option [i][y]
-          if(click){
-            pIndex.push(x);
-            pIndex.push(j);
-            getSelector([x,j]).style.border = "8px solid #5C4033";
-          }else{
-            //remove border
-            getSelector([x,j]).style.border = "1px solid black";
-          }
-        }
-      }else{//black
-        if(cells[x][j]>=0){
-          //show option
-          if(click){
-            pIndex.push(x);
-            pIndex.push(j);
-            getSelector([x,j]).style.border = "8px solid #5C4033";
-          }else{
-            //remove border
-            getSelector([x,j]).style.border = "1px solid black";
-          }
+  for (let j = y + 1; j <= 7; j++) {
+    if (piece > 0) {
+      //white
+      if (cells[x][j] <= 0) {
+        //show option [i][y]
+        if (click) {
+          pIndex.push(x);
+          pIndex.push(j);
+          getSelector([x, j]).style.border = "8px solid #5C4033";
+        } else {
+          //remove border
+          getSelector([x, j]).style.border = "1px solid black";
         }
       }
-      if(cells[x][j]!=0){
-          //stop
-          break;
-      }
-  }
-
-}//<---ROOK--->end
-
-
-//<============KNIGHT============>
-function option_show_knight(x,y,piece){
-  //upleft
-  // console.log(click);
-  if(x>=2&&y>0){
-    if(piece>0){//white
-      if(cells[x-2][y-1]<=0){
-        //show option [x-2][y-1]
-        if(click){
-          // console.log(click);
-          pIndex.push(x-2);
-          pIndex.push(y-1);
-          getSelector([x-2,y-1]).style.border = "8px solid #5C4033";
-        }else{
-          // console.log(click);
-          console.log("ejje");
-          getSelector([x-2,y-1]).style.border = "1px solid black";
+    } else {
+      //black
+      if (cells[x][j] >= 0) {
+        //show option
+        if (click) {
+          pIndex.push(x);
+          pIndex.push(j);
+          getSelector([x, j]).style.border = "8px solid #5C4033";
+        } else {
+          //remove border
+          getSelector([x, j]).style.border = "1px solid black";
         }
       }
     }
-    else{//black
-      if(cells[x-2][y-1]>=0){
+    if (cells[x][j] != 0) {
+      //stop
+      break;
+    }
+  }
+} //<---ROOK--->end
+
+//<============KNIGHT============>
+function option_show_knight(x, y, piece) {
+  //upleft
+  // console.log(click);
+  if (x >= 2 && y > 0) {
+    if (piece > 0) {
+      //white
+      if (cells[x - 2][y - 1] <= 0) {
         //show option [x-2][y-1]
-        if(click){
+        if (click) {
+          // console.log(click);
+          pIndex.push(x - 2);
+          pIndex.push(y - 1);
+          getSelector([x - 2, y - 1]).style.border = "8px solid #5C4033";
+        } else {
+          // console.log(click);
+          console.log("ejje");
+          getSelector([x - 2, y - 1]).style.border = "1px solid black";
+        }
+      }
+    } else {
+      //black
+      if (cells[x - 2][y - 1] >= 0) {
+        //show option [x-2][y-1]
+        if (click) {
           // console.log("gg");
-          pIndex.push(x-2);
-          pIndex.push(y-1);
-          getSelector([x-2,y-1]).style.border = "8px solid #5C4033";
-        }else{
+          pIndex.push(x - 2);
+          pIndex.push(y - 1);
+          getSelector([x - 2, y - 1]).style.border = "8px solid #5C4033";
+        } else {
           // console.log("ejje");
-          getSelector([x-2,y-1]).style.border = "1px solid black";
+          getSelector([x - 2, y - 1]).style.border = "1px solid black";
         }
       }
     }
   }
   //upright
-  if(x>=2&&y<7){
-    if(piece>0){//white
-      if(cells[x-2][y+1]<=0){
+  if (x >= 2 && y < 7) {
+    if (piece > 0) {
+      //white
+      if (cells[x - 2][y + 1] <= 0) {
         //show option [x-2][y+1]
-        if(click){
-          pIndex.push(x-2);
+        if (click) {
+          pIndex.push(x - 2);
           console.log("ee");
-          pIndex.push(y+1);
-          getSelector([x-2,y+1]).style.border = "8px solid #5C4033";
-        }else{
+          pIndex.push(y + 1);
+          getSelector([x - 2, y + 1]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
           console.log("ee");
-          getSelector([x-2,y+1]).style.border = "1px solid black";
+          getSelector([x - 2, y + 1]).style.border = "1px solid black";
         }
-      }  
-    }else{//black
-      if(cells[x-2][y+1]>=0){
+      }
+    } else {
+      //black
+      if (cells[x - 2][y + 1] >= 0) {
         //show option
-        if(click){
-          pIndex.push(x-2);
-          pIndex.push(y+1);
-          getSelector([x-2,y+1]).style.border = "8px solid #5C4033";
-        }else{
+        if (click) {
+          pIndex.push(x - 2);
+          pIndex.push(y + 1);
+          getSelector([x - 2, y + 1]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x-2,y+1]).style.border = "1px solid black";
+          getSelector([x - 2, y + 1]).style.border = "1px solid black";
         }
       }
     }
   }
   //right up
-  if(y<=5&&x>0){
-    if(piece>0){//white
-     if(cells[x-1][y+2]<=0){
-      //show  option 
-      if(click){
-          pIndex.push(x-1);
-          pIndex.push(y+2);
-          getSelector([x-1,y+2]).style.border = "8px solid #5C4033";
-        }else{
+  if (y <= 5 && x > 0) {
+    if (piece > 0) {
+      //white
+      if (cells[x - 1][y + 2] <= 0) {
+        //show  option
+        if (click) {
+          pIndex.push(x - 1);
+          pIndex.push(y + 2);
+          getSelector([x - 1, y + 2]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x-1,y+2]).style.border = "1px solid black";
+          getSelector([x - 1, y + 2]).style.border = "1px solid black";
         }
-     } 
-    }else{//black
-      if(cells[x-1][y+2]>=0){
+      }
+    } else {
+      //black
+      if (cells[x - 1][y + 2] >= 0) {
         //show option[x-1][y+2]
-        if(click){
-          pIndex.push(x-1);
-          pIndex.push(y+2);
-          getSelector([x-1,y+2]).style.border = "8px solid #5C4033";
-        }else{
+        if (click) {
+          pIndex.push(x - 1);
+          pIndex.push(y + 2);
+          getSelector([x - 1, y + 2]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x-1,y+2]).style.border = "1px solid black";
+          getSelector([x - 1, y + 2]).style.border = "1px solid black";
         }
       }
     }
   }
   //right down
-  if(y<=5&&x<7){
-    if(piece>0){//white
-      if(cells[x+1][y+2]<=0){
+  if (y <= 5 && x < 7) {
+    if (piece > 0) {
+      //white
+      if (cells[x + 1][y + 2] <= 0) {
         //show option
-        if(click){
-          pIndex.push(x+1);
-          pIndex.push(y+2);
-          getSelector([x+1,y+2]).style.border = "8px solid #5C4033";
-        }else{
+        if (click) {
+          pIndex.push(x + 1);
+          pIndex.push(y + 2);
+          getSelector([x + 1, y + 2]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x+1,y+2]).style.border = "1px solid black";
+          getSelector([x + 1, y + 2]).style.border = "1px solid black";
         }
       }
-    }else{//black
-      if(cells[x+1][y+2]>=0){
+    } else {
+      //black
+      if (cells[x + 1][y + 2] >= 0) {
         //show option
-        if(click){
-          pIndex.push(x+1);
-          pIndex.push(y+2);
-          getSelector([x+1,y+2]).style.border = "8px solid #5C4033";
-        }else{
+        if (click) {
+          pIndex.push(x + 1);
+          pIndex.push(y + 2);
+          getSelector([x + 1, y + 2]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x+1,y+2]).style.border = "1px solid black";
+          getSelector([x + 1, y + 2]).style.border = "1px solid black";
         }
       }
     }
   }
   //left up
-  if(y>=2&&x>0){
-    if(piece>0){//white
-     if(cells[x-1][y-2]<=0){
-      //show option
-      if(click){
-          pIndex.push(x-1);
-          pIndex.push(y-2);
-          getSelector([x-1,y-2]).style.border = "8px solid #5C4033";
-        }else{
-          //remove border
-          getSelector([x-1,y-2]).style.border = "1px solid black";
-        }
-     } 
-    }else{//black
-      if(cells[x-1][y-2]>=0){
+  if (y >= 2 && x > 0) {
+    if (piece > 0) {
+      //white
+      if (cells[x - 1][y - 2] <= 0) {
         //show option
-        if(click){
-          pIndex.push(x-1);
-          pIndex.push(y-2);
-          getSelector([x-1,y-2]).style.border = "8px solid #5C4033";
-        }else{
+        if (click) {
+          pIndex.push(x - 1);
+          pIndex.push(y - 2);
+          getSelector([x - 1, y - 2]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x-1,y-2]).style.border = "1px solid black";
+          getSelector([x - 1, y - 2]).style.border = "1px solid black";
+        }
+      }
+    } else {
+      //black
+      if (cells[x - 1][y - 2] >= 0) {
+        //show option
+        if (click) {
+          pIndex.push(x - 1);
+          pIndex.push(y - 2);
+          getSelector([x - 1, y - 2]).style.border = "8px solid #5C4033";
+        } else {
+          //remove border
+          getSelector([x - 1, y - 2]).style.border = "1px solid black";
         }
       }
     }
   }
   //left down
-  if(y>=2&&x<7){
-    if(piece>0){//white
-     if(cells[x+1][y-2]<=0){
-      //show option
-      if(click){
-          pIndex.push(x+1);
-          pIndex.push(y-2);
-          getSelector([x+1,y-2]).style.border = "8px solid #5C4033";
-        }else{
-          //remove border
-          getSelector([x+1,y-2]).style.border = "1px solid black";
-        }
-     } 
-    }else{//black
-      if(cells[x+1][y-2]>=0){
+  if (y >= 2 && x < 7) {
+    if (piece > 0) {
+      //white
+      if (cells[x + 1][y - 2] <= 0) {
         //show option
-        if(click){
-          pIndex.push(x+1);
-          pIndex.push(y-2);
-          getSelector([x+1,y-2]).style.border = "8px solid #5C4033";
-        }else{
+        if (click) {
+          pIndex.push(x + 1);
+          pIndex.push(y - 2);
+          getSelector([x + 1, y - 2]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x+1,y-2]).style.border = "1px solid black";
+          getSelector([x + 1, y - 2]).style.border = "1px solid black";
+        }
+      }
+    } else {
+      //black
+      if (cells[x + 1][y - 2] >= 0) {
+        //show option
+        if (click) {
+          pIndex.push(x + 1);
+          pIndex.push(y - 2);
+          getSelector([x + 1, y - 2]).style.border = "8px solid #5C4033";
+        } else {
+          //remove border
+          getSelector([x + 1, y - 2]).style.border = "1px solid black";
         }
       }
     }
   }
   //down left
-  if(x<=5&&y>0){
-    if(piece>0){//white
-     if(cells[x+2][y-1]<=0){
-      //show option
-      if(click){
-          pIndex.push(x+2);
-          pIndex.push(y-1);
-          getSelector([x+2,y-1]).style.border = "8px solid #5C4033";
-        }else{
-          //remove border
-          getSelector([x+2,y-1]).style.border = "1px solid black";
-        }
-     } 
-    }
-    else{//black
-      if(cells[x+2][y-1]>=0){
+  if (x <= 5 && y > 0) {
+    if (piece > 0) {
+      //white
+      if (cells[x + 2][y - 1] <= 0) {
         //show option
-        if(click){
-          pIndex.push(x+2);
-          pIndex.push(y-1);
-          getSelector([x+2,y-1]).style.border = "8px solid #5C4033";
-        }else{
+        if (click) {
+          pIndex.push(x + 2);
+          pIndex.push(y - 1);
+          getSelector([x + 2, y - 1]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x+2,y-1]).style.border = "1px solid black";
+          getSelector([x + 2, y - 1]).style.border = "1px solid black";
+        }
+      }
+    } else {
+      //black
+      if (cells[x + 2][y - 1] >= 0) {
+        //show option
+        if (click) {
+          pIndex.push(x + 2);
+          pIndex.push(y - 1);
+          getSelector([x + 2, y - 1]).style.border = "8px solid #5C4033";
+        } else {
+          //remove border
+          getSelector([x + 2, y - 1]).style.border = "1px solid black";
         }
       }
     }
   }
   //down right
-  if(x<=5&&y<7){
-    if(piece>0){//white
-     if(cells[x+2][y+1]<=0){
-      //show option
-
-      if(click){
-          pIndex.push(x+2);
-          pIndex.push(y+1);
-          getSelector([x+2,y+1]).style.border = "8px solid #5C4033";
-        }else{
-          //remove border
-          getSelector([x+2,y+1]).style.border = "1px solid black";
-        }
-     } 
-     }
-    else{//black
-      // console.log("dr");
-      if(cells[x+2][y+1]>=0){
+  if (x <= 5 && y < 7) {
+    if (piece > 0) {
+      //white
+      if (cells[x + 2][y + 1] <= 0) {
         //show option
-        if(click){
-          pIndex.push(x+2);
-          pIndex.push(y+1);
-          getSelector([x+2,y+1]).style.border = "8px solid #5C4033";
-        }else{
+
+        if (click) {
+          pIndex.push(x + 2);
+          pIndex.push(y + 1);
+          getSelector([x + 2, y + 1]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x+2,y+1]).style.border = "1px solid black";
+          getSelector([x + 2, y + 1]).style.border = "1px solid black";
+        }
+      }
+    } else {
+      //black
+      // console.log("dr");
+      if (cells[x + 2][y + 1] >= 0) {
+        //show option
+        if (click) {
+          pIndex.push(x + 2);
+          pIndex.push(y + 1);
+          getSelector([x + 2, y + 1]).style.border = "8px solid #5C4033";
+        } else {
+          //remove border
+          getSelector([x + 2, y + 1]).style.border = "1px solid black";
         }
       }
     }
   }
 }
 //<===========KNIGHT=============>END
-
 
 //<============PAWN==============>
 function option_show_pawn(x, y, piece) {
@@ -698,81 +784,84 @@ function option_show_pawn(x, y, piece) {
       if (cells[x - 1][y] == 0) {
         //empty
         //show option[x-1][y]
-        if(click){
-          pIndex.push(x-1);
+        if (click) {
+          pIndex.push(x - 1);
           pIndex.push(y);
-          getSelector([x-1,y]).style.border = "8px solid #5C4033";
-        }else{
+          getSelector([x - 1, y]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x-1,y]).style.border = "1px solid black";
+          getSelector([x - 1, y]).style.border = "1px solid black";
         }
         if (x == 6 && cells[x - 2][y] == 0) {
           //empyt (two front move)
           //show option[x-2][y]
-          if(click){
-          pIndex.push(x-2);
-          pIndex.push(y);
-          getSelector([x-2,y]).style.border = "8px solid #5C4033";
-        }else{
-          //remove border
-          getSelector([x-2,y]).style.border = "1px solid black";
-        }
+          if (click) {
+            pIndex.push(x - 2);
+            pIndex.push(y);
+            getSelector([x - 2, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x - 2, y]).style.border = "1px solid black";
+          }
         }
       }
     }
     //left diagonal
-    if(x>0&&x<=6&&y>0&&y<=7){
-      if(cells[x-1][y-1]<0){//black(-ve)
+    if (x > 0 && x <= 6 && y > 0 && y <= 7) {
+      if (cells[x - 1][y - 1] < 0) {
+        //black(-ve)
         //show option[x-1][y-1]
-        if(click){
-          pIndex.push(x-1);
-          pIndex.push(y-1);
-          getSelector([x-1,y-1]).style.border = "8px solid #5C4033";
-        }else{
+        if (click) {
+          pIndex.push(x - 1);
+          pIndex.push(y - 1);
+          getSelector([x - 1, y - 1]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x-1,y-1]).style.border = "1px solid black";
+          getSelector([x - 1, y - 1]).style.border = "1px solid black";
         }
       }
     }
     //right diagonal
-    if(x>0&&x<=6&&y>=0&&y<7){
-      if(cells[x-1][y+1]<0){//black (-ve)
+    if (x > 0 && x <= 6 && y >= 0 && y < 7) {
+      if (cells[x - 1][y + 1] < 0) {
+        //black (-ve)
         //show option[x-1][y+1]
-        if(click){
-          pIndex.push(x-1);
-          pIndex.push(y+1);
-          getSelector([x-1,y+1]).style.border = "8px solid #5C4033";
-        }else{
+        if (click) {
+          pIndex.push(x - 1);
+          pIndex.push(y + 1);
+          getSelector([x - 1, y + 1]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x-1,y+1]).style.border = "1px solid black";
+          getSelector([x - 1, y + 1]).style.border = "1px solid black";
         }
       }
     }
-  }
-  else{//black pawn(-1)
+  } else {
+    //black pawn(-1)
     //down
-    if(x<7&&x>=1){
-      if(cells[x+1][y]==0){//empty
+    if (x < 7 && x >= 1) {
+      if (cells[x + 1][y] == 0) {
+        //empty
         //show option[x+1][y]
-        if(click){
-          pIndex.push(x+1);
+        if (click) {
+          pIndex.push(x + 1);
           pIndex.push(y);
-          getSelector([x+1,y]).style.border = "8px solid #5C4033";
-        }else{
+          getSelector([x + 1, y]).style.border = "8px solid #5C4033";
+        } else {
           //remove border
-          getSelector([x+1,y]).style.border = "1px solid black";
+          getSelector([x + 1, y]).style.border = "1px solid black";
         }
         if (x == 1 && cells[x + 2][y] == 0) {
           //empty (two front move for black)
           //show option[x+2][y]
-          if(click){
-          pIndex.push(x+2);
-          pIndex.push(y);
-          getSelector([x+2,y]).style.border = "8px solid #5C4033";
-        }else{
-          //remove border
-          getSelector([x+2,y]).style.border = "1px solid black";
-        }
+          if (click) {
+            pIndex.push(x + 2);
+            pIndex.push(y);
+            getSelector([x + 2, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x + 2, y]).style.border = "1px solid black";
+          }
         }
       }
       //left lower diagonal
@@ -780,14 +869,14 @@ function option_show_pawn(x, y, piece) {
         if (cells[x + 1][y - 1] > 0) {
           //white(+ve)
           //show option[x+1][y-1]
-          if(click){
-          pIndex.push(x+1);
-          pIndex.push(y-1);
-          getSelector([x+1,y-1]).style.border = "8px solid #5C4033";
-        }else{
-          //remove border
-          getSelector([x+1,y-1]).style.border = "1px solid black";
-        }
+          if (click) {
+            pIndex.push(x + 1);
+            pIndex.push(y - 1);
+            getSelector([x + 1, y - 1]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x + 1, y - 1]).style.border = "1px solid black";
+          }
         }
       }
       //right lower diagonal
@@ -795,14 +884,14 @@ function option_show_pawn(x, y, piece) {
         if (cells[x + 1][y + 1] > 0) {
           //white(+ve)
           //show option[x+1][y+1]
-          if(click){
-          pIndex.push(x+1);
-          pIndex.push(y+1);
-          getSelector([x+1,y+1]).style.border = "8px solid #5C4033";
-        }else{
-          //remove border
-          getSelector([x+1,y+1]).style.border = "1px solid black";
-        }
+          if (click) {
+            pIndex.push(x + 1);
+            pIndex.push(y + 1);
+            getSelector([x + 1, y + 1]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x + 1, y + 1]).style.border = "1px solid black";
+          }
         }
       }
     }
@@ -810,441 +899,452 @@ function option_show_pawn(x, y, piece) {
 }
 //<============PAWN==============>END
 
-
-
 //king
 
 //<==============BISHOP=============>
-  function option_show_beshoop(x,y,piece){
-  let tempx=x;
-  let tempy=y;
-  if(piece == 1){
-      if(x>0 && y>0 && cells[x-1][y-1] == 0){ //upper left
-        while(y!=0){
-          x--;
-          y--;
-          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
-          // console.log(x,y);
-          if(cells[x][y] <=0 ){
-            getSelector([x,y]).style.border = "8px solid #5C4033"; 
-            if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            } 
-          }
-          if(cells[x][y]!=0) break;
-        }
-      }
-      x=tempx;
-      y=tempy;
-      if(x>0 && y<7 && cells[x-1][y+1] == 0){ //upper right
-        while(x!=0){
-          x--;
-          y++;
-          if(cells[x][y] <=0 ){
-
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-            if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            } 
-         }
-         if(cells[x][y]!=0) break;
-          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
-        }
-      }
-      x=tempx;
-      y=tempy;
-      if(x<7 && y>0 && cells[x+1][y-1] == 0){ //down left
-        while(y!=0){
-          x++;
-          y--;
-          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
-          if(cells[x][y] <=0 ){
-
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-           if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            } 
-         }
-          if(cells[x][y]!=0) break;
-        }
-      }
-
-      x=tempx;
-      y=tempy;
-      if(x<7 && y<7 && cells[x+1][y+1] == 0){ //down right
-        while(x!=7){
-          x++;
-          y++;
-          // if(pieceColor(indexToPieceName(x,y)) == 1) break;
-            if(cells[x][y] <=0 ){
-
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-           if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
-         }
-          if(cells[x][y]!=0) break;
-        }
-      }
-   }
-   // black beshoop
-   else{
-      if(x>0 && y>0 && cells[x-1][y-1] == 0){ //upper left diagonal
-        while(y!=0){
-          x--;
-          y--;
-          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
-            if(cells[x][y] >=0 ){
-
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-           if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            } 
-         }
-          if(cells[x][y]!=0) break;
-        }
-      }
-      x=tempx;
-      y=tempy;
-      if(x>0 && y<7 && cells[x-1][y+1] == 0){ //upper right diagonal
-        while(x!=0){
+function option_show_beshoop(x, y, piece) {
+  let tempx = x;
+  let tempy = y;
+  if (piece == 1) {
+    if (x > 0 && y > 0 && cells[x - 1][y - 1] <= 0) {
+      //upper left
+      while (y != 0) {
+        x--;
+        y--;
+        // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+        // console.log(x,y);
+        if (cells[x][y] <= 0) {
           // getSelector([x,y]).style.border = "8px solid #5C4033";
-          x--;
-          y++;
-          if(cells[x][y] >=0 ){
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
+        }
+        
+        if (cells[x][y] != 0 &&cells[x][y]!=prev_value ) break;
+      }
+    }
+    x = tempx;
+    y = tempy;
+    if (x > 0 && y < 7 && cells[x - 1][y + 1] <= 0) {
+      //upper right
+      while (x != 0) {
+        x--;
+        y++;
+        if (cells[x][y] <= 0) {
+          //  getSelector([x,y]).style.border = "8px solid #5C4033";
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
+        }
+        if (cells[x][y] != 0) break;
+        // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+      }
+    }
+    x = tempx;
+    y = tempy;
+    if (x < 7 && y > 0 && cells[x + 1][y - 1] <= 0) {
+      //down left
+      while (y != 0) {
+        x++;
+        y--;
+        // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+        if (cells[x][y] <= 0) {
+          //  getSelector([x,y]).style.border = "8px solid #5C4033";
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
+        }
+        if (cells[x][y] != 0) break;
+      }
+    }
 
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-           if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            } 
-         }
-          if(cells[x][y]!=0) break;
-          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+    x = tempx;
+    y = tempy;
+    if (x < 7 && y < 7 && cells[x + 1][y + 1] <= 0) {
+      //down right
+      while (x != 7) {
+        x++;
+        y++;
+        // if(pieceColor(indexToPieceName(x,y)) == 1) break;
+        if (cells[x][y] <= 0) {
+          //  getSelector([x,y]).style.border = "8px solid #5C4033";
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
+        if (cells[x][y] != 0) break;
       }
-      x=tempx;
-      y=tempy;
-      if(x<7 && y>0 && cells[x+1][y-1] == 0){ //down left diagonal
-        while(y!=0){
-          x++;
-          y--;
-          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
-          if(cells[x][y] >=0 ){
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-           if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            } 
-         }
-          if(cells[x][y]!=0) break;
-        }
-      }
-      x=tempx;
-      y=tempy;
-      if(x<7 && y<7 && cells[x+1][y+1] == 0){ //down right diagonal
-        while(x!=7){
-          x++;
-          y++;
-          // if(pieceColor(indexToPieceName(x,y)) == -1) break;
-            if(cells[x][y] >=0 ){
+    }
+  }
+  // black beshoop
+  else {
+    if (x > 0 && y > 0 && cells[x - 1][y - 1] >= 0) {
+      //upper left diagonal
+      while (y != 0) {
+        x--;
+        y--;
+        // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+        if (cells[x][y] >= 0) {
+          //  getSelector([x,y]).style.border = "8px solid #5C4033";
 
-           getSelector([x,y]).style.border = "8px solid #5C4033"; 
-         }
-            if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            } 
-            if(cells[x][y]!=0) break;
-           }
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
+          if (cells[x][y] != 0) break;
         }
       }
-   }
+    }
+
+    x = tempx;
+    y = tempy;
+    if (x > 0 && y < 7 && cells[x - 1][y + 1] >= 0) {
+      //upper right diagonal
+      while (x != 0) {
+        // getSelector([x,y]).style.border = "8px solid #5C4033";
+        x--;
+        y++;
+        if (cells[x][y] >= 0) {
+          //  getSelector([x,y]).style.border = "8px solid #5C4033";
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
+          if (cells[x][y] != 0) break;
+        }
+      }
+      // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+    }
+
+    x = tempx;
+    y = tempy;
+    if (x < 7 && y > 0 && cells[x + 1][y - 1] >= 0) {
+      //down left diagonal
+      while (y != 0) {
+        x++;
+        y--;
+        // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+        if (cells[x][y] >= 0) {
+          //  getSelector([x,y]).style.border = "8px solid #5C4033";
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
+          if (cells[x][y] != 0) break;
+        }
+      }
+    }
+    x = tempx;
+    y = tempy;
+    if (x < 7 && y < 7 && cells[x + 1][y + 1] >= 0) {
+      //down right diagonal
+      while (x != 7) {
+        x++;
+        y++;
+        // if(pieceColor(indexToPieceName(x,y)) == -1) break;
+        if (cells[x][y] >= 0) {
+          //  getSelector([x,y]).style.border = "8px solid #5C4033";
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
+          if (cells[x][y] != 0) break;
+        }
+      }
+    }
+  }
+}
 //<==============BISHOP=============>end
 
-
 function option_show_queen(x, y, piece) {
-
   let tempx = x;
   let tempy = y;
   // console.log(x,y);
 
   //white queen
   if (piece == 1) {
-    if (cells[x][y - 1] <= 0) { //left
+    if (cells[x][y - 1] <= 0) {
+      //left
       while (y != 0) {
         y--;
-        if(cells[x][y]<=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] <= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
 
         if (cells[x][y] != 0) break;
       }
     }
 
-
     x = tempx;
     y = tempy;
-    if (cells[x][y + 1] <= 0) { //right
+    if (cells[x][y + 1] <= 0) {
+      //right
       while (y != 7) {
         y++;
-        if(cells[x][y]<=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] <= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
     }
 
-
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y - 1] <= 0) {//left upper diagonal
+    if (cells[x - 1][y - 1] <= 0) {
+      //left upper diagonal
       while (y != 0) {
         x--;
         y--;
-       if(cells[x][y]<=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] <= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
     }
 
-
-     x = tempx;
+    x = tempx;
     y = tempy;
-    if (cells[x + 1][y - 1] <= 0) {//left lower diagonal
+    if (cells[x + 1][y - 1] <= 0) {
+      //left lower diagonal
       while (y != 0) {
         x++;
         y--;
-       if(cells[x][y]<=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] <= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
     }
 
-
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y] <= 0) { // upper
+    if (cells[x - 1][y] <= 0) {
+      // upper
       while (x != 0) {
         x--;
-       if(cells[x][y]<=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] <= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
     }
 
-
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y + 1] <= 0) { //upper right diagonal
+    if (cells[x - 1][y + 1] <= 0) {
+      //upper right diagonal
       while (x != 0) {
         x--;
         y++;
-        if(cells[x][y]<=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] <= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
-        if (cells[x][y] != 0){ break;}
+        if (cells[x][y] != 0) {
+          break;
+        }
       }
     }
 
-
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y + 1] <= 0) { //lower right diagonal
+    if (cells[x + 1][y + 1] <= 0) {
+      //lower right diagonal
       while (x != 0) {
         x++;
         y++;
-        if(cells[x][y]<=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] <= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
-        if (cells[x][y] != 0){ break;}
+        if (cells[x][y] != 0) {
+          break;
+        }
       }
     }
 
-
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y] <= 0) { //down
+    if (cells[x + 1][y] <= 0) {
+      //down
       while (x != 7) {
         x++;
-        if(cells[x][y]<=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] <= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
     }
-  } 
+  }
 
   //black queen
   else {
-    if (cells[x - 1][y] >= 0) { //up
+    if (cells[x - 1][y] >= 0) {
+      //up
       console.log("up");
       while (x != 0) {
         x--;
-        console.log(x,y);
-        if(cells[x][y]>=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        console.log(x, y);
+        if (cells[x][y] >= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y - 1] >= 0) { //left upper diagonal
+    if (cells[x - 1][y - 1] >= 0) {
+      //left upper diagonal
       console.log("left upper diagonal");
       while (x != 0) {
         x--;
         y--;
-        console.log(x,y);
-        if(cells[x][y]>=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        console.log(x, y);
+        if (cells[x][y] >= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y + 1] >= 0) { //upper right diagonal
+    if (cells[x - 1][y + 1] >= 0) {
+      //upper right diagonal
       while (x != 0) {
         x--;
         y++;
-        if(cells[x][y]>=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] >= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x][y - 1] >= 0) { //left
+    if (cells[x][y - 1] >= 0) {
+      //left
       while (y != 0) {
         y--;
-        if(cells[x][y]>=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] >= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
@@ -1252,75 +1352,79 @@ function option_show_queen(x, y, piece) {
     x = tempx;
     y = tempy;
     // console.log(x, y);
-    if (cells[x][y + 1] >= 0) { //right
+    if (cells[x][y + 1] >= 0) {
+      //right
       // console.log(x, y);
       while (y != 7) {
         y++;
-        if(cells[x][y]>=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] >= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y] >= 0 ) { //down
+    if (cells[x + 1][y] >= 0) {
+      //down
       while (x != 7) {
         x++;
-        if(cells[x][y]>=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] >= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y - 1] >= 0) { //left lower diagonal
+    if (cells[x + 1][y - 1] >= 0) {
+      //left lower diagonal
       while (y != 0) {
         x++;
         y--;
-        if(cells[x][y]>=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] >= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y + 1] >= 0) { //right lower diagonal
+    if (cells[x + 1][y + 1] >= 0) {
+      //right lower diagonal
       while (y != 7) {
         x++;
         y++;
-        if(cells[x][y]>=0){
-          if(click){
-              pIndex.push(x);
-              pIndex.push(y);
-              getSelector([x,y]).style.border = "8px solid #5C4033";
-            }else{
-              //remove border
-              getSelector([x,y]).style.border = "1px solid black";
-            }
+        if (cells[x][y] >= 0) {
+          if (click) {
+            pIndex.push(x);
+            pIndex.push(y);
+            getSelector([x, y]).style.border = "8px solid #5C4033";
+          } else {
+            //remove border
+            getSelector([x, y]).style.border = "1px solid black";
+          }
         }
         if (cells[x][y] != 0) break;
       }
@@ -1332,55 +1436,47 @@ function getSelector([row, col]) {
   return eval(`p${row}${col}`);
 }
 
-
-
-function BorW(pn){
-   let piece;
-    if (pn[0] == "w") {
-      piece = 1;
-    } else if (pn[0] == "b") {
-      piece = -1;
-    }else {
-      piece=0;
-    }
-    return piece;
+function BorW(pn) {
+  let piece;
+  if (pn[0] == "w") {
+    piece = 1;
+  } else if (pn[0] == "b") {
+    piece = -1;
+  } else {
+    piece = 0;
+  }
+  return piece;
 }
 
-function showMoves(arrIdx,pieceName,piece) {
+function showMoves(arrIdx, pieceName, piece) {
+  // if(click){
+  //   click=false;
+  // }else{
+  //   click=true;
+  // }
 
-    // if(click){
-    //   click=false;
-    // }else{
-    //   click=true;
-    // }
-    
-    // console.log(click);
-    if (pieceName[1] == "p") {
-      option_show_pawn(arrIdx[0], arrIdx[1], piece);
-    } 
-    else if (pieceName[1] == "r") {
-      option_show_rook(arrIdx[0], arrIdx[1], piece);
-    } 
-    else if (pieceName[1] == "b") {
-      option_show_beshoop(arrIdx[0], arrIdx[1], piece);
-    } 
-    else if (pieceName[1] == "q") {
-      option_show_queen(arrIdx[0], arrIdx[1], piece);
-    } 
-    else if (pieceName[1] == "n") {
-      option_show_knight(arrIdx[0],arrIdx[1],piece);
-    }
-    
+  // console.log(click);
+  if (pieceName[1] == "p") {
+    option_show_pawn(arrIdx[0], arrIdx[1], piece);
+  } else if (pieceName[1] == "r") {
+    option_show_rook(arrIdx[0], arrIdx[1], piece);
+  } else if (pieceName[1] == "b") {
+    option_show_beshoop(arrIdx[0], arrIdx[1], piece);
+  } else if (pieceName[1] == "q") {
+    option_show_queen(arrIdx[0], arrIdx[1], piece);
+  } else if (pieceName[1] == "n") {
+    option_show_knight(arrIdx[0], arrIdx[1], piece);
+  }
 }
 
 //<=========isInpath===========>
-function isInPath(i,j){
-  console.log(i+","+j);
-  size=pIndex.length;
+function isInPath(i, j) {
+  console.log(i + "," + j);
+  size = pIndex.length;
   console.log(size);
-  for(let k=0;k<size;k+=2){
-    console.log(pIndex[k]+","+pIndex[k+1]);
-    if(i==pIndex[k]&&j==pIndex[k+1]){
+  for (let k = 0; k < size; k += 2) {
+    console.log(pIndex[k] + "," + pIndex[k + 1]);
+    if (i == pIndex[k] && j == pIndex[k + 1]) {
       console.log("bsdk");
       return true;
     }
@@ -1391,61 +1487,67 @@ function isInPath(i,j){
 //<=========isInpath===========>End
 pieces.forEach((p) => {
   p.addEventListener("click", function () {
-    
     let arrIdx = indexToArray(Number(p.id));
-    let pieceName = getPieceName(arrIdx[0],arrIdx[1]);
-    let piece  = BorW(pieceName); // -1 for black and 1 for white
+    let pieceName = getPieceName(arrIdx[0], arrIdx[1]);
+    let piece = BorW(pieceName); // -1 for black and 1 for white
 
-   //first time selecting piece to move
-    if(!select){
+    //first time selecting piece to move
+    if (!select) {
       console.log("1st time");
-      click=true;
-      select=true;
-      pi=arrIdx[0];
-      pj=arrIdx[1];
+      click = true;
+      select = true;
+      pi = arrIdx[0];
+      pj = arrIdx[1];
 
-      curr_piece=piece;//black white
-      prev_piece_name=pieceName;
-      showMoves(arrIdx,pieceName,piece);
-      
-    }else{//for unselect or move or kill
- 
+      curr_piece = piece; //black white
+      prev_piece_name = pieceName;
+      showMoves(arrIdx, pieceName, piece);
+    } else {
+      //for unselect or move or kill
+
       //same piece unselect
-      if(pi==arrIdx[0]&&pj==arrIdx[1]){
+      if (pi == arrIdx[0] && pj == arrIdx[1]) {
         console.log("same");
-      click=false;
-      showMoves(arrIdx,pieceName,piece);  
-      select=false;
-      pIndex=[];
-      }else
-      //same color unselect then select
-      if(curr_piece===piece){
+        click = false;
+        showMoves(arrIdx, pieceName, piece);
+        select = false;
+        pIndex = [];
+      } else if (curr_piece === piece) {
+        //same color unselect then select
         console.log("same color");
-        let prev_idx=[pi,pj];
-        click=false;
-        showMoves(prev_idx,prev_piece_name,piece);
-        click=true;
-        showMoves(arrIdx,pieceName,piece);
-        pi=arrIdx[0];
-        pj=arrIdx[1];
-        curr_piece=piece;
-        prev_piece_name=pieceName;
-        pIndex=[];
-      }else if(isInPath(arrIdx[0],arrIdx[1])){
+        let prev_idx = [pi, pj];
+        click = false;
+        showMoves(prev_idx, prev_piece_name, piece);
+        click = true;
+        showMoves(arrIdx, pieceName, piece);
+        pi = arrIdx[0];
+        pj = arrIdx[1];
+        curr_piece = piece;
+        prev_piece_name = pieceName;
+        pIndex = [];
+      } else if (isInPath(arrIdx[0], arrIdx[1])) {
         //kill
-        if(piece!=0){
+        if (piece != 0) {
           console.log("kill");
         }
         //move
-        pieceMove(getSelector([pi,pj]),p);
-        pIndex=[];
-        let prev_idx=[pi,pj];
+        prev_value=cells[pi][pj];
+        pieceMove(getSelector([pi, pj]), p);
+        //
+        cells[arrIdx[0]][arrIdx[1]]=0;
+        //
+        pIndex = [];
+        let prev_idx = [pi, pj];
         //for removing path of after moving or killing
-        click=false;
-        showMoves(prev_idx,prev_piece_name,curr_piece);
-        getSelector([arrIdx[0],arrIdx[1]]).style.border = "1px solid black";
-        select=0;
-      }else{
+        click = false;
+        console.log(prev_value);
+        showMoves(prev_idx, prev_piece_name, curr_piece);
+        //
+        cells[arrIdx[0]][arrIdx[1]]=prev_value;
+        //
+        getSelector([arrIdx[0], arrIdx[1]]).style.border = "1px solid black";
+        select = 0;
+      } else {
         console.log("wrong move");
       }
     }
@@ -1455,7 +1557,7 @@ pieces.forEach((p) => {
     // }
     // if(pi==arrIdx[0]&&pj==arrIdx[1]){
     //   click=false;
-    //   showMoves(arrIdx,pieceName,piece);  
+    //   showMoves(arrIdx,pieceName,piece);
     // }
     //let i,j = index of div
     //path check isRight_Choice()
@@ -1465,12 +1567,7 @@ pieces.forEach((p) => {
     // move(selected_piece,i,j);
     // }
     // }
-    
-    
 
     // showMoves(arrIdx,pieceName,piece);
-
-
   });
 });
-
