@@ -155,8 +155,9 @@ function indexToArray(i){
 
 function getPieceName(x,y){
   let pi = window.getComputedStyle(getSelector([x, y])).backgroundImage;
-  // console.log(pi);
-  let pieceName = pi.substring(58, 60);
+  console.log(pi);
+  let pieceName = pi.substring(47, 49);
+  console.log(pieceName);
   return pieceName;
 }
 
@@ -930,7 +931,7 @@ function BorW(pn){
 }
 
 function showMoves(arrIdx,pieceName,piece) {
-
+  console.log(pieceName);
   if (pieceName[1] == "p") {
       option_show_pawn(arrIdx[0], arrIdx[1], piece);
     } 
@@ -952,14 +953,15 @@ pieces.forEach((p) => {
   p.addEventListener("click", function () {
 
     let arrIdx = indexToArray(Number(p.id));
-    
+    console.log(arrIdx);
     let pieceName = getPieceName(arrIdx[0],arrIdx[1]);
-
+    console.log(pieceName);
     let piece  = BorW(pieceName); // -1 for black and 1 for white
+    console.log(piece);
 
     showMoves(arrIdx,pieceName,piece);
 
-    pieceMove(p,p00);
+    // pieceMove(p,p00);
   });
 });
 
