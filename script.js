@@ -531,13 +531,10 @@ function option_show_knight(x, y, piece) {
       if (cells[x - 2][y - 1] <= 0) {
         //show option [x-2][y-1]
         if (click) {
-          // console.log(click);
           pIndex.push(x - 2);
           pIndex.push(y - 1);
           getSelector([x - 2, y - 1]).style.border = "8px solid #5C4033";
         } else {
-          // console.log(click);
-          console.log("ejje");
           getSelector([x - 2, y - 1]).style.border = "1px solid black";
         }
       }
