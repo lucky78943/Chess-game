@@ -142,7 +142,24 @@ let pieces = [
   p76,
   p77,
 ];
-
+let prev_piece_name;
+let curr_piece = 0;
+let select = false;
+let kill = 0;
+let move = 0;
+let pi = -1;
+let pj = -1;
+let turn = 1; //1 white -1 black
+let White_king_X = 7;
+let White_king_Y = 4;
+let Black_king_X = 0;
+let Black_king_Y = 4;
+let prev_value=0;
+//let flag
+let pIndex = [];
+let selected_piece = 0;
+let size = 0;
+let click = false;
 let r0 = [p00, p01, p02, p03, p04, p05, p06, p07];
 let r1 = [p10, p11, p12, p13, p14, p15, p16, p17];
 let r6 = [p60, p61, p62, p63, p64, p65, p66, p67];
@@ -211,7 +228,7 @@ function getPieceName(x, y) {
   let pi = window.getComputedStyle(getSelector([x, y])).backgroundImage;
   console.log(pi);
   let pieceName = pi.substring(58, 60);
-  console.log(pieceName);
+  console.log("ipin"+pieceName);
   return pieceName;
 }
 
@@ -256,6 +273,15 @@ function pieceMove(piecePos, postion) {
 
   postion.style.backgroundImage = `${pi}`;
   cells[newIdx[0]][newIdx[1]] = pieceToValue(piece);
+
+  if(piece == "wk"){
+    White_king_X = newIdx[0];
+    White_king_Y = newIdx[1];
+  }
+  else if(piece == "bk"){
+    Black_king_X = newIdx[0];
+    Black_king_Y = newIdx[1];
+  }
 }
 
 startGame();
@@ -263,100 +289,104 @@ pieceMove(p11, p30);
 pieceMove(p71, p22);
 // pieceMove(getSelector([pi,pj]),p);
 
-let prev_piece_name;
-let curr_piece = 0;
-let select = false;
-let kill = 0;
-let move = 0;
-let pi = -1;
-let pj = -1;
-let turn = 1; //1 white -1 black
-let White_king_X = 7;
-let White_king_Y = 4;
-let Black_king_X = 0;
-let Black_king_Y = 4;
-let prev_value=0;
-//let flag
-let pIndex = [];
-let selected_piece = 0;
-let size = 0;
-let click = false;
+
 //<=============CHECK=============>
 function isCheck(x, y, piece) {
-  //up
   console.log("isCheck called");
-  for (let i = x - 1; i >= 0; i--) {
+  
+  //up
+  if(x>0){
+    let i=x-1;
+    while(i>=0&&cells[i][y]==0){
+      i--;
+    }
     if (piece > 0) {
       //white king
-      if (cells[i][y] == -4 || cells[i][y] == -5) {
+      if (i>=0&&(cells[i][y] == -4 || cells[i][y] == -5)) {
+        console.log(i+","+y);
         console.log("-br,bq1");
         return true; //check by rook or queen
       }
     } else {
       //black
-      if (cells[i][y] == 4 && cells[i][y] == 5) {
+      if (i>=0&&(cells[i][y] == 4 && cells[i][y] == 5)) {
         console.log("-wr,wq1");
         return true; //check by rook or queen
       }
     }
   }
+  //
   //down
-
-  for (let i = x + 1; i<=7; i++) {
-    if (piece > 0) {
-      //white
-      if (cells[i][y] == -4 || cells[i][y] == -5) {
+  if(x<7){
+    let i=x+1;
+    while(i>=0&&cells[i][y]==0){
+      i++;
+    }
+    if (piece > 0) {//white
+      if (i<=7&&(cells[i][y] == -4 || cells[i][y] == -5)) {
         //check by rook or queen
+        console.log(i+","+y);
         console.log("-br,bq2");
         return true;
       }
     } else {
       //black
-      if (cells[i][y] == 4 || cells[i][y] == 5) {
+      if (i<=7&&(cells[i][y] == 4 || cells[i][y] == 5)) {
         //check by white rook or queen
         console.log("-wr,wq2");
         return true;
       }
     }
   }
+
   //left
-  for (let j = y - 1; j >= 0; j--) {
-    if (piece > 0) {
-      //white
-      if (cells[x][j] == -4 || cells[x][j] == -5) {
-        //check by black rook or queen
+  //////kiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+  if(y>0){
+    let j=y-1;
+    while(j>=0&&cells[x][j]==0){
+      j--;
+    }
+    if (piece > 0) {//white
+      if (j>=0&&(cells[x][j] == -4 || cells[x][j] == -5)) {
+        //check by rook or queen
         console.log(x+","+j);
-        console.log("-br,bq3");
+        console.log("-br,bq2");
         return true;
       }
     } else {
       //black
-      if (cells[x][j] == 4 || cells[x][j] == 5) {
+      if (j>=0&&(cells[x][j] == 4 || cells[x][j] == 5)) {
         //check by white rook or queen
-        console.log(x+","+j);
-        console.log("-wr,wq3");
+        console.log("-wr,wq2");
         return true;
       }
     }
   }
+
   //right
-  for (let j = y + 1; j <= 7; j++) {
-    if (piece > 0) {
-      //white
-      if (cells[x][j] == -4 || cells[x][j] == -5) {
-        //check by black or queen
-        console.log("-br,bq4");
+  if(y<7){
+    let j=y+1;
+    while(j<=7&&cells[x][j]==0){
+      j++;
+    }
+    
+    if (piece > 0) {//white
+      if (j<=7&&(cells[x][j] == -4 || cells[x][j] == -5)) {
+        //check by rook or queen
+        console.log(x+","+j);
+        console.log("-br,bq2");
         return true;
       }
     } else {
       //black
-      if (cells[x][j] == 4 || cells[x][j] == 5) {
+      if (j<=7&&(cells[x][j] == 4 || cells[x][j] == 5)) {
         //check by white rook or queen
-        console.log("-wr,wq4");
+        console.log("-wr,wq2");
         return true;
       }
     }
-  } //right end
+  }
+   //right end
 
   //left upper diagonal
   if(x>0&&y>0){
@@ -366,9 +396,14 @@ function isCheck(x, y, piece) {
       j--;
     }
     if(piece>0){//white king
-      if(i>=0&&j>=0&&cells[i][j]==-5||cells[i][j]==-3||cells[i][j]==-1){
+      if(i>=0&&j>=0&&cells[i][j]==-5||cells[i][j]==-3){
         //black queen,bishop,pawn
-        console.log("-br,bq,bp1");
+        console.log("-br,bq1");
+        return true;
+      }
+      if(i>=0&&j>=0&&cells[i][j]==-1&&i==x-1&&j==y-1){
+        //black pawn
+        console.log("-bp1");
         return true;
       }
     }else{//black king
@@ -388,13 +423,18 @@ function isCheck(x, y, piece) {
       j++;
     }
     if(piece>0){//whiteking
-      if(i>=0&&j<=7&&cells[i][j]==-5||cells[i][j]==-3||cells[i][j]==-1){
+      if(i>=0&&j<=7&&(cells[i][j]==-5||cells[i][j]==-3)){
         //black queen,bishop,pawn
-        console.log("-br,bq,bp2");
+        console.log("-br,bq2");
+        return true;
+      }
+      if(i>=0&&j<=7&&cells[i][j]==-1&&i==x-1&&j==y+1){
+        //black pawn
+        console.log("-bp2");
         return true;
       }
     }else{//black king
-      if(i>=0&&j<=7&&cells[i][j]==5||cells[i][j]==3){
+      if(i>=0&&j<=7&&(cells[i][j]==5||cells[i][j]==3)){
         //white queen,bishop
         console.log("-wr,wq2");
         return true;
@@ -417,9 +457,14 @@ function isCheck(x, y, piece) {
         return true;
       }
     }else{//black king
-      if(i<=7&&j>=0&&cells[i][j]==5||cells[i][j]==3||cells[i][j]==1){
+      if(i<=7&&j>=0&&cells[i][j]==5||cells[i][j]==3){
         //WHITE queen,bishop,pawn
-        console.log("-wb,wq3,wp");
+        console.log("-wb,wq3");
+        return true;
+      }
+      if(i<=7&&j>=0&&cells[i][j]==1&&i==x+1&&j==y-1){
+        //white pawn
+        console.log("-wp3");
         return true;
       }
     }
@@ -433,15 +478,20 @@ function isCheck(x, y, piece) {
       j++;
     }
     if(piece>0){//white king
-      if(i<=7&&j<=7&&cells[i][j]==-5||cells[i][j]==-3){
+      if(i<=7&&j<=7&&(cells[i][j]==-5||cells[i][j]==-3)){
         //black queen,bishop
         console.log("-br,bq4");
         return true;
       }
     }else{//black king
-      if(i<=7&&j<=7&&cells[i][j]==5||cells[i][j]==3||cells[i][j]==1){
+      if(i<=7&&j<=7&&cells[i][j]==5||cells[i][j]==3){
         //WHITE queen,bishop,pawn
-        console.log("-wb,wq3,wp4");
+        console.log("-wb,wq4");
+        return true;
+      }
+      if(i<=7&&j<=7&&cells[i][j]==1&&i==x+1&&j==y+1){
+        //black pawn
+        console.log("-wp4");
         return true;
       }
     }
@@ -583,10 +633,196 @@ function isCheck(x, y, piece) {
 }
 //<==============CHECK end=============>
 
+//<===========king==============>
+  function option_show_king(x,y,piece){
+  if(piece > 0){
 
+    //down
+    if(x<7 && cells[x+1][y]<=0){
+      if(click){
+        pIndex.push(x+1,y);
+        getSelector([x +1, y]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x+1, y]).style.border = "1px solid black";
+      }
+    }
+
+    //up
+    if(x>0 && cells[x-1][y]<=0){
+      if(click){
+        pIndex.push(x-1,y);
+        getSelector([x -1, y]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x-1, y]).style.border = "1px solid black";
+      }
+    }
+
+    //right
+    if(y<7 && cells[x][y+1]<=0){
+      if(click){
+        pIndex.push(x,y+1);
+        getSelector([x, y+1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x, y+1]).style.border = "1px solid black";
+      }
+    }
+
+    // left
+    if(y>0 && cells[x][y-1]<=0){
+      if(click){
+        pIndex.push(x,y-1);
+        getSelector([x, y-1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x, y-1]).style.border = "1px solid black";
+      }
+    }
+
+    //down right
+    if(x<7 && y<7 && cells[x+1][y+1]<=0){
+      if(click){
+        pIndex.push(x+1,y+1);
+        getSelector([x + 1, y+1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x+1, y+1]).style.border = "1px solid black";
+      }
+    }
+
+    //down left
+    if(x<7 && y>0 && cells[x+1][y-1]<=0){
+      if(click){
+        pIndex.push(x+1,y-1);
+        getSelector([x +1, y-1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x+1, y-1]).style.border = "1px solid black";
+      }
+    }
+
+    //up right
+    if(x>0 &&  y<7 && cells[x-1][y+1]<=0){
+      if(click){
+        pIndex.push(x-1,y+1);
+        getSelector([x - 1, y+1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x-1, y+1]).style.border = "1px solid black";
+      }
+    }
+
+    //up left
+    if(x>0 && y>0 && cells[x-1][y-1]<=0){
+      if(click){
+        pIndex.push(x-1,y-1);
+        getSelector([x-1, y-1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x-1, y-1]).style.border = "1px solid black";
+      }
+    }
+  }
+  else{
+
+    //down
+    if(x<7 && cells[x+1][y]>=0){
+      if(click){
+        pIndex.push(x+1,y);
+        getSelector([x +1, y]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x+1, y]).style.border = "1px solid black";
+      }
+    }
+
+    //up
+    if(x>0 && cells[x-1][y]>=0){
+      if(click){
+        pIndex.push(x-1,y);
+        getSelector([x -1, y]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x-1, y]).style.border = "1px solid black";
+      }
+    }
+
+    //right
+    if(y<7 && cells[x][y+1]>=0){
+      if(click){
+        pIndex.push(x,y+1);
+        getSelector([x, y+1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x, y+1]).style.border = "1px solid black";
+      }
+    }
+
+    // left
+    if(y>0 && cells[x][y-1]>=0){
+      if(click){
+        pIndex.push(x,y-1);
+        getSelector([x, y-1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x, y-1]).style.border = "1px solid black";
+      }
+    }
+
+    //down right
+    if(x<7 && y<7 && cells[x+1][y+1]>=0){
+      if(click){
+        pIndex.push(x+1,y+1);
+        getSelector([x + 1, y+1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x+1, y+1]).style.border = "1px solid black";
+      }
+    }
+
+    //down left
+    if(x<7 && y>0 && cells[x+1][y-1]>=0){
+      if(click){
+        pIndex.push(x+1,y-1);
+        getSelector([x +1, y-1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x+1, y-1]).style.border = "1px solid black";
+      }
+    }
+
+    //up right
+    if(x>0 &&  y<7 && cells[x-1][y+1]>=0){
+      if(click){
+        pIndex.push(x-1,y+1);
+        getSelector([x - 1, y+1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x-1, y+1]).style.border = "1px solid black";
+      }
+    }
+
+    //up left
+    if(x>0 && y>0 && cells[x-1][y-1]>=0){
+      if(click){
+        pIndex.push(x-1,y-1);
+        getSelector([x-1, y-1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x-1, y-1]).style.border = "1px solid black";
+      }
+    }
+  }
+}
+  //<===========king==============>end
 
 //<=============ROOK==========>
 function option_show_rook(x, y, piece) {
+  console.log("calling rook");
+  console.log(x+","+y);
+  console.log(" new line ");
   //up
   for (let i = x - 1; i >= 0; i--) {
     if (piece > 0) {
@@ -622,6 +858,7 @@ function option_show_rook(x, y, piece) {
     }
   }
   //down
+  console.log("down rook");
   for (let i = x + 1; i <= 7; i++) {
     if (piece > 0) {
       //white
@@ -638,9 +875,11 @@ function option_show_rook(x, y, piece) {
       }
     } else {
       //black
+      console.log("black rook");
       if (cells[i][y] >= 0) {
         //show option
         if (click) {
+          console.log("push");
           pIndex.push(i);
           pIndex.push(y);
           getSelector([i, y]).style.border = "8px solid #5C4033";
@@ -1157,7 +1396,7 @@ function option_show_beshoop(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
         // if(pieceColor(indexToPieceName(x,y)) == 1) break;
       }
     }
@@ -1180,7 +1419,7 @@ function option_show_beshoop(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
 
@@ -1203,7 +1442,7 @@ function option_show_beshoop(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
   }
@@ -1226,7 +1465,7 @@ function option_show_beshoop(x, y, piece) {
             //remove border
             getSelector([x, y]).style.border = "1px solid black";
           }
-          if (cells[x][y] != 0) break;
+          if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
         }
       }
     }
@@ -1249,7 +1488,7 @@ function option_show_beshoop(x, y, piece) {
             //remove border
             getSelector([x, y]).style.border = "1px solid black";
           }
-          if (cells[x][y] != 0) break;
+          if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
         }
       }
       // if(pieceColor(indexToPieceName(x,y)) == -1) break;
@@ -1273,7 +1512,7 @@ function option_show_beshoop(x, y, piece) {
             //remove border
             getSelector([x, y]).style.border = "1px solid black";
           }
-          if (cells[x][y] != 0) break;
+          if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
         }
       }
     }
@@ -1295,7 +1534,7 @@ function option_show_beshoop(x, y, piece) {
             //remove border
             getSelector([x, y]).style.border = "1px solid black";
           }
-          if (cells[x][y] != 0) break;
+          if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
         }
       }
     }
@@ -1307,14 +1546,14 @@ function option_show_queen(x, y, piece) {
   let tempx = x;
   let tempy = y;
   // console.log(x,y);
-
+  //x>=0&&x<=7&&y>=0&&y<=7&&
   //white queen
   if (piece == 1) {
-    if (cells[x][y - 1] <= 0) {
+    if (x>=0&&x<=7&&y>0&&y<=7&&cells[x][y - 1] <= 0) {
       //left
       while (y != 0) {
         y--;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1325,17 +1564,17 @@ function option_show_queen(x, y, piece) {
           }
         }
 
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
 
     x = tempx;
     y = tempy;
-    if (cells[x][y + 1] <= 0) {
+    if (x>=0&&x<=7&&y>=0&&y<7&&cells[x][y + 1] <= 0) {
       //right
       while (y != 7) {
         y++;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1345,18 +1584,18 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
 
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y - 1] <= 0) {
+    if (x>0&&x<=7&&y>0&&y<=7&&cells[x - 1][y - 1] <= 0) {
       //left upper diagonal
       while (y != 0) {
         x--;
         y--;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1366,18 +1605,18 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
 
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y - 1] <= 0) {
+    if (x>=0&&x<7&&y>0&&y<=7&&cells[x + 1][y - 1] <= 0) {
       //left lower diagonal
       while (y != 0) {
         x++;
         y--;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1387,17 +1626,17 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
 
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y] <= 0) {
+    if (x>0&&x<=7&&y>=0&&y<=7&&cells[x - 1][y] <= 0) {
       // upper
       while (x != 0) {
         x--;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1407,18 +1646,18 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
 
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y + 1] <= 0) {
+    if (x>0&&x<=7&&y>=0&&y<7&&cells[x - 1][y + 1] <= 0) {
       //upper right diagonal
       while (x != 0) {
         x--;
         y++;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1428,7 +1667,7 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) {
           break;
         }
       }
@@ -1436,12 +1675,12 @@ function option_show_queen(x, y, piece) {
 
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y + 1] <= 0) {
+    if (x>=0&&x<7&&y>=0&&y<7&&cells[x + 1][y + 1] <= 0) {
       //lower right diagonal
-      while (x != 0) {
+      while (x != 7) {
         x++;
         y++;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1451,7 +1690,7 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) {
           break;
         }
       }
@@ -1459,11 +1698,11 @@ function option_show_queen(x, y, piece) {
 
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y] <= 0) {
+    if (x>=0&&x<7&&y>=0&&y<=7&&cells[x + 1][y] <= 0) {
       //down
       while (x != 7) {
         x++;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1473,20 +1712,20 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
   }
 
   //black queen
   else {
-    if (cells[x - 1][y] >= 0) {
+    if (x>0&&x<=7&&y>=0&&y<=7&&cells[x - 1][y] >= 0) {
       //up
       console.log("up");
       while (x != 0) {
         x--;
         console.log(x, y);
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1496,19 +1735,19 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y - 1] >= 0) {
+    if (x>0&&x<=7&&y>0&&y<=7&&cells[x - 1][y - 1] >= 0) {
       //left upper diagonal
       console.log("left upper diagonal");
       while (x != 0) {
         x--;
         y--;
         console.log(x, y);
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1518,17 +1757,17 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y + 1] >= 0) {
+    if (x>0&&x<=7&&y>=0&&y<7&&cells[x - 1][y + 1] >= 0) {
       //upper right diagonal
       while (x != 0) {
         x--;
         y++;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1538,16 +1777,16 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x][y - 1] >= 0) {
+    if (x>=0&&x<=7&&y>0&&y<=7&&cells[x][y - 1] >= 0) {
       //left
       while (y != 0) {
         y--;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1557,18 +1796,18 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
     // console.log(x, y);
-    if (cells[x][y + 1] >= 0) {
+    if (x>=0&&x<=7&&y>=0&&y<7&&cells[x][y + 1] >= 0) {
       //right
       // console.log(x, y);
       while (y != 7) {
         y++;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1578,16 +1817,16 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y] >= 0) {
+    if (x>=0&&x<7&&y>=0&&y<=7&&cells[x + 1][y] >= 0) {
       //down
       while (x != 7) {
         x++;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1597,17 +1836,17 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y - 1] >= 0) {
+    if (x>=0&&x<7&&y>0&&y<=7&&cells[x + 1][y - 1] >= 0) {
       //left lower diagonal
       while (y != 0) {
         x++;
         y--;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1617,17 +1856,17 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y + 1] >= 0) {
+    if (x>=0&&x<7&&y>=0&&y<7&&cells[x + 1][y + 1] >= 0) {
       //right lower diagonal
       while (y != 7) {
         x++;
         y++;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1637,7 +1876,7 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
   }
@@ -1677,6 +1916,8 @@ function showMoves(arrIdx, pieceName, piece) {
   } else if (pieceName[1] == "n") {
     console.log("here");
     option_show_knight(arrIdx[0], arrIdx[1], piece);
+  }else if(pieceName[1]=="k"){
+    option_show_king(arrIdx[0],arrIdx[1],piece);
   }
 }
 
@@ -1685,6 +1926,11 @@ function isInPath(i, j) {
   console.log(i + "," + j);
   size = pIndex.length;
   console.log(size);
+  console.log("showing path");
+  console.log()
+  for(let bb=0;bb<size;bb++){
+    console.log(pIndex[bb]);
+  }
   for (let k = 0; k < size; k += 2) {
     console.log(pIndex[k] + "," + pIndex[k + 1]);
     if (i == pIndex[k] && j == pIndex[k + 1]) {
@@ -1698,11 +1944,20 @@ function isInPath(i, j) {
 //<=========isInpath===========>End
 pieces.forEach((p) => {
   p.addEventListener("click", function () {
-    
+
     let arrIdx = indexToArray(Number(p.id));
     let pieceName = getPieceName(arrIdx[0], arrIdx[1]);
     let piece = BorW(pieceName); // -1 for black and 1 for white
 
+    console.log("piece name ->"+pieceName);
+    console.log(piece);
+    //<===clicking nothing===>
+    if(!select&&piece==0){
+      console.log("clicking nothing");
+      return;
+    }
+    console.log("click-"+click);
+    console.log("select-"+select);
     //first time selecting piece to move
     if (!select) {
       console.log("1st time");
@@ -1724,6 +1979,7 @@ pieces.forEach((p) => {
         click = false;
         showMoves(arrIdx, pieceName, piece);
         select = false;
+        console.log("path clearing1");
         pIndex = [];
       } else if (curr_piece === piece) {
         //same color unselect then select
@@ -1732,12 +1988,17 @@ pieces.forEach((p) => {
         click = false;
         showMoves(prev_idx, prev_piece_name, piece);
         click = true;
+        pIndex = [];
         showMoves(arrIdx, pieceName, piece);
         pi = arrIdx[0];
         pj = arrIdx[1];
         curr_piece = piece;
         prev_piece_name = pieceName;
-        pIndex = [];
+        // console.log("path clearing2");
+
+
+
+        //pIndex=[]; 1905->1899
       } else if (isInPath(arrIdx[0], arrIdx[1])) {
         //kill
         if (piece != 0) {
@@ -1749,6 +2010,7 @@ pieces.forEach((p) => {
         //
         cells[arrIdx[0]][arrIdx[1]]=0;
         //
+        console.log("path clearing3");
         pIndex = [];
         let prev_idx = [pi, pj];
         //for removing path of after moving or killing
@@ -1775,6 +2037,8 @@ pieces.forEach((p) => {
 
       } else {
         console.log("wrong move");
+        console.log(select);
+        console.log(click);
       }
     }
   });
