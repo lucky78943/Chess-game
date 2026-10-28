@@ -142,7 +142,24 @@ let pieces = [
   p76,
   p77,
 ];
-
+let prev_piece_name;
+let curr_piece = 0;
+let select = false;
+let kill = 0;
+let move = 0;
+let pi = -1;
+let pj = -1;
+let turn = 1; //1 white -1 black
+let White_king_X = 7;
+let White_king_Y = 4;
+let Black_king_X = 0;
+let Black_king_Y = 4;
+let prev_value=0;
+//let flag
+let pIndex = [];
+let selected_piece = 0;
+let size = 0;
+let click = false;
 let r0 = [p00, p01, p02, p03, p04, p05, p06, p07];
 let r1 = [p10, p11, p12, p13, p14, p15, p16, p17];
 let r6 = [p60, p61, p62, p63, p64, p65, p66, p67];
@@ -256,6 +273,15 @@ function pieceMove(piecePos, postion) {
 
   postion.style.backgroundImage = `${pi}`;
   cells[newIdx[0]][newIdx[1]] = pieceToValue(piece);
+
+  if(piece == "wk"){
+    White_king_X = newIdx[0];
+    White_king_Y = newIdx[1];
+  }
+  else if(piece == "bk"){
+    Black_king_X = newIdx[0];
+    Black_king_Y = newIdx[1];
+  }
 }
 
 startGame();
@@ -263,24 +289,7 @@ pieceMove(p11, p30);
 pieceMove(p71, p22);
 // pieceMove(getSelector([pi,pj]),p);
 
-let prev_piece_name;
-let curr_piece = 0;
-let select = false;
-let kill = 0;
-let move = 0;
-let pi = -1;
-let pj = -1;
-let turn = 1; //1 white -1 black
-let White_king_X = 7;
-let White_king_Y = 4;
-let Black_king_X = 0;
-let Black_king_Y = 4;
-let prev_value=0;
-//let flag
-let pIndex = [];
-let selected_piece = 0;
-let size = 0;
-let click = false;
+
 //<=============CHECK=============>
 function isCheck(x, y, piece) {
   console.log("isCheck called");
@@ -425,7 +434,7 @@ function isCheck(x, y, piece) {
         return true;
       }
     }else{//black king
-      if(i>=0&&j<=7&&cells[i][j]==5||cells[i][j]==3){
+      if(i>=0&&j<=7&&(cells[i][j]==5||cells[i][j]==3)){
         //white queen,bishop
         console.log("-wr,wq2");
         return true;
@@ -469,7 +478,7 @@ function isCheck(x, y, piece) {
       j++;
     }
     if(piece>0){//white king
-      if(i<=7&&j<=7&&cells[i][j]==-5||cells[i][j]==-3){
+      if(i<=7&&j<=7&&(cells[i][j]==-5||cells[i][j]==-3)){
         //black queen,bishop
         console.log("-br,bq4");
         return true;
@@ -624,10 +633,196 @@ function isCheck(x, y, piece) {
 }
 //<==============CHECK end=============>
 
+//<===========king==============>
+  function option_show_king(x,y,piece){
+  if(piece > 0){
 
+    //down
+    if(x<7 && cells[x+1][y]<=0){
+      if(click){
+        pIndex.push(x+1,y);
+        getSelector([x +1, y]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x+1, y]).style.border = "1px solid black";
+      }
+    }
+
+    //up
+    if(x>0 && cells[x-1][y]<=0){
+      if(click){
+        pIndex.push(x-1,y);
+        getSelector([x -1, y]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x-1, y]).style.border = "1px solid black";
+      }
+    }
+
+    //right
+    if(y<7 && cells[x][y+1]<=0){
+      if(click){
+        pIndex.push(x,y+1);
+        getSelector([x, y+1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x, y+1]).style.border = "1px solid black";
+      }
+    }
+
+    // left
+    if(y>0 && cells[x][y-1]<=0){
+      if(click){
+        pIndex.push(x,y-1);
+        getSelector([x, y-1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x, y-1]).style.border = "1px solid black";
+      }
+    }
+
+    //down right
+    if(x<7 && y<7 && cells[x+1][y+1]<=0){
+      if(click){
+        pIndex.push(x+1,y+1);
+        getSelector([x + 1, y+1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x+1, y+1]).style.border = "1px solid black";
+      }
+    }
+
+    //down left
+    if(x<7 && y>0 && cells[x+1][y-1]<=0){
+      if(click){
+        pIndex.push(x+1,y-1);
+        getSelector([x +1, y-1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x+1, y-1]).style.border = "1px solid black";
+      }
+    }
+
+    //up right
+    if(x>0 &&  y<7 && cells[x-1][y+1]<=0){
+      if(click){
+        pIndex.push(x-1,y+1);
+        getSelector([x - 1, y+1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x-1, y+1]).style.border = "1px solid black";
+      }
+    }
+
+    //up left
+    if(x>0 && y>0 && cells[x-1][y-1]<=0){
+      if(click){
+        pIndex.push(x-1,y-1);
+        getSelector([x-1, y-1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x-1, y-1]).style.border = "1px solid black";
+      }
+    }
+  }
+  else{
+
+    //down
+    if(x<7 && cells[x+1][y]>=0){
+      if(click){
+        pIndex.push(x+1,y);
+        getSelector([x +1, y]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x+1, y]).style.border = "1px solid black";
+      }
+    }
+
+    //up
+    if(x>0 && cells[x-1][y]>=0){
+      if(click){
+        pIndex.push(x-1,y);
+        getSelector([x -1, y]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x-1, y]).style.border = "1px solid black";
+      }
+    }
+
+    //right
+    if(y<7 && cells[x][y+1]>=0){
+      if(click){
+        pIndex.push(x,y+1);
+        getSelector([x, y+1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x, y+1]).style.border = "1px solid black";
+      }
+    }
+
+    // left
+    if(y>0 && cells[x][y-1]>=0){
+      if(click){
+        pIndex.push(x,y-1);
+        getSelector([x, y-1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x, y-1]).style.border = "1px solid black";
+      }
+    }
+
+    //down right
+    if(x<7 && y<7 && cells[x+1][y+1]>=0){
+      if(click){
+        pIndex.push(x+1,y+1);
+        getSelector([x + 1, y+1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x+1, y+1]).style.border = "1px solid black";
+      }
+    }
+
+    //down left
+    if(x<7 && y>0 && cells[x+1][y-1]>=0){
+      if(click){
+        pIndex.push(x+1,y-1);
+        getSelector([x +1, y-1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x+1, y-1]).style.border = "1px solid black";
+      }
+    }
+
+    //up right
+    if(x>0 &&  y<7 && cells[x-1][y+1]>=0){
+      if(click){
+        pIndex.push(x-1,y+1);
+        getSelector([x - 1, y+1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x-1, y+1]).style.border = "1px solid black";
+      }
+    }
+
+    //up left
+    if(x>0 && y>0 && cells[x-1][y-1]>=0){
+      if(click){
+        pIndex.push(x-1,y-1);
+        getSelector([x-1, y-1]).style.border = "8px solid #5C4033";
+      }
+      else{
+        getSelector([x-1, y-1]).style.border = "1px solid black";
+      }
+    }
+  }
+}
+  //<===========king==============>end
 
 //<=============ROOK==========>
 function option_show_rook(x, y, piece) {
+  console.log("calling rook");
+  console.log(x+","+y);
+  console.log(" new line ");
   //up
   for (let i = x - 1; i >= 0; i--) {
     if (piece > 0) {
@@ -663,6 +858,7 @@ function option_show_rook(x, y, piece) {
     }
   }
   //down
+  console.log("down rook");
   for (let i = x + 1; i <= 7; i++) {
     if (piece > 0) {
       //white
@@ -679,9 +875,11 @@ function option_show_rook(x, y, piece) {
       }
     } else {
       //black
+      console.log("black rook");
       if (cells[i][y] >= 0) {
         //show option
         if (click) {
+          console.log("push");
           pIndex.push(i);
           pIndex.push(y);
           getSelector([i, y]).style.border = "8px solid #5C4033";
@@ -1718,6 +1916,8 @@ function showMoves(arrIdx, pieceName, piece) {
   } else if (pieceName[1] == "n") {
     console.log("here");
     option_show_knight(arrIdx[0], arrIdx[1], piece);
+  }else if(pieceName[1]=="k"){
+    option_show_king(arrIdx[0],arrIdx[1],piece);
   }
 }
 
@@ -1726,6 +1926,11 @@ function isInPath(i, j) {
   console.log(i + "," + j);
   size = pIndex.length;
   console.log(size);
+  console.log("showing path");
+  console.log()
+  for(let bb=0;bb<size;bb++){
+    console.log(pIndex[bb]);
+  }
   for (let k = 0; k < size; k += 2) {
     console.log(pIndex[k] + "," + pIndex[k + 1]);
     if (i == pIndex[k] && j == pIndex[k + 1]) {
@@ -1749,7 +1954,8 @@ pieces.forEach((p) => {
       console.log("clicking nothing");
       return;
     }
-
+    console.log("click-"+click);
+    console.log("select-"+select);
     //first time selecting piece to move
     if (!select) {
       console.log("1st time");
@@ -1771,6 +1977,7 @@ pieces.forEach((p) => {
         click = false;
         showMoves(arrIdx, pieceName, piece);
         select = false;
+        console.log("path clearing1");
         pIndex = [];
       } else if (curr_piece === piece) {
         //same color unselect then select
@@ -1779,12 +1986,17 @@ pieces.forEach((p) => {
         click = false;
         showMoves(prev_idx, prev_piece_name, piece);
         click = true;
+        pIndex = [];
         showMoves(arrIdx, pieceName, piece);
         pi = arrIdx[0];
         pj = arrIdx[1];
         curr_piece = piece;
         prev_piece_name = pieceName;
-        pIndex = [];
+        // console.log("path clearing2");
+
+
+
+        //pIndex=[]; 1905->1899
       } else if (isInPath(arrIdx[0], arrIdx[1])) {
         //kill
         if (piece != 0) {
@@ -1796,6 +2008,7 @@ pieces.forEach((p) => {
         //
         cells[arrIdx[0]][arrIdx[1]]=0;
         //
+        console.log("path clearing3");
         pIndex = [];
         let prev_idx = [pi, pj];
         //for removing path of after moving or killing
