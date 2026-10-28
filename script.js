@@ -283,80 +283,100 @@ let size = 0;
 let click = false;
 //<=============CHECK=============>
 function isCheck(x, y, piece) {
-  //up
   console.log("isCheck called");
-  for (let i = x - 1; i >= 0; i--) {
+  
+  //up
+  if(x>0){
+    let i=x-1;
+    while(i>=0&&cells[i][y]==0){
+      i--;
+    }
     if (piece > 0) {
       //white king
-      if (cells[i][y] == -4 || cells[i][y] == -5) {
+      if (i>=0&&(cells[i][y] == -4 || cells[i][y] == -5)) {
+        console.log(i+","+y);
         console.log("-br,bq1");
         return true; //check by rook or queen
       }
     } else {
       //black
-      if (cells[i][y] == 4 && cells[i][y] == 5) {
+      if (i>=0&&(cells[i][y] == 4 && cells[i][y] == 5)) {
         console.log("-wr,wq1");
         return true; //check by rook or queen
       }
     }
   }
+  //
   //down
-
-  for (let i = x + 1; i<=7; i++) {
-    if (piece > 0) {
-      //white
-      if (cells[i][y] == -4 || cells[i][y] == -5) {
+  if(x<7){
+    let i=x+1;
+    while(i>=0&&cells[i][y]==0){
+      i++;
+    }
+    if (piece > 0) {//white
+      if (i<=7&&(cells[i][y] == -4 || cells[i][y] == -5)) {
         //check by rook or queen
+        console.log(i+","+y);
         console.log("-br,bq2");
         return true;
       }
     } else {
       //black
-      if (cells[i][y] == 4 || cells[i][y] == 5) {
+      if (i<=7&&(cells[i][y] == 4 || cells[i][y] == 5)) {
         //check by white rook or queen
         console.log("-wr,wq2");
         return true;
       }
     }
   }
+
   //left
-  for (let j = y - 1; j >= 0; j--) {
-    if (piece > 0) {
-      //white
-      if (cells[x][j] == -4 || cells[x][j] == -5) {
-        //check by black rook or queen
+  if(y>0){
+    let j=y-1;
+    while(j>=0&&cells[x][j]==0){
+      j--;
+    }
+    if (piece > 0) {//white
+      if (j>=0&&(cells[x][j] == -4 || cells[x][j] == -5)) {
+        //check by rook or queen
         console.log(x+","+j);
-        console.log("-br,bq3");
+        console.log("-br,bq2");
         return true;
       }
     } else {
       //black
-      if (cells[x][j] == 4 || cells[x][j] == 5) {
+      if (j>=0&&(cells[x][j] == 4 || cells[x][j] == 5)) {
         //check by white rook or queen
-        console.log(x+","+j);
-        console.log("-wr,wq3");
+        console.log("-wr,wq2");
         return true;
       }
     }
   }
+
   //right
-  for (let j = y + 1; j <= 7; j++) {
-    if (piece > 0) {
-      //white
-      if (cells[x][j] == -4 || cells[x][j] == -5) {
-        //check by black or queen
-        console.log("-br,bq4");
+  if(y<7){
+    let j=y+1;
+    while(j<=7&&cells[x][j]==0){
+      j++;
+    }
+    
+    if (piece > 0) {//white
+      if (j<=7&&(cells[x][j] == -4 || cells[x][j] == -5)) {
+        //check by rook or queen
+        console.log(x+","+j);
+        console.log("-br,bq2");
         return true;
       }
     } else {
       //black
-      if (cells[x][j] == 4 || cells[x][j] == 5) {
+      if (j<=7&&(cells[x][j] == 4 || cells[x][j] == 5)) {
         //check by white rook or queen
-        console.log("-wr,wq4");
+        console.log("-wr,wq2");
         return true;
       }
     }
-  } //right end
+  }
+   //right end
 
   //left upper diagonal
   if(x>0&&y>0){
@@ -366,9 +386,14 @@ function isCheck(x, y, piece) {
       j--;
     }
     if(piece>0){//white king
-      if(i>=0&&j>=0&&cells[i][j]==-5||cells[i][j]==-3||cells[i][j]==-1){
+      if(i>=0&&j>=0&&cells[i][j]==-5||cells[i][j]==-3){
         //black queen,bishop,pawn
-        console.log("-br,bq,bp1");
+        console.log("-br,bq1");
+        return true;
+      }
+      if(i>=0&&j>=0&&cells[i][j]==-1&&i==x-1&&j==y-1){
+        //black pawn
+        console.log("-bp1");
         return true;
       }
     }else{//black king
@@ -388,9 +413,14 @@ function isCheck(x, y, piece) {
       j++;
     }
     if(piece>0){//whiteking
-      if(i>=0&&j<=7&&cells[i][j]==-5||cells[i][j]==-3||cells[i][j]==-1){
+      if(i>=0&&j<=7&&(cells[i][j]==-5||cells[i][j]==-3)){
         //black queen,bishop,pawn
-        console.log("-br,bq,bp2");
+        console.log("-br,bq2");
+        return true;
+      }
+      if(i>=0&&j<=7&&cells[i][j]==-1&&i==x-1&&j==y+1){
+        //black pawn
+        console.log("-bp2");
         return true;
       }
     }else{//black king
@@ -417,9 +447,14 @@ function isCheck(x, y, piece) {
         return true;
       }
     }else{//black king
-      if(i<=7&&j>=0&&cells[i][j]==5||cells[i][j]==3||cells[i][j]==1){
+      if(i<=7&&j>=0&&cells[i][j]==5||cells[i][j]==3){
         //WHITE queen,bishop,pawn
-        console.log("-wb,wq3,wp");
+        console.log("-wb,wq3");
+        return true;
+      }
+      if(i<=7&&j>=0&&cells[i][j]==1&&i==x+1&&j==y-1){
+        //white pawn
+        console.log("-wp3");
         return true;
       }
     }
@@ -439,9 +474,14 @@ function isCheck(x, y, piece) {
         return true;
       }
     }else{//black king
-      if(i<=7&&j<=7&&cells[i][j]==5||cells[i][j]==3||cells[i][j]==1){
+      if(i<=7&&j<=7&&cells[i][j]==5||cells[i][j]==3){
         //WHITE queen,bishop,pawn
-        console.log("-wb,wq3,wp4");
+        console.log("-wb,wq4");
+        return true;
+      }
+      if(i<=7&&j<=7&&cells[i][j]==1&&i==x+1&&j==y+1){
+        //black pawn
+        console.log("-wp4");
         return true;
       }
     }
@@ -1157,7 +1197,7 @@ function option_show_beshoop(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
         // if(pieceColor(indexToPieceName(x,y)) == 1) break;
       }
     }
@@ -1180,7 +1220,7 @@ function option_show_beshoop(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
 
@@ -1203,7 +1243,7 @@ function option_show_beshoop(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
   }
@@ -1226,7 +1266,7 @@ function option_show_beshoop(x, y, piece) {
             //remove border
             getSelector([x, y]).style.border = "1px solid black";
           }
-          if (cells[x][y] != 0) break;
+          if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
         }
       }
     }
@@ -1249,7 +1289,7 @@ function option_show_beshoop(x, y, piece) {
             //remove border
             getSelector([x, y]).style.border = "1px solid black";
           }
-          if (cells[x][y] != 0) break;
+          if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
         }
       }
       // if(pieceColor(indexToPieceName(x,y)) == -1) break;
@@ -1273,7 +1313,7 @@ function option_show_beshoop(x, y, piece) {
             //remove border
             getSelector([x, y]).style.border = "1px solid black";
           }
-          if (cells[x][y] != 0) break;
+          if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
         }
       }
     }
@@ -1295,7 +1335,7 @@ function option_show_beshoop(x, y, piece) {
             //remove border
             getSelector([x, y]).style.border = "1px solid black";
           }
-          if (cells[x][y] != 0) break;
+          if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
         }
       }
     }
@@ -1307,14 +1347,14 @@ function option_show_queen(x, y, piece) {
   let tempx = x;
   let tempy = y;
   // console.log(x,y);
-
+  //x>=0&&x<=7&&y>=0&&y<=7&&
   //white queen
   if (piece == 1) {
-    if (cells[x][y - 1] <= 0) {
+    if (x>=0&&x<=7&&y>0&&y<=7&&cells[x][y - 1] <= 0) {
       //left
       while (y != 0) {
         y--;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1325,17 +1365,17 @@ function option_show_queen(x, y, piece) {
           }
         }
 
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
 
     x = tempx;
     y = tempy;
-    if (cells[x][y + 1] <= 0) {
+    if (x>=0&&x<=7&&y>=0&&y<7&&cells[x][y + 1] <= 0) {
       //right
       while (y != 7) {
         y++;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1345,18 +1385,18 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
 
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y - 1] <= 0) {
+    if (x>0&&x<=7&&y>0&&y<=7&&cells[x - 1][y - 1] <= 0) {
       //left upper diagonal
       while (y != 0) {
         x--;
         y--;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1366,18 +1406,18 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
 
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y - 1] <= 0) {
+    if (x>=0&&x<7&&y>0&&y<=7&&cells[x + 1][y - 1] <= 0) {
       //left lower diagonal
       while (y != 0) {
         x++;
         y--;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1387,17 +1427,17 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
 
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y] <= 0) {
+    if (x>0&&x<=7&&y>=0&&y<=7&&cells[x - 1][y] <= 0) {
       // upper
       while (x != 0) {
         x--;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1407,18 +1447,18 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
 
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y + 1] <= 0) {
+    if (x>0&&x<=7&&y>=0&&y<7&&cells[x - 1][y + 1] <= 0) {
       //upper right diagonal
       while (x != 0) {
         x--;
         y++;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1428,7 +1468,7 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) {
           break;
         }
       }
@@ -1436,12 +1476,12 @@ function option_show_queen(x, y, piece) {
 
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y + 1] <= 0) {
+    if (x>=0&&x<7&&y>=0&&y<7&&cells[x + 1][y + 1] <= 0) {
       //lower right diagonal
-      while (x != 0) {
+      while (x != 7) {
         x++;
         y++;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1451,7 +1491,7 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) {
           break;
         }
       }
@@ -1459,11 +1499,11 @@ function option_show_queen(x, y, piece) {
 
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y] <= 0) {
+    if (x>=0&&x<7&&y>=0&&y<=7&&cells[x + 1][y] <= 0) {
       //down
       while (x != 7) {
         x++;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1473,20 +1513,20 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
   }
 
   //black queen
   else {
-    if (cells[x - 1][y] >= 0) {
+    if (x>0&&x<=7&&y>=0&&y<=7&&cells[x - 1][y] >= 0) {
       //up
       console.log("up");
       while (x != 0) {
         x--;
         console.log(x, y);
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1496,19 +1536,19 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y - 1] >= 0) {
+    if (x>0&&x<=7&&y>0&&y<=7&&cells[x - 1][y - 1] >= 0) {
       //left upper diagonal
       console.log("left upper diagonal");
       while (x != 0) {
         x--;
         y--;
         console.log(x, y);
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1518,17 +1558,17 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x - 1][y + 1] >= 0) {
+    if (x>0&&x<=7&&y>=0&&y<7&&cells[x - 1][y + 1] >= 0) {
       //upper right diagonal
       while (x != 0) {
         x--;
         y++;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1538,16 +1578,16 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x][y - 1] >= 0) {
+    if (x>=0&&x<=7&&y>0&&y<=7&&cells[x][y - 1] >= 0) {
       //left
       while (y != 0) {
         y--;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1557,18 +1597,18 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
     // console.log(x, y);
-    if (cells[x][y + 1] >= 0) {
+    if (x>=0&&x<=7&&y>=0&&y<7&&cells[x][y + 1] >= 0) {
       //right
       // console.log(x, y);
       while (y != 7) {
         y++;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1578,16 +1618,16 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y] >= 0) {
+    if (x>=0&&x<7&&y>=0&&y<=7&&cells[x + 1][y] >= 0) {
       //down
       while (x != 7) {
         x++;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1597,17 +1637,17 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y - 1] >= 0) {
+    if (x>=0&&x<7&&y>0&&y<=7&&cells[x + 1][y - 1] >= 0) {
       //left lower diagonal
       while (y != 0) {
         x++;
         y--;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1617,17 +1657,17 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
     y = tempy;
-    if (cells[x + 1][y + 1] >= 0) {
+    if (x>=0&&x<7&&y>=0&&y<7&&cells[x + 1][y + 1] >= 0) {
       //right lower diagonal
       while (y != 7) {
         x++;
         y++;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           if (click) {
             pIndex.push(x);
             pIndex.push(y);
@@ -1637,7 +1677,7 @@ function option_show_queen(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        if (cells[x][y] != 0) break;
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
   }
@@ -1698,10 +1738,16 @@ function isInPath(i, j) {
 //<=========isInpath===========>End
 pieces.forEach((p) => {
   p.addEventListener("click", function () {
-    
+
     let arrIdx = indexToArray(Number(p.id));
     let pieceName = getPieceName(arrIdx[0], arrIdx[1]);
     let piece = BorW(pieceName); // -1 for black and 1 for white
+
+    //<===clicking nothing===>
+    if(!select&&piece==0){
+      console.log("clicking nothing");
+      return;
+    }
 
     //first time selecting piece to move
     if (!select) {
@@ -1775,6 +1821,8 @@ pieces.forEach((p) => {
 
       } else {
         console.log("wrong move");
+        console.log(select);
+        console.log(click);
       }
     }
   });
