@@ -331,6 +331,7 @@ function isCheck(x, y, piece) {
   }
 
   //left
+  //////kiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
   if(y>0){
     let j=y-1;
     while(j>=0&&cells[x][j]==0){
