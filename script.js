@@ -1,13 +1,13 @@
 let cells = [
-  //  0   1   2   3   4   5   6   7
+  //      0   1   2   3   4   5   6   7
   /*0*/ [-4, -2, -3, -5, -6, -3, -2, -4], //4 rook
   /*1*/ [-1, -1, -1, -1, -1, -1, -1, -1], //2 knight
-  /*2*/ [0, 0, 0, 0, 0, 0, 0, 0], //3 bishop
-  /*3*/ [0, 0, 0, 0, 0, 0, 0, 0], // 5 queen
-  /*4*/ [0, 0, 0, 0, 0, 0, 0, 0], //6 king
-  /*5*/ [0, 0, 0, 0, 0, 0, 0, 0], //1 pawn
-  /*6*/ [1, 1, 1, 1, 1, 1, 1, 1],
-  /*7*/ [4, 2, 3, 5, 6, 3, 2, 4],
+  /*2*/ [0,   0,  0,  0,  0,  0,  0,  0], //3 bishop
+  /*3*/ [0,   0,  0,  0,  0,  0,  0,  0], //5 queen
+  /*4*/ [0,   0,  0,  0,  0,  0,  0,  0], //6 king
+  /*5*/ [0,   0,  0,  0,  0,  0,  0,  0], //1 pawn
+  /*6*/ [1,   1,  1,  1,  1,  1,  1,  1],
+  /*7*/ [4,   2,  3,  5,  6,  3,  2,  4],
 ];
 
 let p00 = document.getElementById("00");
@@ -210,7 +210,7 @@ function indexToArray(i) {
 function getPieceName(x, y) {
   let pi = window.getComputedStyle(getSelector([x, y])).backgroundImage;
   console.log(pi);
-  let pieceName = pi.substring(47, 49);
+  let pieceName = pi.substring(58, 60);
   console.log(pieceName);
   return pieceName;
 }
@@ -271,54 +271,52 @@ let move = 0;
 let pi = -1;
 let pj = -1;
 let turn = 1; //1 white -1 black
-let White_king_X = 0;
+let White_king_X = 7;
 let White_king_Y = 4;
-let Black_king_X = 7;
+let Black_king_X = 0;
 let Black_king_Y = 4;
 let prev_value=0;
 //let flag
-//check function
 let pIndex = [];
 let selected_piece = 0;
 let size = 0;
 let click = false;
+//<=============CHECK=============>
 function isCheck(x, y, piece) {
   //up
+  console.log("isCheck called");
   for (let i = x - 1; i >= 0; i--) {
     if (piece > 0) {
-      //white
+      //white king
       if (cells[i][y] == -4 || cells[i][y] == -5) {
+        console.log("-br,bq1");
         return true; //check by rook or queen
       }
     } else {
       //black
       if (cells[i][y] == 4 && cells[i][y] == 5) {
+        console.log("-wr,wq1");
         return true; //check by rook or queen
       }
-    }
-    if (cells[i][y] != 0) {
-      //no check sum
-      return false;
     }
   }
   //down
 
-  for (let i = x + 1; (i = 7); i++) {
+  for (let i = x + 1; i<=7; i++) {
     if (piece > 0) {
       //white
       if (cells[i][y] == -4 || cells[i][y] == -5) {
         //check by rook or queen
+        console.log("-br,bq2");
         return true;
       }
     } else {
       //black
       if (cells[i][y] == 4 || cells[i][y] == 5) {
         //check by white rook or queen
+        console.log("-wr,wq2");
+        return true;
       }
-    }
-    if (cells[i][y] != 0) {
-      //no check
-      return false;
     }
   }
   //left
@@ -327,18 +325,18 @@ function isCheck(x, y, piece) {
       //white
       if (cells[x][j] == -4 || cells[x][j] == -5) {
         //check by black rook or queen
+        console.log(x+","+j);
+        console.log("-br,bq3");
         return true;
       }
     } else {
       //black
       if (cells[x][j] == 4 || cells[x][j] == 5) {
         //check by white rook or queen
+        console.log(x+","+j);
+        console.log("-wr,wq3");
         return true;
       }
-    }
-    if (cells[y][j] != 0) {
-      //no check
-      return false;
     }
   }
   //right
@@ -347,36 +345,245 @@ function isCheck(x, y, piece) {
       //white
       if (cells[x][j] == -4 || cells[x][j] == -5) {
         //check by black or queen
+        console.log("-br,bq4");
         return true;
       }
     } else {
       //black
-      if (cells[x][j] == -4 || cells[x][j] == -5) {
+      if (cells[x][j] == 4 || cells[x][j] == 5) {
         //check by white rook or queen
+        console.log("-wr,wq4");
         return true;
       }
-    }
-    if (cells[x][j] != 0) {
-      //no check
-      return false;
     }
   } //right end
 
   //left upper diagonal
-  // if(x)
-}
-//check function
+  if(x>0&&y>0){
+    let i=x-1,j=y-1;
+    while(i>=0&&j>=0&&cells[i][j]==0){
+      i--;
+      j--;
+    }
+    if(piece>0){//white king
+      if(i>=0&&j>=0&&cells[i][j]==-5||cells[i][j]==-3||cells[i][j]==-1){
+        //black queen,bishop,pawn
+        console.log("-br,bq,bp1");
+        return true;
+      }
+    }else{//black king
+      if(i>=0&&j>=0&&cells[i][j]==5||cells[i][j]==3){
+        //white queen,bishop
+        console.log("-wr,wq1");
+        return true;
+      }
+    }
+  }
 
-//move function
-// function move(piece,x,y){
-//   cells[prevx][prevy]=0;
-//   //make sure to put 0 zero at previous position of piece
-//   cells[x][y]=piece;
-//   //show [x][y] with piece picture [ bsdk lucky ]
-//   //convert prev
-//   //move-( prevx , prevy) (x,y)
-// }
-//move function end
+  //Right up diagonal 
+  if(x>0&&y<7){
+    let i=x-1,j=y+1;
+    while(i>=0&&j<=7&&cells[i][j]==0){
+      i--;
+      j++;
+    }
+    if(piece>0){//whiteking
+      if(i>=0&&j<=7&&cells[i][j]==-5||cells[i][j]==-3||cells[i][j]==-1){
+        //black queen,bishop,pawn
+        console.log("-br,bq,bp2");
+        return true;
+      }
+    }else{//black king
+      if(i>=0&&j<=7&&cells[i][j]==5||cells[i][j]==3){
+        //white queen,bishop
+        console.log("-wr,wq2");
+        return true;
+      }
+    }
+  }
+
+  //left lower diagonal
+  if(x<7&&y>0){
+    let i=x+1,j=y-1;
+    while(i<=7&&j>=0&&cells[i][j]==0){
+      i++;
+      j--;
+    }
+    if(piece>0){//white king
+      if(i<=7&&j>=0&&(cells[i][j]==-5||cells[i][j]==-3)){
+        //black queen,bishop
+        console.log(i+","+j);
+        console.log("-br,bq3");
+        return true;
+      }
+    }else{//black king
+      if(i<=7&&j>=0&&cells[i][j]==5||cells[i][j]==3||cells[i][j]==1){
+        //WHITE queen,bishop,pawn
+        console.log("-wb,wq3,wp");
+        return true;
+      }
+    }
+  }
+
+  //right lower diagonal
+  if(x<7&&y<7){
+    let i=x+1,j=y+1;
+    while(i<=7&&j<=7&&cells[i][j]==0){
+      i++;
+      j++;
+    }
+    if(piece>0){//white king
+      if(i<=7&&j<=7&&cells[i][j]==-5||cells[i][j]==-3){
+        //black queen,bishop
+        console.log("-br,bq4");
+        return true;
+      }
+    }else{//black king
+      if(i<=7&&j<=7&&cells[i][j]==5||cells[i][j]==3||cells[i][j]==1){
+        //WHITE queen,bishop,pawn
+        console.log("-wb,wq3,wp4");
+        return true;
+      }
+    }
+  }
+
+  //Check by Knight??????
+  //upleft
+  if (x >= 2 && y > 0) {
+    if (piece > 0) {
+      //white king
+      if (cells[x - 2][y - 1] == -2) {
+        //
+        console.log("-bn1");
+        return true;
+      }
+    } else {
+      //black king 
+      if (cells[x - 2][y - 1] == 2) {
+        console.log("-wn1");
+        return true;
+      }
+    }
+  }
+  //upright
+  if (x >= 2 && y < 7) {
+    if (piece > 0) {
+      //white king 
+      if (cells[x - 2][y + 1] == -2) {
+        console.log("-bn2");
+        return true;
+      }
+    } else {
+      //black king
+      if (cells[x - 2][y + 1] == 2) {
+        console.log("-wn2");
+        return true;
+      }
+    }
+  }
+  //right up
+  if (y <= 5 && x > 0) {
+    if (piece > 0) {
+      //white king
+      if (cells[x - 1][y + 2] == -2) {
+        console.log("-bn3");
+        return true;
+      }
+    } else {
+      //black
+      if (cells[x - 1][y + 2] == 2) {
+        console.log("-wn3");
+        return true;
+      }
+    }
+  }
+  //right down
+  if (y <= 5 && x < 7) {
+    if (piece > 0) {
+      //white king
+      if (cells[x + 1][y + 2] == -2) {
+        console.log("-bn4");
+        return true;
+      }
+    } else {
+      //black king
+      if (cells[x + 1][y + 2] == 2) {
+        console.log("-wn4");
+        return true;
+      }
+    }
+  }
+  //left up
+  if (y >= 2 && x > 0) {
+    if (piece > 0) {
+      //white king
+      if (cells[x - 1][y - 2] == -2) {
+        console.log("-bn5");
+        return true;
+      }
+    } else {
+      //black
+      if (cells[x - 1][y - 2] == 2) {
+        console.log("-wn5");
+        return true;
+      }
+    }
+  }
+  //left down
+  if (y >= 2 && x < 7) {
+    if (piece > 0) {
+      //white king
+      if (cells[x + 1][y - 2] == -2) {
+        console.log("-bn6");
+        return true;
+      }
+    } else {
+      //black king
+      if (cells[x + 1][y - 2] == 2) {
+        console.log("-wn6");
+        return true;
+      }
+    }
+  }
+  //down left
+  if (x <= 5 && y > 0) {
+    if (piece > 0) {
+      //white king
+      if (cells[x + 2][y - 1] == -2) {
+        console.log("-bn7");
+        return true;
+      }
+    } else {
+      //black
+      if (cells[x + 2][y - 1] == 2) {
+        console.log("-wn7");
+        return true;
+      }
+    }
+  }
+  //down right
+  if (x <= 5 && y < 7) {
+    if (piece > 0) {
+      //white king
+      if (cells[x + 2][y + 1] == -2) {
+        console.log("-bn8");
+        return true;
+      }
+    } else {
+      //black king
+      if (cells[x + 2][y + 1] == 2) {
+        console.log("-wn8");
+        return true;
+      }
+    }
+  }
+  //Not found any Opposite pieces arround
+  return false;
+  //Check by Knight end
+}
+//<==============CHECK end=============>
+
+
 
 //<=============ROOK==========>
 function option_show_rook(x, y, piece) {
@@ -523,8 +730,12 @@ function option_show_rook(x, y, piece) {
 
 //<============KNIGHT============>
 function option_show_knight(x, y, piece) {
+  if(click){
+    console.log("called knight to show");
+  }else{
+    console.log("called knight to remove");
+  }
   //upleft
-  // console.log(click);
   if (x >= 2 && y > 0) {
     if (piece > 0) {
       //white
@@ -913,7 +1124,7 @@ function option_show_beshoop(x, y, piece) {
         y--;
         // if(pieceColor(indexToPieceName(x,y)) == 1) break;
         // console.log(x,y);
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           // getSelector([x,y]).style.border = "8px solid #5C4033";
           if (click) {
             pIndex.push(x);
@@ -924,8 +1135,8 @@ function option_show_beshoop(x, y, piece) {
             getSelector([x, y]).style.border = "1px solid black";
           }
         }
-        
-        if (cells[x][y] != 0 &&cells[x][y]!=prev_value ) break;
+        //changed here x>=0&&x<=7&&y>=0&&y<=7&&
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] != 0) break;
       }
     }
     x = tempx;
@@ -935,7 +1146,7 @@ function option_show_beshoop(x, y, piece) {
       while (x != 0) {
         x--;
         y++;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           //  getSelector([x,y]).style.border = "8px solid #5C4033";
           if (click) {
             pIndex.push(x);
@@ -958,7 +1169,7 @@ function option_show_beshoop(x, y, piece) {
         x++;
         y--;
         // if(pieceColor(indexToPieceName(x,y)) == 1) break;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           //  getSelector([x,y]).style.border = "8px solid #5C4033";
           if (click) {
             pIndex.push(x);
@@ -981,7 +1192,7 @@ function option_show_beshoop(x, y, piece) {
         x++;
         y++;
         // if(pieceColor(indexToPieceName(x,y)) == 1) break;
-        if (cells[x][y] <= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] <= 0) {
           //  getSelector([x,y]).style.border = "8px solid #5C4033";
           if (click) {
             pIndex.push(x);
@@ -1004,7 +1215,7 @@ function option_show_beshoop(x, y, piece) {
         x--;
         y--;
         // if(pieceColor(indexToPieceName(x,y)) == -1) break;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           //  getSelector([x,y]).style.border = "8px solid #5C4033";
 
           if (click) {
@@ -1028,7 +1239,7 @@ function option_show_beshoop(x, y, piece) {
         // getSelector([x,y]).style.border = "8px solid #5C4033";
         x--;
         y++;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           //  getSelector([x,y]).style.border = "8px solid #5C4033";
           if (click) {
             pIndex.push(x);
@@ -1052,7 +1263,7 @@ function option_show_beshoop(x, y, piece) {
         x++;
         y--;
         // if(pieceColor(indexToPieceName(x,y)) == -1) break;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           //  getSelector([x,y]).style.border = "8px solid #5C4033";
           if (click) {
             pIndex.push(x);
@@ -1074,7 +1285,7 @@ function option_show_beshoop(x, y, piece) {
         x++;
         y++;
         // if(pieceColor(indexToPieceName(x,y)) == -1) break;
-        if (cells[x][y] >= 0) {
+        if (x>=0&&x<=7&&y>=0&&y<=7&&cells[x][y] >= 0) {
           //  getSelector([x,y]).style.border = "8px solid #5C4033";
           if (click) {
             pIndex.push(x);
@@ -1091,7 +1302,7 @@ function option_show_beshoop(x, y, piece) {
   }
 }
 //<==============BISHOP=============>end
-
+//<===========Queen=================>need changes for x y limits
 function option_show_queen(x, y, piece) {
   let tempx = x;
   let tempy = y;
@@ -1431,6 +1642,7 @@ function option_show_queen(x, y, piece) {
     }
   }
 }
+//<===========Queen=================>end
 //index for piece
 function getSelector([row, col]) {
   return eval(`p${row}${col}`);
@@ -1454,8 +1666,6 @@ function showMoves(arrIdx, pieceName, piece) {
   // }else{
   //   click=true;
   // }
-
-  // console.log(click);
   if (pieceName[1] == "p") {
     option_show_pawn(arrIdx[0], arrIdx[1], piece);
   } else if (pieceName[1] == "r") {
@@ -1465,6 +1675,7 @@ function showMoves(arrIdx, pieceName, piece) {
   } else if (pieceName[1] == "q") {
     option_show_queen(arrIdx[0], arrIdx[1], piece);
   } else if (pieceName[1] == "n") {
+    console.log("here");
     option_show_knight(arrIdx[0], arrIdx[1], piece);
   }
 }
@@ -1487,6 +1698,7 @@ function isInPath(i, j) {
 //<=========isInpath===========>End
 pieces.forEach((p) => {
   p.addEventListener("click", function () {
+    
     let arrIdx = indexToArray(Number(p.id));
     let pieceName = getPieceName(arrIdx[0], arrIdx[1]);
     let piece = BorW(pieceName); // -1 for black and 1 for white
@@ -1494,6 +1706,7 @@ pieces.forEach((p) => {
     //first time selecting piece to move
     if (!select) {
       console.log("1st time");
+      console.log(pieceName);
       click = true;
       select = true;
       pi = arrIdx[0];
@@ -1547,27 +1760,22 @@ pieces.forEach((p) => {
         //
         getSelector([arrIdx[0], arrIdx[1]]).style.border = "1px solid black";
         select = 0;
+
+        //<==========checking check=========>>
+        //black king
+        if(isCheck(Black_king_X,Black_king_Y,-6)){
+          console.log("check to black king");
+        }else{console.log("no check");}
+        //white king
+        if(isCheck(White_king_X,White_king_Y,6)){
+          console.log("check to white king");
+        }else{console.log("no check");}
+        //END CHECK
+
+
       } else {
         console.log("wrong move");
       }
     }
-    // if(!click){
-    //   pi=arrIdx[0];
-    //   pj=arrIdx[1];
-    // }
-    // if(pi==arrIdx[0]&&pj==arrIdx[1]){
-    //   click=false;
-    //   showMoves(arrIdx,pieceName,piece);
-    // }
-    //let i,j = index of div
-    //path check isRight_Choice()
-    // for(let p=0;p<size;p+=2){
-    // if(i==p&&j==p+1){
-    // cells[prevx][prevy]=0;//image daal
-    // move(selected_piece,i,j);
-    // }
-    // }
-
-    // showMoves(arrIdx,pieceName,piece);
   });
 });
